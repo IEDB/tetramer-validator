@@ -32,6 +32,17 @@ def validate_mod_pos(pep_seq, mod_pos):
             return 0
     return None
 
+def test_validate_one():
+  assert validate(pep_seq = "NLVPMVATV", mhc_name = "HLA-A*02:01", mod_pos = "K4") == 0
 
+def test_validate_two():
+  assert validate(pep_seq = "NLVPMVATV", mhc_name = "HLA-A*02:01", mod_pos = "M4") == None
 
+def test_mod_pos_val_one():
+    assert mod_pos_val(pep_seq="NLVPMVATV", mod_pos="M4") == None
 
+def test_mod_pos_val_two():
+    assert mod_pos_val(pep_seq="NLVPMVATV", mod_pos="K4") == 0
+
+def test_mod_pos_val_three():
+    assert mod_pos_val(pep_seq="NLVPOVATV", mod_pos="M4") == 0
