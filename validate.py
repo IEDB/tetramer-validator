@@ -1,5 +1,15 @@
 import csv
 
+path = "molecule.tsv"
+with open(path) as fh:
+    reader = csv.DictReader(fh, delimiter="\t")
+    molecules = [
+        molecule["IEDB Label"]
+        for molecule in reader
+        if molecule["Restriction Level"] == "complete molecule"
+        or molecule["Restriction Level"] == "partial molecule"
+    ]
+
 def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
     if mod_pos:
         statement = mod_pos_val(pep_seq, mod_pos)
