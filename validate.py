@@ -23,8 +23,7 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
     #if mod_type and not mod_pos:
         #return "Modification type provided but not modification position"
     if mod_pos:
-        modifications = mod_pos.replace(" ", "")
-        modifications = modifications.split(",")
+        modifications = mod_pos.replace(" ", "").split(",")
         modifications = [(mod[0], int(mod[1])) for mod in modifications]
         if mod_type:
            mod_types = mod_type.replace(" ", "")
@@ -34,7 +33,6 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
            if num_mod_pos != num_mod_types:
               return f"Error: There are {num_mod_pos} positions but {num_mod_types} modification types"
         statement = validate_mod_pos(pep_seq, modifications)
-        print(statement)
         if statement:
             return statement
     if mhc_name:
@@ -89,4 +87,3 @@ def test_mod_pos_val_three():
         validate_mod_pos(pep_seq="NLVPOVATV", modifications=[("M", 5)])
         == "This peptide sequence NLVPOVATV does not contain M at position 5"
     )
-validate(pep_seq="NLVPMVATV", mhc_name="HLA-A*02:01", mod_pos="K5")
