@@ -1,4 +1,5 @@
 import csv
+import re
 
 path = "molecule.tsv"
 with open(path) as fh:
@@ -12,8 +13,21 @@ with open(path) as fh:
 
 
 def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
-    if mod_pos:
-        statement = validate_mod_pos(pep_seq, mod_pos)
+    # Thanks to Austin Crinklaw
+    pattern = re.compile(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE)
+    has_amino_acids = pattern.findall(pep_seq)
+    if has_amino_acids:
+        return f"Peptide sequence {pep_seq} has characters {has_amino_acids} that are not amino acids"
+    if mod_pos and not mod_type:
+        return "Modificiation position provided but no modification type"
+    if mod_type and not mod_pos:
+        return "Modification type provided but not modification position"
+    if mod_pos and mod_type:
+        modifications = mod_pos.replace(" ", "")
+        modifications = modifications.split(",")
+        modifications = [(mod[0], int(mod[1])) for mod in modifications]
+        
+        statement = validate_mod_pos(pep_seq, modifications)
         if statement:
             return statement
     if mhc_name:
@@ -34,41 +48,37 @@ def validate_pep_seq_mhc_name(pep_seq, mhc_name):
     # return None
 
 
-def validate_mod_pos(pep_seq, mod_pos):
-    split = mod_pos.split(",")
-    modifications = [(mod[0], int(mod[1])) for mod in split]
-    pep_seq_tuple = [(peptide, index) for index, peptide in enumerate(pep_seq)]
-
+def validate_mod_pos(pep_seq, modifications):
     for mod in modifications:
-        if mod not in pep_seq_tuple:
+        if pep_seq[mod[1] - 1] is not mod[0]:
             return f"This peptide sequence {pep_seq} does not contain {mod[0]} at position {mod[1]}"
     return None
 
 
 def test_validate_one():
     assert (
-        validate(pep_seq="NLVPMVATV", mhc_name="HLA-A*02:01", mod_pos="K4")
-        == "This peptide sequence NLVPMVATV does not contain K at position 4"
+        validate(pep_seq="NLVPMVATV", mhc_name="HLA-A*02:01", mod_pos="K5")
+        == "This peptide sequence NLVPMVATV does not contain K at position 5"
     )
 
 
 def test_validate_two():
-    assert validate(pep_seq="NLVPMVATV", mhc_name="HLA-A*02:01", mod_pos="M4") == None
+    assert validate(pep_seq="NLVPMVATV", mhc_name="HLA-A*02:01", mod_pos="M5") == None
 
 
 def test_mod_pos_val_one():
-    assert validate_mod_pos(pep_seq="NLVPMVATV", mod_pos="M4") == None
+    assert validate_mod_pos(pep_seq="NLVPMVATV", modifications=[("M", 5)]) == None
 
 
 def test_mod_pos_val_two():
     assert (
-        validate_mod_pos(pep_seq="NLVPMVATV", mod_pos="K4")
-        == "This peptide sequence NLVPMVATV does not contain K at position 4"
+        validate_mod_pos(pep_seq="NLVPMVATV", modifications=[("K", 5)])
+        == "This peptide sequence NLVPMVATV does not contain K at position 5"
     )
 
 
 def test_mod_pos_val_three():
     assert (
-        validate_mod_pos(pep_seq="NLVPOVATV", mod_pos="M4")
-        == "This peptide sequence NLVPOVATV does not contain M at position 4"
+        validate_mod_pos(pep_seq="NLVPOVATV", modifications=[("M", 5)])
+        == "This peptide sequence NLVPOVATV does not contain M at position 5"
     )
