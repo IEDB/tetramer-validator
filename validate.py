@@ -26,7 +26,12 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
         modifications = mod_pos.replace(" ", "")
         modifications = modifications.split(",")
         modifications = [(mod[0], int(mod[1])) for mod in modifications]
-        
+        mod_types = mod_type.replace(" ", "")
+        mod_types = mod_types.split(",")
+        num_mod_types = len(mod_types)
+        num_mod_pos = len(modifications)
+        if num_mod_pos != num_mod_types:
+           return f"Error: There are {num_mod_pos} positions but {num_mod_types} modification types"
         statement = validate_mod_pos(pep_seq, modifications)
         if statement:
             return statement
