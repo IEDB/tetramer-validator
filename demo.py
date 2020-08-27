@@ -6,21 +6,12 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
 def output():
-    if request.method == "POST":
-        pep_seq = request.form["pep_seq"]
-        mod_pos = request.form["mod_pos"]
-        mod_type = request.form["mod_type"]
-        mhc_name = request.form["mhc_name"]
-        statement = validate.validate(
-            pep_seq=pep_seq, mod_pos=mod_pos, mod_type=mod_type, mhc_name=mhc_name
-        )
-        return render_template(
-            "test1.html",
-            pep_seq=pep_seq,
-            mod_pos=mod_pos,
-            mod_type=mod_type,
-            mhc_name=mhc_name,
-            statement=statement,
-        )
+    if request.args:
+       pep_seq = request.args['pep_seq']
+       mod_pos = request.args['mod_pos']
+       mod_type = request.args['mod_type']
+       mhc_name = request.args['mhc_name']
+       statement = validate.validate(pep_seq = pep_seq, mod_pos= mod_pos, mod_type = mod_type, mhc_name = mhc_name)
+       return render_template("test1.html", pep_seq = pep_seq, mod_pos=mod_pos, mod_type=mod_type, mhc_name=mhc_name, statement=statement)
     else:
-      return render_template("test1.html", pep_seq = "", mod_pos="", mod_type="", mhc_name="", statement="")
+       return render_template("test1.html", pep_seq = "", mod_pos="", mod_type="", mhc_name="", statement="")
