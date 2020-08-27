@@ -8,22 +8,25 @@
 </head>
 <body>
 <form method="POST" class="form-horizontal" action="{{url_for('output')}}">
-  <div class="form-group">
+  <div class="form-row">
+<div class="col">
     <label for="Peptide Sequence">Peptide Sequence</label>
     <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{pep_seq}}">
   </div>
-  <div class="form-group">
+    <div class="col">
     <label for="Modification Type">Modification Type</label>
     <input name="mod_type" type="text" class="form-control" id="mod_type" value="{{mod_type}}">
   </div>
-  <div class="form-group">
+<div class="col">
     <label for="Modification Position">Modification Position</label>
     <input name="mod_pos" type="text" class="form-control" id="mod_pos" value="{{mod_pos}}">
   </div>
-  <div class="form-group">
+  
+        <div class="col">
     <label for="MHC Name">MHC Name</label>
     <input name="mhc_name" type="text" class="form-control" id="mhc_name" value="{{mhc_name}}">
-  </div>
+	</div>
+    </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 {% if statement%}
