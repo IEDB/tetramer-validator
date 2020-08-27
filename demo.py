@@ -4,7 +4,7 @@ from . import validate
 
 app = Flask(__name__)
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
 def output():
     if request.method == "POST":
         pep_seq = request.form["pep_seq"]
