@@ -26,7 +26,6 @@ def output():
             statement=statement,
         )
     else:
-        print("else")
         return render_template(
             "test1.html", pep_seq="", mod_pos="", mod_type="", mhc_name="", statement=""
         )
