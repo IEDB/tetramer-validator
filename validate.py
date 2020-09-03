@@ -1,17 +1,6 @@
 import csv
 import re
 
-path = "molecule.tsv"
-with open(path) as fh:
-    reader = csv.DictReader(fh, delimiter="\t")
-    molecules = [
-        molecule["IEDB Label"]
-        for molecule in reader
-        if molecule["Restriction Level"] == "complete molecule"
-        or molecule["Restriction Level"] == "partial molecule"
-    ]
-
-
 def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
     # Thanks to Austin Crinklaw
     pattern = re.compile(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE)
@@ -54,11 +43,20 @@ def validate_pep_seq_mhc_name(pep_seq, mhc_name):
 
 
 def validate_mod_pos(pep_seq, modifications):
-    for mod in modifications:
-        if pep_seq[mod[1] - 1] is not mod[0]:
-            return f"This peptide sequence {pep_seq} does not contain {mod[0]} at position {mod[1]}"
+    try:
+      for mod in modifications:
+        if len(mod) >= 2:
+          position = "".join(mod[1:])
+          position = int(position) - 1
+          if pep_seq[position] is not mod[0]:
+              return f"This peptide sequence {pep_seq} does not contain {mod[0]} at position {mod[1]}"
+    except ValueError:
+      return "Error: ValueError.  Maybe there is character in modification type string where there should be int"
+    except TypeError:
+      return "Error: TypeError.  Perhaps Nan is error"
+    except IndexError:
+      return "Error: IndexError.  Position is greater than num of amino acids"
     return None
-
 
 def test_validate_one():
     assert (
