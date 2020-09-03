@@ -1,5 +1,6 @@
 import csv
 import re
+from openpyxl import load_workbook
 
 path = "molecule.tsv"
 with open(path) as fh:
@@ -87,3 +88,18 @@ def test_mod_pos_val_three():
         validate_mod_pos(pep_seq="NLVPOVATV", modifications=[("M", 5)])
         == "This peptide sequence NLVPOVATV does not contain M at position 5"
     )
+
+def main():
+   #Parse the arguments
+   filename = #Some file name
+   with open(filename, "r") as file_obj:
+       if ".tsv" in filename:
+          reader = csv.DictReader(file_obj, delimiter="\t")
+       elif ".csv":
+          reader = csv.DictReader(file_obj, delimiter=",")
+       else:
+          #Code for parsing Excel file 
+          
+   validate( 
+if __name__ == "__main__":
+    main()
