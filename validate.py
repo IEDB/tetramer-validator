@@ -1,6 +1,5 @@
 import csv
 import re
-from openpyxl import load_workbook
 import argparse
 
 path = "molecule.tsv"
@@ -89,17 +88,11 @@ def test_mod_pos_val_three():
         validate_mod_pos(pep_seq="NLVPOVATV", modifications=[("M", 5)])
         == "This peptide sequence NLVPOVATV does not contain M at position 5"
     )
-def parse_excel_file(filename):
-    wb = load_workbook(filename)
-    ws = wb.active
-    column_count = ws.max_column
-    if column_count != 4:
-       return "Need to have 4 columns in following order: Peptide Sequence, Modification Type, Modification Position, MHC Name"
-    header = [entry.value for entry in ws[1]]
-                
 def parse_csv_tsv(filename, delimiter):
-   with open(filename, "r") as file_obj:
-         reader = csv.DictReader(file_obj, delimiter = delimiter)
+   #placeholder
+
+def parse_excel_file(filename):
+  #placeholder
 
 def main():
    #Parse the arguments
