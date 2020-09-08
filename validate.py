@@ -1,6 +1,7 @@
 import csv
 import re
 from openpyxl import load_workbook
+import argparse
 
 path = "molecule.tsv"
 with open(path) as fh:
@@ -102,7 +103,10 @@ def parse_csv_tsv(filename, delimiter):
 
 def main():
    #Parse the arguments
-   filename = #Some file name
+   parser = argparse.ArgumentParser()
+   parse.add_argument("filename")
+   args = parser.parse_args()
+   filename = args.filename
    with open(filename, "r") as file_obj:
        if ".tsv" in filename:
           parse_csv_tsv(filename, delimiter="\t")
