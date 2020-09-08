@@ -88,18 +88,31 @@ def test_mod_pos_val_three():
         validate_mod_pos(pep_seq="NLVPOVATV", modifications=[("M", 5)])
         == "This peptide sequence NLVPOVATV does not contain M at position 5"
     )
+def parse_excel_file(filename):
+    wb = load_workbook(filename)
+    ws = wb.active
+    column_count = ws.max_column
+    if column_count != 4:
+       return "Need to have 4 columns in following order: Peptide Sequence, Modification Type, Modification Position, MHC Name"
+    header = [entry.value for entry in ws[1]]
+                
+def parse_csv_tsv(filename, delimiter):
+   with open(filename, "r") as file_obj:
+         reader = csv.DictReader(file_obj, delimiter = delimiter)
 
 def main():
    #Parse the arguments
    filename = #Some file name
    with open(filename, "r") as file_obj:
        if ".tsv" in filename:
-          reader = csv.DictReader(file_obj, delimiter="\t")
-       elif ".csv":
-          reader = csv.DictReader(file_obj, delimiter=",")
+          parse_csv_tsv(filename, delimiter="\t")
+       elif ".csv" in filename:
+          parse_csv_tsv(filename, delimiter=",")
+       elif ".xlsx" in filename:
+          parse_excel_file(filename)
        else:
-          #Code for parsing Excel file 
-          
-   validate( 
+          print("Sorry, file is not valid format.  Must be .tsv, .csv, or .xlsx file"    
+          exit()
+     
 if __name__ == "__main__":
     main()
