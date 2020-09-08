@@ -99,20 +99,3 @@ def parse_excel_file(filename):
 def parse_csv_tsv(filename, delimiter):
    with open(filename, "r") as file_obj:
          reader = csv.DictReader(file_obj, delimiter = delimiter)
-
-def main():
-   #Parse the arguments
-   filename = #Some file name
-   with open(filename, "r") as file_obj:
-       if ".tsv" in filename:
-          parse_csv_tsv(filename, delimiter="\t")
-       elif ".csv" in filename:
-          parse_csv_tsv(filename, delimiter=",")
-       elif ".xlsx" in filename:
-          parse_excel_file(filename)
-       else:
-          print("Sorry, file is not valid format.  Must be .tsv, .csv, or .xlsx file"    
-          exit()
-     
-if __name__ == "__main__":
-    main()
