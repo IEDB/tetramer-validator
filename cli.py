@@ -10,13 +10,13 @@ def main():
    with open(args.filename, "r") as file_obj:
        if filename.endwith(".tsv"):
           parse_csv_tsv(filename, delimiter="\t")
-       elif filename.endswith(".csv")
+       elif filename.endswith(".csv"):
           parse_csv_tsv(filename, delimiter=",")
        elif filename.endswith(".xlsx"):
           parse_excel_file(filename)
        else:
-          print("Sorry, file is not valid format.  Must be .tsv, .csv, or .xlsx file"
-          exit()
+          print("Sorry, file is not valid format.  Must be .tsv, .csv, or .xlsx file")
+          quit()
 
 if __name__ == "__main__":
     main()
