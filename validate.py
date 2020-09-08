@@ -94,22 +94,3 @@ def parse_csv_tsv(filename, delimiter):
 def parse_excel_file(filename):
   #placeholder
 
-def main():
-   #Parse the arguments
-   parser = argparse.ArgumentParser()
-   parse.add_argument("filename")
-   args = parser.parse_args()
-   filename = args.filename
-   with open(filename, "r") as file_obj:
-       if ".tsv" in filename:
-          parse_csv_tsv(filename, delimiter="\t")
-       elif ".csv" in filename:
-          parse_csv_tsv(filename, delimiter=",")
-       elif ".xlsx" in filename:
-          parse_excel_file(filename)
-       else:
-          print("Sorry, file is not valid format.  Must be .tsv, .csv, or .xlsx file"    
-          exit()
-     
-if __name__ == "__main__":
-    main()
