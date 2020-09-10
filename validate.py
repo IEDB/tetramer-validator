@@ -9,9 +9,9 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
     if has_amino_acids:
         return f"Peptide sequence {pep_seq} has characters {has_amino_acids} that are not amino acids"
     # if mod_pos and not mod_type:
-    # return "Modificiation position provided but no modification type"
-    # if mod_type and not mod_pos:
-    # return "Modification type provided but not modification position"
+        return "Modificiation position provided but no modification type"
+    if mod_type and not mod_pos:
+        return "Modification type provided but not modification position"
     if mod_pos:
         modifications = mod_pos.replace(" ", "").split(",")
         modifications = [(mod[0], int(mod[1])) for mod in modifications]
@@ -51,12 +51,23 @@ def validate_mod_pos(pep_seq, modifications):
                 position = int(position) - 1
                 if pep_seq[position] is not mod[0]:
                     return f"This peptide sequence {pep_seq} does not contain {mod[0]} at position {mod[1]}"
-    except ValueError:
-        return "ValueError.  Maybe there is character in modification type string where there should be int"
-    except TypeError:
-        return "TypeError.  Perhaps there is character that is not a number or there is a bad value."
-    except IndexError:
-        return "IndexError.  The modificiation position is greater than number of amino acids"
+            else:
+                return f"There are {len(mod)} characters in one of the modification positions"
+    except ValueError as v:
+        return (
+            "ValueError.  Maybe there is character in modification type string where there should be integer.\n Here is the error message from the system: "
+            + str(v)
+        )
+    except TypeError as t:
+        return (
+            "TypeError. Perhaps there is bad value.\n Here is the error message from the system: "
+            + str(t)
+        )
+    except IndexError as i:
+        return (
+            "IndexError.  Position is greater than number of amino acids\n Here is the error message from the system: "
+            + str(i)
+        )
     return None
 
 
