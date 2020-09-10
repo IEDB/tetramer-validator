@@ -8,7 +8,7 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
     has_amino_acids = pattern.findall(pep_seq)
     if has_amino_acids:
         return f"Peptide sequence {pep_seq} has characters {has_amino_acids} that are not amino acids"
-    # if mod_pos and not mod_type:
+        # if mod_pos and not mod_type:
         return "Modificiation position provided but no modification type"
     if mod_type and not mod_pos:
         return "Modification type provided but not modification position"
@@ -55,17 +55,17 @@ def validate_mod_pos(pep_seq, modifications):
                 return f"There are {len(mod)} characters in one of the modification positions"
     except ValueError as v:
         return (
-            "ValueError.  Maybe there is character in modification type string where there should be integer.\n Here is the error message from the system: "
+            f"ValueError.  {position} should be an integer.\n Here is the error message from the system: "
             + str(v)
         )
     except TypeError as t:
         return (
-            "TypeError. Perhaps there is bad value.\n Here is the error message from the system: "
+            f"TypeError. Perhaps there is bad value.\n Here is the error message from the system: "
             + str(t)
         )
     except IndexError as i:
         return (
-            "IndexError.  Position is greater than number of amino acids\n Here is the error message from the system: "
+            f"IndexError.  {position + 1} is greater than number of amino acids in peptide sequence {pep_seq}\n Here is the error message from the system: "
             + str(i)
         )
     return None
