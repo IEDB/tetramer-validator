@@ -1,6 +1,15 @@
 import csv
 import re
 
+path = "molecule.tsv"
+with open(path) as fh:
+    reader = csv.DictReader(fh, delimiter="\t")
+    molecules = [
+        molecule["IEDB Label"]
+        for molecule in reader
+        if molecule["Restriction Level"] == "complete molecule"
+        or molecule["Restriction Level"] == "partial molecule"
+    ]
 
 def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
     # Thanks to Austin Crinklaw
@@ -8,13 +17,12 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
     has_amino_acids = pattern.findall(pep_seq)
     if has_amino_acids:
         return f"Peptide sequence {pep_seq} has characters {has_amino_acids} that are not amino acids"
-        # if mod_pos and not mod_type:
+    if mod_pos and not mod_type:
         return "Modificiation position provided but no modification type"
     if mod_type and not mod_pos:
         return "Modification type provided but not modification position"
     if mod_pos:
         modifications = mod_pos.replace(" ", "").split(",")
-        modifications = [(mod[0], int(mod[1])) for mod in modifications]
         if mod_type:
             mod_types = mod_type.replace(" ", "")
             mod_types = mod_types.split(",")
@@ -98,3 +106,5 @@ def test_mod_pos_val_three():
         validate_mod_pos(pep_seq="NLVPOVATV", modifications=[("M", 5)])
         == "This peptide sequence NLVPOVATV does not contain M at position 5"
     )
+
+validate(pep_seq = "NLVPMVATV",mhc_name = "HLA-A*02:01", mod_pos = "K5", mod_type = "OX")
