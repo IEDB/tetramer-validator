@@ -1,5 +1,6 @@
 import csv
 import re
+import argparse
 
 path = "molecule.tsv"
 with open(path) as fh:
@@ -106,5 +107,3 @@ def test_mod_pos_val_three():
         validate_mod_pos(pep_seq="NLVPOVATV", modifications=[("M", 5)])
         == "This peptide sequence NLVPOVATV does not contain M at position 5"
     )
-
-validate(pep_seq = "NLVPMVATV",mhc_name = "HLA-A*02:01", mod_pos = "K5", mod_type = "OX")
