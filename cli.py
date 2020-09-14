@@ -1,5 +1,5 @@
 import argparse
-from validate import *
+import validate
 
 def main():
    #Parse the arguments
