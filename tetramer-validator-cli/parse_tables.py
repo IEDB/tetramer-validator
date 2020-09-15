@@ -1,6 +1,4 @@
-from openpyxl import load_workbook
 import csv
-from validate import validate
 def parse_excel_file(filename):
     wb = load_workbook(filename)
     ws = wb.active
