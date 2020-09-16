@@ -1,6 +1,7 @@
 import argparse
 import parse_tables
 from openpyxl import load_workbook
+import validate
 
 def main():
    #Parse the arguments
@@ -21,4 +22,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
