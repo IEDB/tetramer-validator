@@ -2,12 +2,13 @@ import csv
 import re
 import math
 
+
 def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
     print(pep_seq)
     num_types_pos_mismatch = False
     # Thanks to Austin Crinklaw
     pattern = re.compile(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE)
-    if pep_seq == float('nan'):
+    if pep_seq == float("nan"):
         return "Peptide sequence is bad value (NULL) or is empty"
     has_amino_acids = pattern.findall(pep_seq)
     if has_amino_acids:
@@ -25,7 +26,8 @@ def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
             num_mod_types = len(mod_types)
             num_mod_pos = len(modifications)
             if num_mod_pos != num_mod_types:
-                num_types_pos_mismatch = f"MismatchError: There are {num_mod_pos} positions but {num_mod_types} modification types"
+                num_types_pos_mismatch = f"""MismatchError: There are
+                {num_mod_pos} positions but {num_mod_types} modification types"""
         statement = validate_mod_pos(pep_seq, modifications)
         if statement:
             return statement
@@ -39,8 +41,8 @@ def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
 
 
 def validate_pep_seq_mhc_name(pep_seq, mhc_name):
-    #if mhc_name not in molecules:
-     #   return f"{mhc_name} is not a valid MHC name"
+    # if mhc_name not in molecules:
+    #   return f"{mhc_name} is not a valid MHC name"
     return None
     # Need to know how to match mhc_name with pep_seq
     # elif mhc_name:
@@ -50,31 +52,32 @@ def validate_pep_seq_mhc_name(pep_seq, mhc_name):
 
 def validate_mod_pos(pep_seq, positions):
     amino_acids = [
-    "A",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "K",
-    "L",
-    "M",
-    "N",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "V",
-    "W",
-    "X",
-    "Y",
-]     
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "K",
+        "L",
+        "M",
+        "N",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "V",
+        "W",
+        "X",
+        "Y",
+    ]
     try:
         if any(len(pos) > 0 and pos[0] not in amino_acids for pos in positions):
-            return "Modification position is just numbers without amino acid letter or format of modification position is incorrect (amino acid and position switched)"
+            return """Modification position is just numbers without amino acid
+                letter or format of modification position is incorrect (amino acid and position switched)"""
         for pos in positions:
             if len(pos) >= 2:
                 position = "".join(pos[1:])
@@ -94,10 +97,8 @@ def validate_mod_pos(pep_seq, positions):
             + str(t)
         )
     except IndexError as i:
-        return (
-            f"IndexError.  {position + 1} is greater than number of amino acids in peptide sequence {pep_seq}\n Here is the error message from the system: "
-            + str(i)
+        return f"""IndexError.  {position + 1} is greater than number of amino acids in peptide sequence {pep_seq}.
+                \n Here is the error message from the system: """ + str(
+            i
         )
     return None
-
-
