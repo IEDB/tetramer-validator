@@ -2,15 +2,6 @@ import csv
 import re
 import argparse
 import math
-path = "molecule.tsv"
-with open(path) as fh:
-    reader = csv.DictReader(fh, delimiter="\t")
-    molecules = [
-        molecule["IEDB Label"]
-        for molecule in reader
-        if molecule["Restriction Level"] == "complete molecule"
-        or molecule["Restriction Level"] == "partial molecule"
-    ]
 
 
 def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
@@ -50,8 +41,8 @@ def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
 
 
 def validate_pep_seq_mhc_name(pep_seq, mhc_name):
-    if mhc_name not in molecules:
-        return f"{mhc_name} is not a valid MHC name"
+    #if mhc_name not in molecules:
+        #return f"{mhc_name} is not a valid MHC name"
     return None
     # Need to know how to match mhc_name with pep_seq
     # elif mhc_name:
