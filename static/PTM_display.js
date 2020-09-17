@@ -20,14 +20,13 @@ var substrMatcher = function(strs) {
   };
 };
 
-var states = ["deamidated residue", "dehydrated residue", "formylated residue", "galactosylated residue", "glucosylated residue", "glycosylated residue"
-];
+var PTM_names = ["deamidated residue", "dehydrated residue", "formylated residue", "galactosylated residue", "glucosylated residue", "glycosylated residue"];
 
-$('#the-basics .form-control').typeahead({
+$('#PTM_display .form-control').typeahead({
   hint: true,
   highlight: true,
   minLength: 1
 }, {
-  name: 'states',
-  source: substrMatcher(states)
+  name: 'PTM_names',
+  source: substrMatcher(PTM_names)
 });
