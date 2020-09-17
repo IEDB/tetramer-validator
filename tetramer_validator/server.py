@@ -10,7 +10,7 @@ def output():
     if request.args:
         pep_seq = request.args["pep_seq"]
         mod_pos = request.args["mod_pos"]
-        mod_type = requests.args["mod_type"]
+        mod_type = request.args["mod_type"]
         mhc_name = request.args["mhc_name"]
         statement = validate.validate(
             pep_seq=pep_seq, mod_pos=mod_pos, mod_type=mod_type, mhc_name=mhc_name

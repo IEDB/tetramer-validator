@@ -12,7 +12,8 @@ def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
         return "Peptide sequence is bad value (NULL) or is empty"
     has_amino_acids = pattern.findall(pep_seq)
     if has_amino_acids:
-        return f"Peptide sequence {pep_seq} has characters {has_amino_acids} that are not amino acids"
+        return f"""Peptide sequence {pep_seq} has characters {has_amino_acids}
+            that are not amino acids"""
     if mod_pos and not mod_type:
         return "Modificiation position provided but no modification type"
     if mod_type and not mod_pos:
@@ -77,27 +78,31 @@ def validate_mod_pos(pep_seq, positions):
     try:
         if any(len(pos) > 0 and pos[0] not in amino_acids for pos in positions):
             return """Modification position is just numbers without amino acid
-                letter or format of modification position is incorrect (amino acid and position switched)"""
+                letter or format of modification position is incorrect
+                (amino acid and position switched)"""
         for pos in positions:
             if len(pos) >= 2:
                 position = "".join(pos[1:])
                 position = int(position) - 1
                 if pep_seq[position] is not pos[0]:
-                    return f"MismatchError: This peptide sequence {pep_seq} does not contain {pos[0]} at position {pos[1]}"
+                    return f"""MismatchError: This peptide sequence
+                    {pep_seq} does not contain {pos[0]} at position {pos[1]}"""
             else:
-                return f"There are {len(pos)} characters in one of the modification positions"
+                return f"""There are {len(pos)} characters in one of the
+                    modification positions"""
     except ValueError as v:
-        return (
-            f"ValueError.  {position} should be an integer.\n Here is the error message from the system: "
-            + str(v)
+        return f"""ValueError.  {position} should be an integer.\n
+            Here is the error message from the system: """ + str(
+            v
         )
     except TypeError as t:
-        return (
-            f"TypeError. Perhaps there is bad value.\n Here is the error message from the system: "
-            + str(t)
+        return f"""TypeError. Perhaps there is bad value.\n
+            Here is the error message from the system: """ + str(
+            t
         )
     except IndexError as i:
-        return f"""IndexError.  {position + 1} is greater than number of amino acids in peptide sequence {pep_seq}.
+        return f"""IndexError.  {position + 1} is greater than number of
+               amino acids in peptide sequence {pep_seq}.
                 \n Here is the error message from the system: """ + str(
             i
         )

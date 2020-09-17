@@ -1,3 +1,6 @@
+from tetramer_validator.validate import *
+
+
 def test_validate_one():
     assert (
         validate(pep_seq="NLVPMVATV", mhc_name="HLA-A*02:01", mod_pos="K5")
