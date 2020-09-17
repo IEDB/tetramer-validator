@@ -1,5 +1,3 @@
-import csv
-from validate import validate
 
 
 def parse_excel_file(filename):

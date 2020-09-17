@@ -1,7 +1,7 @@
 import argparse
-import parse_tables
+from tetramer_validator import parse_tables
 from openpyxl import load_workbook
-import validate
+from tetramer_validator import validate
 
 
 def main():
@@ -26,6 +26,6 @@ def main():
             )
             quit()
 
-
+print(__name__)
 if __name__ == "__main__":
     main()
