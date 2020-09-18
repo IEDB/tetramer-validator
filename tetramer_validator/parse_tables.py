@@ -26,8 +26,7 @@ def parse_excel_file(filename):
             messages.append(message)
         else:
             messages.append(f"Peptide sequence {row[0].value} is valid")
-    generate_messages_txt(messages)
-    return "Please see messages.txt for any errors"
+    return messages
 
 def parse_csv_tsv(filename, delimiter):
     with open(filename, "r", encoding='utf-8-sig') as file_obj:
@@ -38,14 +37,4 @@ def parse_csv_tsv(filename, delimiter):
                    mhc_name=entry["MHC Name"],mod_type = entry["Modification Type"],
                    mod_pos=entry["Modification Position"])
             messages.append(message)
-        generate_messages_txt(messages)
-        return "Please see messages.txt for any errors"
-        
-def generate_messages_txt(messages, filename="messages.txt"):
-    cwd = getcwd()
-    new_file = path.join(cwd, filename)
-    message_file = open(new_file, "w+")
-    for message in messages:
-        message_file.write(message)
-        message_file.write("\n")
-    message_file.close()
+        return messages
