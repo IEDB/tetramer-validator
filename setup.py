@@ -11,10 +11,9 @@ setuptools.setup(
     description="A small package to validate tetramers",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    # url="https://github.com/IEDB/tetramer-validator",
+    url="https://github.com/IEDB/tetramer-validator",
     classifiers=[
         "Programming Language :: Python :: 3",
-        # "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
     install_requires=["openpyxl"],
