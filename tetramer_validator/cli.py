@@ -19,15 +19,12 @@ def main():
     if filename.endswith(".tsv"):
         print("Parsing TSV file")
         messages = parse_csv_tsv(filename, delimiter="\t")
-        print("Please see messages.txt for any errors")
     elif filename.endswith(".csv"):
         print("Parsing CSV file")
         messages = parse_csv_tsv(filename, delimiter=",")
-        print("Please see messages.txt for any errors")
     elif filename.endswith(".xlsx"):
         print("Parsing Excel file")
         messages = parse_excel_file(filename)
-        print("Please see messages.txt for any errors")
     else:
         print("""Sorry, file is not valid format.
            Must be .tsv, .csv, or .xlsx file""")
@@ -50,3 +47,4 @@ def generate_messages_txt(messages, filename="messages.txt"):
         message_file.write(message)
         message_file.write("\n")
     message_file.close()
+    print(f"Please see {filename} for any errors")
