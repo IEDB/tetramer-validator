@@ -10,12 +10,13 @@ def main():
         Peptide Sequence, Modification Type, Modification Position, MHC name"""
     parser.add_argument("-f", "--filename", required=True, help=filename_help_text)
     args = parser.parse_args()
-    with open(args.filename, "r") as file_obj:
-        if args.filename.endwith(".tsv"):
+    filename = args.filename
+    with open(filename, "r") as file_obj:
+        if filename.endswith(".tsv"):
             parse_csv_tsv(filename, delimiter="\t")
-        elif args.filename.endswith(".csv"):
+        elif filename.endswith(".csv"):
             parse_csv_tsv(filename, delimiter=",")
-        elif args.filename.endswith(".xlsx"):
+        elif filename.endswith(".xlsx"):
             parse_excel_file(filename)
         else:
             print(
