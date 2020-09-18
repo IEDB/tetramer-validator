@@ -4,7 +4,6 @@ import math
 
 
 def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
-    print(pep_seq)
     num_types_pos_mismatch = False
     # Thanks to Austin Crinklaw
     pattern = re.compile(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE)

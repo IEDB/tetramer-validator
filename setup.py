@@ -20,8 +20,9 @@ setuptools.setup(
     install_requires=["openpyxl"],
     python_requires=">=3.6",
     packages=find_packages(),
+    include_package_data=True,
     entry_points={
         "console_scripts": [
-            "tv = tetramer_validator.cli:main",
-        ],
+            "tetramer_validator=tetramer_validator.cli:main",
+        ]}
 )
