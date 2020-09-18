@@ -23,6 +23,6 @@ setuptools.setup(
     include_package_data=True,
     entry_points={
         "console_scripts": [
-            "tetramer_validator=tetramer_validator.cli:main",
+            "tv=tetramer_validator.cli:main",
         ]}
 )

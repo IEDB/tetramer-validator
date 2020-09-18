@@ -2,6 +2,14 @@ import csv
 import re
 import math
 
+with open(path) as fh:
+    reader = csv.DictReader(fh, delimiter="\t")
+    molecules = [
+        molecule["IEDB Label"]
+        for molecule in reader
+        if molecule["Restriction Level"] == "complete molecule"
+        or molecule["Restriction Level"] == "partial molecule"
+    ]
 
 def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
     num_types_pos_mismatch = False

@@ -1,7 +1,5 @@
 import argparse
-from tetramer_validator import parse_tables
-from openpyxl import load_workbook
-from tetramer_validator import validate
+from tetramer_validator.parse_table import parse_csv_tsv, parse_excel_file
 
 
 def main():
