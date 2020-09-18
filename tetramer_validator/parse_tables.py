@@ -35,5 +35,9 @@ def parse_csv_tsv(filename, delimiter):
             message = validate(pep_seq = entry["Peptide Sequence"],
                    mhc_name=entry["MHC Name"],mod_type = entry["Modification Type"],
                    mod_pos=entry["Modification Position"])
+            if message:
+                messages.append(message)
+            else:
+                messages.append(f"Peptide sequence {row[0].value} is valid")
             messages.append(message)
         return messages
