@@ -38,6 +38,6 @@ def parse_csv_tsv(filename, delimiter):
             if message:
                 messages.append(message)
             else:
-                messages.append(f"Peptide sequence {row[0].value} is valid")
+                messages.append(f"Peptide sequence {entry["Peptide Sequence"]} is valid")
             messages.append(message)
         return messages
