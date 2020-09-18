@@ -16,7 +16,7 @@ with open(molecule_file) as fh:
     ]
 
 def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
-    num_types_pos_mismatch = False
+
     # Thanks to Austin Crinklaw
     pattern = re.compile(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE)
     if pep_seq == float("nan"):
@@ -47,14 +47,12 @@ def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
         statement = validate_pep_seq_mhc_name(pep_seq, mhc_name)
         if statement:
             return statement
-        if num_types_pos_mismatch:
-            return num_types_pos_mismatch
     return None
 
 
 def validate_pep_seq_mhc_name(pep_seq, mhc_name):
-    # if mhc_name not in molecules:
-    #   return f"{mhc_name} is not a valid MHC name"
+    if mhc_name not in molecules:
+       return f"{mhc_name} is not a valid MHC name"
     return None
     # Need to know how to match mhc_name with pep_seq
     # elif mhc_name:

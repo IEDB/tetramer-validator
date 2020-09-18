@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import render_template, request
-import validate
+from tetramer_validator import validate
 
 app = Flask(__name__)
 
@@ -18,7 +18,7 @@ def output():
         if not statement:
             statement = "Success! This input is valid"
         return render_template(
-            "test1.html",
+            "base.html",
             pep_seq=pep_seq,
             mod_pos=mod_pos,
             mod_type=mod_type,
@@ -27,5 +27,5 @@ def output():
         )
     else:
         return render_template(
-            "test1.html", pep_seq="", mod_pos="", mod_type="", mhc_name="", statement=""
+            "base.html", pep_seq="", mod_pos="", mod_type="", mhc_name="", statement=""
         )

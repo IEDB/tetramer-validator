@@ -21,8 +21,9 @@ def main():
         message = parse_csv_tsv(filename, delimiter=",")
         print(message)
     elif filename.endswith(".xlsx"):
-        message = print("Parsing Excel file")
-        parse_excel_file(filename)
+        print("Parsing Excel file")
+        message = parse_excel_file(filename)
+        print(message)
     else:
         print("""Sorry, file is not valid format.
            Must be .tsv, .csv, or .xlsx file""")
