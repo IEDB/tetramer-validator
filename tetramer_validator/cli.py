@@ -1,5 +1,5 @@
 import argparse
-from tetramer_validator.parse_tables import parse_csv_tsv, parse_excel_file
+from tetramer_validator.parse_table import parse_csv_tsv, parse_excel_file
 
 
 def main():
@@ -11,11 +11,11 @@ def main():
     parser.add_argument("-f", "--filename", required=True, help=filename_help_text)
     args = parser.parse_args()
     with open(args.filename, "r") as file_obj:
-        if filename.endwith(".tsv"):
+        if args.filename.endwith(".tsv"):
             parse_csv_tsv(filename, delimiter="\t")
-        elif filename.endswith(".csv"):
+        elif args.filename.endswith(".csv"):
             parse_csv_tsv(filename, delimiter=",")
-        elif filename.endswith(".xlsx"):
+        elif args.filename.endswith(".xlsx"):
             parse_excel_file(filename)
         else:
             print(
