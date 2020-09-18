@@ -15,7 +15,6 @@ def main():
     args = parser.parse_args()
     filename = args.filename
     output_file = args.output
-    print(output_file)
     if filename.endswith(".tsv"):
         print("Parsing TSV file")
         messages = parse_csv_tsv(filename, delimiter="\t")
@@ -35,7 +34,6 @@ def main():
         else:
             generate_messages_txt(messages)
 
-print(__name__)
 if __name__ == "__main__":
     main()
 

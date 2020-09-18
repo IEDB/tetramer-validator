@@ -1,7 +1,6 @@
 from tetramer_validator.validate import validate
 from openpyxl import load_workbook
 import csv
-from os import getcwd, path
 
 def parse_excel_file(filename):
     wb = load_workbook(filename)
