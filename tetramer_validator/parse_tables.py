@@ -32,6 +32,7 @@ def parse_csv_tsv(filename, delimiter):
         reader = csv.DictReader(file_obj, delimiter=delimiter)
         messages = []
         for entry in reader:
+            print(entry)
             message = validate(pep_seq = entry["Peptide Sequence"],
                    mhc_name=entry["MHC Name"],mod_type = entry["Modification Type"],
                    mod_pos=entry["Modification Position"])
@@ -40,5 +41,4 @@ def parse_csv_tsv(filename, delimiter):
             else:
                 pep_seq = entry["Peptide Sequence"]
                 messages.append(f"Peptide sequence {pep_seq} is valid")
-            messages.append(message)
         return messages
