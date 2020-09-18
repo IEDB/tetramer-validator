@@ -17,7 +17,9 @@ def main():
         message = parse_csv_tsv(filename, delimiter="\t")
         print(message)
     elif filename.endswith(".csv"):
+        print("Parsing CSV file")
         message = parse_csv_tsv(filename, delimiter=",")
+        print(message)
     elif filename.endswith(".xlsx"):
         message = print("Parsing Excel file")
         parse_excel_file(filename)
