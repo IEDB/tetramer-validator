@@ -1,5 +1,5 @@
 import argparse
-from tetramer_validator.parse_tables import parse_csv_tsv, parse_excel_file
+from tetramer_validator.parse_table import parse_csv_tsv, parse_excel_file
 
 
 def main():
