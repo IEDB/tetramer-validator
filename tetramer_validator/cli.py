@@ -11,20 +11,20 @@ def main():
     parser.add_argument("-f", "--filename", required=True, help=filename_help_text)
     args = parser.parse_args()
     filename = args.filename
-    with open(filename, "r") as file_obj:
-        if filename.endswith(".tsv"):
-            parse_csv_tsv(filename, delimiter="\t")
-        elif filename.endswith(".csv"):
-            parse_csv_tsv(filename, delimiter=",")
-        elif filename.endswith(".xlsx"):
-            parse_excel_file(filename)
-        else:
-            print(
-                """Sorry, file is not valid format.
-                Must be .tsv, .csv, or .xlsx file"""
-            )
-            quit()
 
+    if filename.endswith(".tsv"):
+        print("Parsing TSV file")
+        message = parse_csv_tsv(filename, delimiter="\t")
+        print(message)
+    elif filename.endswith(".csv"):
+        message = parse_csv_tsv(filename, delimiter=",")
+    elif filename.endswith(".xlsx"):
+        message = print("Parsing Excel file")
+        parse_excel_file(filename)
+    else:
+        print("""Sorry, file is not valid format.
+           Must be .tsv, .csv, or .xlsx file""")
+        quit()
 
 print(__name__)
 if __name__ == "__main__":
