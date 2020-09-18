@@ -1,8 +1,12 @@
 import csv
 import re
 import math
+from os import path
 
-with open(path) as fh:
+here = path.abspath(path.dirname(__file__))
+molecule_file = "data/molecule.tsv"
+molecule_file = path.join(here, molecule_file)
+with open(molecule_file) as fh:
     reader = csv.DictReader(fh, delimiter="\t")
     molecules = [
         molecule["IEDB Label"]
