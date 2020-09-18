@@ -32,7 +32,7 @@ def parse_csv_tsv(filename, delimiter):
         reader = csv.DictReader(file_obj, delimiter=delimiter)
         messages = []
         for entry in reader:
-            messaage = validate(pep_seq = entry["Peptide Sequence"],
+            message = validate(pep_seq = entry["Peptide Sequence"],
                    mhc_name=entry["MHC Name"],mod_type = entry["Modification Type"],
                    mod_pos=entry["Modification Position"])
             messages.append(message)
