@@ -1,0 +1,695 @@
+Label	IEDB Label	Synonyms	Restriction Level
+Anpl-UAA*01 protein complex	Anpl-UAA*01		complete molecule
+BF1*0201 protein complex	BF1*0201		complete molecule
+BF2*0201 protein complex	BF2*0201		complete molecule
+BF2*0401 protein complex	BF2*0401		complete molecule
+BF2*1201 protein complex	BF2*1201		complete molecule
+BF2*1301 protein complex	BF2*1301		complete molecule
+BF2*1401 protein complex	BF2*1401		complete molecule
+BF2*1501 protein complex	BF2*1501		complete molecule
+BF2*2101 protein complex	BF2*2101		complete molecule
+BoLA-1*019:01 protein complex	BoLA-1*019:01	4221.1|AH12-A|BoLA-1*01901	complete molecule
+BoLA-1*021:01 protein complex	BoLA-1*021:01	N*02101|BoLA-1*02101	complete molecule
+BoLA-1*023:01 protein complex	BoLA-1*023:01	N*02301|BoLA-1*02301	complete molecule
+BoLA-2*008:01 protein complex	BoLA-2*008:01	AH12-B|AH60-B|MAN1|BoLA-2*00801	complete molecule
+BoLA-2*012:01 protein complex	BoLA-2*012:01	N*01201|BoLA-2*01201	complete molecule
+BoLA-2*018:01 protein complex	BoLA-2*018:01	N*01801|BoLA-2*01801	complete molecule
+BoLA-2*022:01 protein complex	BoLA-2*022:01	N*02201|BoLA-2*02201	complete molecule
+BoLA-3*001:01 protein complex	BoLA-3*001:01	N*00101|BoLA-3*00101	complete molecule
+BoLA-3*002:01 protein complex	BoLA-3*002:01	N*00201|BoLA-3*00201	complete molecule
+BoLA-4*024:01:01:01 protein complex	BoLA-4*024:01:01:01	D18.1|BoLA-4*02401	complete molecule
+BoLA-6*013:01 protein complex	BoLA-6*013:01	HD6|N*01301|BoLA-6*01301	complete molecule
+BoLA-6*013:02 protein complex	BoLA-6*013:02	HD6.1|BoLA-6*01302	complete molecule
+BoLA-6*041:01 protein complex	BoLA-6*041:01	BoLA T2b|BoLA-6*04101	complete molecule
+BoLA-DQA*002:02 protein complex	BoLA-DQA*002:02	BoLA-DQA1*0202|BoLA-DQA*0202	partial molecule
+BoLA-DQA*003:01 protein complex	BoLA-DQA*003:01	BoLA-DQA1*0301|BoLA-DQA*0301	partial molecule
+BoLA-DQA*003:01/DQB*004:02 protein complex	BoLA-DQA*003:01/DQB*004:02	BoLA-DQA*0301/DQB*0402	complete molecule
+BoLA-DQA*010:01:01 protein complex	BoLA-DQA*010:01:01	BoLA-DQA*10011	partial molecule
+BoLA-DQA*010:01:01/DQB*010:02:01 protein complex	BoLA-DQA*010:01:01/DQB*010:02:01	BoLA-DQA*10011/DQB*10021	complete molecule
+BoLA-DQA*012:01:01 protein complex	BoLA-DQA*012:01:01	BoLA-DQA*12011	partial molecule
+BoLA-DQA*012:01:01/DQB*10051 protein complex	BoLA-DQA*012:01:01/DQB*10051		complete molecule
+BoLA-DQA*022:01 protein complex	BoLA-DQA*022:01	BoLA-DQA*2201	partial molecule
+BoLA-DQA*022:01/DQB*012:01 protein complex	BoLA-DQA*022:01/DQB*012:01	BoLA-DQA*2201/DQB*1201	complete molecule
+BoLA-DQA*022:02:01 protein complex	BoLA-DQA*022:02:01	BoLA-DQA*2202	partial molecule
+BoLA-DQA*022:02:01/DQB*009:01 protein complex	BoLA-DQA*022:02:01/DQB*009:01	BoLA-DQA*2202/DQB*0901	complete molecule
+BoLA-DQA*022:02:01/DQB*013:01 protein complex	BoLA-DQA*022:02:01/DQB*013:01	BoLA-DQA*2202/DQB*1301	complete molecule
+BoLA-DQA*2206/DQB*013:01 protein complex	BoLA-DQA*2206/DQB*013:01		complete molecule
+BoLA-DQA*2206/DQB*014:02 protein complex	BoLA-DQA*2206/DQB*014:02		complete molecule
+BoLA-DQB*004:02 protein complex	BoLA-DQB*004:02	BoLA-DQB*0402	partial molecule
+BoLA-DQB*009:01 protein complex	BoLA-DQB*009:01	BoLA-DQB*0901	partial molecule
+BoLA-DQB*010:02:01 protein complex	BoLA-DQB*010:02:01	BoLA-DQB*10021	partial molecule
+BoLA-DQB*012:01 protein complex	BoLA-DQB*012:01	BoLA-DQB*1201	partial molecule
+BoLA-DQB*013:01 protein complex	BoLA-DQB*013:01	BoLA-DQB*1301	partial molecule
+BoLA-DQB*014:02 protein complex	BoLA-DQB*014:02	BoLA-DQB*1402	partial molecule
+BoLA-DRB3*001:01 protein complex	BoLA-DRB3*001:01	BoLA-DRB3*0101	partial molecule
+BoLA-DRB3*002:01 protein complex	BoLA-DRB3*002:01	BoLA-DRB3*0201	partial molecule
+BoLA-DRB3*007:01 protein complex	BoLA-DRB3*007:01	BoLA-DRB3*0701	partial molecule
+BoLA-DRB3*010:01 protein complex	BoLA-DRB3*010:01	DRB3*10|BoLA-DRB3*1001	partial molecule
+BoLA-DRB3*011:01 protein complex	BoLA-DRB3*011:01	BoLA-DRB3*1101	partial molecule
+BoLA-DRB3*012:01 protein complex	BoLA-DRB3*012:01	BoLA-DRB3*1201	partial molecule
+BoLA-DRB3*012:02 protein complex	BoLA-DRB3*012:02	BoLA-DRB3*1202	partial molecule
+BoLA-DRB3*014:01:01 protein complex	BoLA-DRB3*014:01:01	BoLA-DRB3*14011	partial molecule
+BoLA-DRB3*015:01 protein complex	BoLA-DRB3*015:01	BoLA-DRB3*1501	partial molecule
+BoLA-DRB3*015:02 protein complex	BoLA-DRB3*015:02	BoLA-DRB3*1502	partial molecule
+BoLA-DRB3*018:01 protein complex	BoLA-DRB3*018:01	DRB08|BoLA-DRB3*1801	partial molecule
+BoLA-DRB3*020:02 protein complex	BoLA-DRB3*020:02	BoLA-DRB3*2002	partial molecule
+BoLA-DRB3*027:03 protein complex	BoLA-DRB3*027:03	BoLA-DRB3*2703	partial molecule
+BoLA-DRB3*030:01 protein complex	BoLA-DRB3*030:01	BoLA-DRB3*3001	partial molecule
+BoLA-DRB3*4501 protein complex	BoLA-DRB3*4501		partial molecule
+DLA-88*03401 protein complex	DLA-88*03401		complete molecule
+DLA-88*50101 protein complex	DLA-88*50101		complete molecule
+DLA-88*50801 protein complex	DLA-88*50801	dla88-21	complete molecule
+Eqca-1*00101 protein complex	Eqca-1*00101	ELA-A3.1	complete molecule
+Eqca-1*00201 protein complex	Eqca-1*00201		complete molecule
+Eqca-16*00101 protein complex	Eqca-16*00101		complete molecule
+Eqca-N*00101 protein complex	Eqca-N*00101		complete molecule
+Eqca-N*00601 protein complex	Eqca-N*00601	"MHC I 1 14 allele, 7-6"	complete molecule
+Eqca-N*00602 protein complex	Eqca-N*00602	A1*7-6	complete molecule
+FLA-E*01801 protein complex	FLA-E*01801	FLA-B*n06	complete molecule
+Gogo-B*0101 protein complex	Gogo-B*0101		complete molecule
+H2-Db protein complex	H2-Db		complete molecule
+H2-Dd protein complex	H2-Dd		complete molecule
+H2-Dk protein complex	H2-Dk		complete molecule
+H2-Dq protein complex	H2-Dq		complete molecule
+H2-Dr protein complex	H2-Dr		complete molecule
+H2-Ds protein complex	H2-Ds		complete molecule
+H2-IAb protein complex	H2-IAb		complete molecule
+H2-IAd protein complex	H2-IAd		complete molecule
+H2-IAf protein complex	H2-IAf		complete molecule
+H2-IAg7 protein complex	H2-IAg7		complete molecule
+H2-IAk protein complex	H2-IAk		complete molecule
+H2-IAp protein complex	H2-IAp		complete molecule
+H2-IAq protein complex	H2-IAq		complete molecule
+H2-IAr protein complex	H2-IAr		complete molecule
+H2-IAs protein complex	H2-IAs		complete molecule
+H2-IAu protein complex	H2-IAu		complete molecule
+H2-IEb protein complex	H2-IEb		complete molecule
+H2-IEd protein complex	H2-IEd		complete molecule
+H2-IEg7 protein complex	H2-IEg7		complete molecule
+H2-IEk protein complex	H2-IEk		complete molecule
+H2-IEp protein complex	H2-IEp		complete molecule
+H2-IEr protein complex	H2-IEr		complete molecule
+H2-IEu protein complex	H2-IEu		complete molecule
+H2-Kb protein complex	H2-Kb		complete molecule
+H2-Kd protein complex	H2-Kd		complete molecule
+H2-Kk protein complex	H2-Kk		complete molecule
+H2-Kq protein complex	H2-Kq		complete molecule
+H2-Ks protein complex	H2-Ks		complete molecule
+H2-Kwm7 protein complex	H2-Kwm7		complete molecule
+H2-Ld protein complex	H2-Ld		complete molecule
+H2-Lq protein complex	H2-Lq	H2-Lw16	complete molecule
+H2-M3 protein complex	H2-M3		complete molecule
+H2-Qa-1a protein complex	H2-Qa-1a	Qa1a	complete molecule
+H2-Qa-1b protein complex	H2-Qa-1b	Qa1b	complete molecule
+HLA-A*01:01 protein complex	HLA-A*01:01	HLA-A*010101	complete molecule
+HLA-A*01:03 protein complex	HLA-A*01:03		complete molecule
+HLA-A*02:01 protein complex	HLA-A*02:01	HLA-A2.1|HLA-A*020101	complete molecule
+HLA-A*02:02 protein complex	HLA-A*02:02		complete molecule
+HLA-A*02:03 protein complex	HLA-A*02:03		complete molecule
+HLA-A*02:04 protein complex	HLA-A*02:04		complete molecule
+HLA-A*02:05 protein complex	HLA-A*02:05		complete molecule
+HLA-A*02:06 protein complex	HLA-A*02:06		complete molecule
+HLA-A*02:07 protein complex	HLA-A*02:07		complete molecule
+HLA-A*02:08 protein complex	HLA-A*02:08		complete molecule
+HLA-A*02:09 protein complex	HLA-A*02:09		complete molecule
+HLA-A*02:10 protein complex	HLA-A*02:10		complete molecule
+HLA-A*02:11 protein complex	HLA-A*02:11		complete molecule
+HLA-A*02:12 protein complex	HLA-A*02:12		complete molecule
+HLA-A*02:13 protein complex	HLA-A*02:13		complete molecule
+HLA-A*02:14 protein complex	HLA-A*02:14		complete molecule
+HLA-A*02:16 protein complex	HLA-A*02:16		complete molecule
+HLA-A*02:17 protein complex	HLA-A*02:17		complete molecule
+HLA-A*02:19 protein complex	HLA-A*02:19		complete molecule
+HLA-A*02:20 protein complex	HLA-A*02:20		complete molecule
+HLA-A*02:50 protein complex	HLA-A*02:50		complete molecule
+HLA-A*03:01 protein complex	HLA-A*03:01	HLA-A3.1|HLA-A*03010101	complete molecule
+HLA-A*03:02 protein complex	HLA-A*03:02		complete molecule
+HLA-A*03:19 protein complex	HLA-A*03:19		complete molecule
+HLA-A*11:01 protein complex	HLA-A*11:01	HLA-A*110101	complete molecule
+HLA-A*11:02 protein complex	HLA-A*11:02		complete molecule
+HLA-A*23:01 protein complex	HLA-A*23:01		complete molecule
+HLA-A*24:02 protein complex	HLA-A*24:02	HLA-A*24020101	complete molecule
+HLA-A*24:03 protein complex	HLA-A*24:03		complete molecule
+HLA-A*24:06 protein complex	HLA-A*24:06		complete molecule
+HLA-A*24:07 protein complex	HLA-A*24:07		complete molecule
+HLA-A*24:13 protein complex	HLA-A*24:13		complete molecule
+HLA-A*25:01 protein complex	HLA-A*25:01		complete molecule
+HLA-A*25:03 protein complex	HLA-A*25:03		complete molecule
+HLA-A*26:01 protein complex	HLA-A*26:01		complete molecule
+HLA-A*26:02 protein complex	HLA-A*26:02		complete molecule
+HLA-A*26:03 protein complex	HLA-A*26:03		complete molecule
+HLA-A*26:08 protein complex	HLA-A*26:08		complete molecule
+HLA-A*29:01 protein complex	HLA-A*29:01	HLA-A*29010101	complete molecule
+HLA-A*29:02 protein complex	HLA-A*29:02	HLA-A*290201	complete molecule
+HLA-A*30:01 protein complex	HLA-A*30:01		complete molecule
+HLA-A*30:02 protein complex	HLA-A*30:02		complete molecule
+HLA-A*30:03 protein complex	HLA-A*30:03		complete molecule
+HLA-A*30:04 protein complex	HLA-A*30:04		complete molecule
+HLA-A*30:14L protein complex	HLA-A*30:14L		complete molecule
+HLA-A*31:01 protein complex	HLA-A*31:01	HLA-A*310102	complete molecule
+HLA-A*32:01 protein complex	HLA-A*32:01		complete molecule
+HLA-A*32:05 protein complex	HLA-A*32:05		complete molecule
+HLA-A*32:07 protein complex	HLA-A*32:07		complete molecule
+HLA-A*32:15 protein complex	HLA-A*32:15		complete molecule
+HLA-A*33:01 protein complex	HLA-A*33:01		complete molecule
+HLA-A*33:03 protein complex	HLA-A*33:03		complete molecule
+HLA-A*34:01 protein complex	HLA-A*34:01		complete molecule
+HLA-A*34:02 protein complex	HLA-A*34:02		complete molecule
+HLA-A*36:01 protein complex	HLA-A*36:01		complete molecule
+HLA-A*66:01 protein complex	HLA-A*66:01		complete molecule
+HLA-A*66:02 protein complex	HLA-A*66:02		complete molecule
+HLA-A*68:01 protein complex	HLA-A*68:01	HLA-A*680101|HLA-A*680102	complete molecule
+HLA-A*68:02 protein complex	HLA-A*68:02		complete molecule
+HLA-A*68:23 protein complex	HLA-A*68:23		complete molecule
+HLA-A*69:01 protein complex	HLA-A*69:01		complete molecule
+HLA-A*74:01 protein complex	HLA-A*74:01		complete molecule
+HLA-A*80:01 protein complex	HLA-A*80:01		complete molecule
+HLA-B*07:02 protein complex	HLA-B*07:02	HLA-B*0701|HLA-B*07021|HLA-B*070201	complete molecule
+HLA-B*07:04 protein complex	HLA-B*07:04		complete molecule
+HLA-B*07:05 protein complex	HLA-B*07:05		complete molecule
+HLA-B*07:06 protein complex	HLA-B*07:06		complete molecule
+HLA-B*08:01 protein complex	HLA-B*08:01		complete molecule
+HLA-B*08:02 protein complex	HLA-B*08:02		complete molecule
+HLA-B*08:03 protein complex	HLA-B*08:03		complete molecule
+HLA-B*13:01 protein complex	HLA-B*13:01		complete molecule
+HLA-B*13:02 protein complex	HLA-B*13:02		complete molecule
+HLA-B*14:01 protein complex	HLA-B*14:01		complete molecule
+HLA-B*14:02 protein complex	HLA-B*14:02		complete molecule
+HLA-B*14:03 protein complex	HLA-B*14:03		complete molecule
+HLA-B*15:01 protein complex	HLA-B*15:01	HLA-B*15010101	complete molecule
+HLA-B*15:02 protein complex	HLA-B*15:02		complete molecule
+HLA-B*15:03 protein complex	HLA-B*15:03		complete molecule
+HLA-B*15:04 protein complex	HLA-B*15:04		complete molecule
+HLA-B*15:08 protein complex	HLA-B*15:08		complete molecule
+HLA-B*15:09 protein complex	HLA-B*15:09		complete molecule
+HLA-B*15:10 protein complex	HLA-B*15:10		complete molecule
+HLA-B*15:11 protein complex	HLA-B*15:11		complete molecule
+HLA-B*15:13 protein complex	HLA-B*15:13		complete molecule
+HLA-B*15:15 protein complex	HLA-B*15:15		complete molecule
+HLA-B*15:16 protein complex	HLA-B*15:16		complete molecule
+HLA-B*15:17 protein complex	HLA-B*15:17	HLA-B*15170101	complete molecule
+HLA-B*15:18 protein complex	HLA-B*15:18		complete molecule
+HLA-B*15:21 protein complex	HLA-B*15:21		complete molecule
+HLA-B*15:24 protein complex	HLA-B*15:24		complete molecule
+HLA-B*15:25 protein complex	HLA-B*15:25		complete molecule
+HLA-B*15:39 protein complex	HLA-B*15:39		complete molecule
+HLA-B*15:42 protein complex	HLA-B*15:42		complete molecule
+HLA-B*18:01 protein complex	HLA-B*18:01		complete molecule
+HLA-B*18:03 protein complex	HLA-B*18:03		complete molecule
+HLA-B*27:01 protein complex	HLA-B*27:01		complete molecule
+HLA-B*27:02 protein complex	HLA-B*27:02	HLA-B27.2	complete molecule
+HLA-B*27:03 protein complex	HLA-B*27:03		complete molecule
+HLA-B*27:04 protein complex	HLA-B*27:04		complete molecule
+HLA-B*27:05 protein complex	HLA-B*27:05	HLA-B*27052|HLA-B*270502	complete molecule
+HLA-B*27:06 protein complex	HLA-B*27:06		complete molecule
+HLA-B*27:07 protein complex	HLA-B*27:07		complete molecule
+HLA-B*27:08 protein complex	HLA-B*27:08		complete molecule
+HLA-B*27:09 protein complex	HLA-B*27:09		complete molecule
+HLA-B*27:10 protein complex	HLA-B*27:10		complete molecule
+HLA-B*27:20 protein complex	HLA-B*27:20		complete molecule
+HLA-B*35:01 protein complex	HLA-B*35:01	HLA-B*350101	complete molecule
+HLA-B*35:02 protein complex	HLA-B*35:02		complete molecule
+HLA-B*35:03 protein complex	HLA-B*35:03		complete molecule
+HLA-B*35:04 protein complex	HLA-B*35:04		complete molecule
+HLA-B*35:06 protein complex	HLA-B*35:06		complete molecule
+HLA-B*35:07 protein complex	HLA-B*35:07		complete molecule
+HLA-B*35:08 protein complex	HLA-B*35:08		complete molecule
+HLA-B*35:12 protein complex	HLA-B*35:12		complete molecule
+HLA-B*35:14 protein complex	HLA-B*35:14		complete molecule
+HLA-B*35:62 protein complex	HLA-B*35:62		complete molecule
+HLA-B*37:01 protein complex	HLA-B*37:01		complete molecule
+HLA-B*38:01 protein complex	HLA-B*38:01		complete molecule
+HLA-B*38:02 protein complex	HLA-B*38:02		complete molecule
+HLA-B*39:01 protein complex	HLA-B*39:01	HLA-B*390101	complete molecule
+HLA-B*39:03 protein complex	HLA-B*39:03		complete molecule
+HLA-B*39:05 protein complex	HLA-B*39:05		complete molecule
+HLA-B*39:06 protein complex	HLA-B*39:06		complete molecule
+HLA-B*39:09 protein complex	HLA-B*39:09		complete molecule
+HLA-B*39:10 protein complex	HLA-B*39:10		complete molecule
+HLA-B*39:24 protein complex	HLA-B*39:24		complete molecule
+HLA-B*40:01 protein complex	HLA-B*40:01	HLA-B*40011|HLA-B*400101|HLA-B*400102	complete molecule
+HLA-B*40:02 protein complex	HLA-B*40:02		complete molecule
+HLA-B*40:06 protein complex	HLA-B*40:06	HLA-B*40060101	complete molecule
+HLA-B*40:13 protein complex	HLA-B*40:13		complete molecule
+HLA-B*41:01 protein complex	HLA-B*41:01		complete molecule
+HLA-B*41:02 protein complex	HLA-B*41:02		complete molecule
+HLA-B*41:03 protein complex	HLA-B*41:03		complete molecule
+HLA-B*41:04 protein complex	HLA-B*41:04		complete molecule
+HLA-B*41:05 protein complex	HLA-B*41:05		complete molecule
+HLA-B*41:06 protein complex	HLA-B*41:06		complete molecule
+HLA-B*42:01 protein complex	HLA-B*42:01		complete molecule
+HLA-B*42:02 protein complex	HLA-B*42:02		complete molecule
+HLA-B*44:01 protein complex	HLA-B*44:01		complete molecule
+HLA-B*44:02 protein complex	HLA-B*44:02	HLA-B*44020101	complete molecule
+HLA-B*44:03 protein complex	HLA-B*44:03	HLA-B*440301	complete molecule
+HLA-B*44:05 protein complex	HLA-B*44:05		complete molecule
+HLA-B*44:08 protein complex	HLA-B*44:08		complete molecule
+HLA-B*44:09 protein complex	HLA-B*44:09		complete molecule
+HLA-B*44:27 protein complex	HLA-B*44:27		complete molecule
+HLA-B*44:28 protein complex	HLA-B*44:28		complete molecule
+HLA-B*45:01 protein complex	HLA-B*45:01		complete molecule
+HLA-B*45:06 protein complex	HLA-B*45:06		complete molecule
+HLA-B*45:07 protein complex	HLA-B*45:07		complete molecule
+HLA-B*46:01 protein complex	HLA-B*46:01		complete molecule
+HLA-B*47:01 protein complex	HLA-B*47:01		complete molecule
+HLA-B*48:01 protein complex	HLA-B*48:01		complete molecule
+HLA-B*48:03 protein complex	HLA-B*48:03		complete molecule
+HLA-B*49:01 protein complex	HLA-B*49:01		complete molecule
+HLA-B*50:01 protein complex	HLA-B*50:01		complete molecule
+HLA-B*50:02 protein complex	HLA-B*50:02		complete molecule
+HLA-B*51:01 protein complex	HLA-B*51:01	HLA-B*510101	complete molecule
+HLA-B*51:02 protein complex	HLA-B*51:02	HLA-B*510201	complete molecule
+HLA-B*51:03 protein complex	HLA-B*51:03		complete molecule
+HLA-B*51:08 protein complex	HLA-B*51:08		complete molecule
+HLA-B*52:01 protein complex	HLA-B*52:01	HLA-B*520101	complete molecule
+HLA-B*53:01 protein complex	HLA-B*53:01		complete molecule
+HLA-B*54:01 protein complex	HLA-B*54:01		complete molecule
+HLA-B*55:01 protein complex	HLA-B*55:01		complete molecule
+HLA-B*55:02 protein complex	HLA-B*55:02		complete molecule
+HLA-B*56:01 protein complex	HLA-B*56:01		complete molecule
+HLA-B*57:01 protein complex	HLA-B*57:01	HLA-B*570101	complete molecule
+HLA-B*57:02 protein complex	HLA-B*57:02		complete molecule
+HLA-B*57:03 protein complex	HLA-B*57:03		complete molecule
+HLA-B*58:01 protein complex	HLA-B*58:01		complete molecule
+HLA-B*58:02 protein complex	HLA-B*58:02		complete molecule
+HLA-B*67:01 protein complex	HLA-B*67:01		complete molecule
+HLA-B*73:01 protein complex	HLA-B*73:01		complete molecule
+HLA-B*81:01 protein complex	HLA-B*81:01		complete molecule
+HLA-B*83:01 protein complex	HLA-B*83:01		complete molecule
+HLA-C*01:02 protein complex	HLA-C*01:02	HLA-CW*0102|HLA-Cw*0102	complete molecule
+HLA-C*02:02 protein complex	HLA-C*02:02	HLA-Cw*0202|HLA-Cw*020201	complete molecule
+HLA-C*02:10 protein complex	HLA-C*02:10	Cw*0210	complete molecule
+HLA-C*03:02 protein complex	HLA-C*03:02	HLA-Cw*030201	complete molecule
+HLA-C*03:03 protein complex	HLA-C*03:03	HLA-Cw*0303	complete molecule
+HLA-C*03:04 protein complex	HLA-C*03:04	HLA-Cw*0301|HLA-Cw*0304	complete molecule
+HLA-C*03:13 protein complex	HLA-C*03:13		complete molecule
+HLA-C*04:01 protein complex	HLA-C*04:01	HLA-Cw*0401	complete molecule
+HLA-C*04:03 protein complex	HLA-C*04:03		complete molecule
+HLA-C*05:01 protein complex	HLA-C*05:01	HLA-Cw*0501	complete molecule
+HLA-C*06:02 protein complex	HLA-C*06:02	HLA-Cw*0601|HLA-Cw*0602	complete molecule
+HLA-C*07:01 protein complex	HLA-C*07:01	HLA-Cw*0701|HLA-Cw*07011	complete molecule
+HLA-C*07:02 protein complex	HLA-C*07:02	HLA-Cw*0702	complete molecule
+HLA-C*07:04 protein complex	HLA-C*07:04	HLA-Cw*0704	complete molecule
+HLA-C*07:06 protein complex	HLA-C*07:06	Cw*0706	complete molecule
+HLA-C*07:27 protein complex	HLA-C*07:27		complete molecule
+HLA-C*08:01 protein complex	HLA-C*08:01	HLA-Cw*0801	complete molecule
+HLA-C*08:02 protein complex	HLA-C*08:02	HLA-Cw*0802	complete molecule
+HLA-C*08:03 protein complex	HLA-C*08:03		complete molecule
+HLA-C*12:02 protein complex	HLA-C*12:02		complete molecule
+HLA-C*12:03 protein complex	HLA-C*12:03	HLA-Cw*1203	complete molecule
+HLA-C*12:04 protein complex	HLA-C*12:04	HLA-Cw*12:04	complete molecule
+HLA-C*14:02 protein complex	HLA-C*14:02	HLA-Cw*1402	complete molecule
+HLA-C*14:03 protein complex	HLA-C*14:03		complete molecule
+HLA-C*15:02 protein complex	HLA-C*15:02	HLA-Cw*1502	complete molecule
+HLA-C*15:05 protein complex	HLA-C*15:05		complete molecule
+HLA-C*16:01 protein complex	HLA-C*16:01	HLA-Cw*1601	complete molecule
+HLA-C*16:02 protein complex	HLA-C*16:02	HLA-Cw*160201	complete molecule
+HLA-C*17:01 protein complex	HLA-C*17:01	HLA-Cw*1701	complete molecule
+HLA-C*18:01 protein complex	HLA-C*18:01		complete molecule
+HLA-C*18:02 protein complex	HLA-C*18:02	HLA-Cw*1802	complete molecule
+HLA-DPA1*01:03 protein complex	HLA-DPA1*01:03	HLA-DPA1*010301	partial molecule
+HLA-DPA1*01:03/DPB1*01:01 protein complex	HLA-DPA1*01:03/DPB1*01:01		complete molecule
+HLA-DPA1*01:03/DPB1*02:01 protein complex	HLA-DPA1*01:03/DPB1*02:01		complete molecule
+HLA-DPA1*01:03/DPB1*02:12 protein complex	HLA-DPA1*01:03/DPB1*02:12		complete molecule
+HLA-DPA1*01:03/DPB1*03:01 protein complex	HLA-DPA1*01:03/DPB1*03:01	HLA-DPA1*01031/DPB1*0301	complete molecule
+HLA-DPA1*01:03/DPB1*04:01 protein complex	HLA-DPA1*01:03/DPB1*04:01		complete molecule
+HLA-DPA1*01:03/DPB1*04:02 protein complex	HLA-DPA1*01:03/DPB1*04:02		complete molecule
+HLA-DPA1*01:03/DPB1*05:01 protein complex	HLA-DPA1*01:03/DPB1*05:01		complete molecule
+HLA-DPA1*01:03/DPB1*06:01 protein complex	HLA-DPA1*01:03/DPB1*06:01		complete molecule
+HLA-DPA1*01:03/DPB1*08:01 protein complex	HLA-DPA1*01:03/DPB1*08:01		complete molecule
+HLA-DPA1*01:03/DPB1*09:01 protein complex	HLA-DPA1*01:03/DPB1*09:01		complete molecule
+HLA-DPA1*01:03/DPB1*11:01 protein complex	HLA-DPA1*01:03/DPB1*11:01		complete molecule
+HLA-DPA1*01:03/DPB1*14:01 protein complex	HLA-DPA1*01:03/DPB1*14:01		complete molecule
+HLA-DPA1*01:03/DPB1*17:01 protein complex	HLA-DPA1*01:03/DPB1*17:01		complete molecule
+HLA-DPA1*01:03/DPB1*20:01 protein complex	HLA-DPA1*01:03/DPB1*20:01		complete molecule
+HLA-DPA1*01:03/DPB1*104:01 protein complex	HLA-DPA1*01:03/DPB1*104:01		complete molecule
+HLA-DPA1*01:04 protein complex	HLA-DPA1*01:04		partial molecule
+HLA-DPA1*01:05 protein complex	HLA-DPA1*01:05		partial molecule
+HLA-DPA1*02:01 protein complex	HLA-DPA1*02:01	HLA-DPA1*020101	partial molecule
+HLA-DPA1*02:01/ DPB1*13:01 protein complex	HLA-DPA1*02:01/ DPB1*13:01		complete molecule
+HLA-DPA1*02:01/DPB1*01:01 protein complex	HLA-DPA1*02:01/DPB1*01:01		complete molecule
+HLA-DPA1*02:01/DPB1*02:01 protein complex	HLA-DPA1*02:01/DPB1*02:01		complete molecule
+HLA-DPA1*02:01/DPB1*03:01 protein complex	HLA-DPA1*02:01/DPB1*03:01		complete molecule
+HLA-DPA1*02:01/DPB1*04:01 protein complex	HLA-DPA1*02:01/DPB1*04:01		complete molecule
+HLA-DPA1*02:01/DPB1*05:01 protein complex	HLA-DPA1*02:01/DPB1*05:01		complete molecule
+HLA-DPA1*02:01/DPB1*09:01 protein complex	HLA-DPA1*02:01/DPB1*09:01	HLA-DPw9	complete molecule
+HLA-DPA1*02:01/DPB1*10:01 protein complex	HLA-DPA1*02:01/DPB1*10:01		complete molecule
+HLA-DPA1*02:01/DPB1*14:01 protein complex	HLA-DPA1*02:01/DPB1*14:01		complete molecule
+HLA-DPA1*02:01/DPB1*17:01 protein complex	HLA-DPA1*02:01/DPB1*17:01		complete molecule
+HLA-DPA1*02:02 protein complex	HLA-DPA1*02:02		partial molecule
+HLA-DPA1*02:02/DPB1*01:01 protein complex	HLA-DPA1*02:02/DPB1*01:01		complete molecule
+HLA-DPA1*02:02/DPB1*03:01 protein complex	HLA-DPA1*02:02/DPB1*03:01		complete molecule
+HLA-DPA1*02:02/DPB1*04:01 protein complex	HLA-DPA1*02:02/DPB1*04:01		complete molecule
+HLA-DPA1*02:02/DPB1*05:01 protein complex	HLA-DPA1*02:02/DPB1*05:01		complete molecule
+HLA-DPA1*02:06 protein complex	HLA-DPA1*02:06		partial molecule
+HLA-DPA1*03:01 protein complex	HLA-DPA1*03:01		partial molecule
+HLA-DPA1*03:01/DPB1*04:02 protein complex	HLA-DPA1*03:01/DPB1*04:02		complete molecule
+HLA-DPB1*01:01 protein complex	HLA-DPB1*01:01	HLA-DPB1*01011	partial molecule
+HLA-DPB1*02:01 protein complex	HLA-DPB1*02:01	HLA-DPB1*020102	partial molecule
+HLA-DPB1*03:01 protein complex	HLA-DPB1*03:01		partial molecule
+HLA-DPB1*04:01 protein complex	HLA-DPB1*04:01		partial molecule
+HLA-DPB1*04:02 protein complex	HLA-DPB1*04:02		partial molecule
+HLA-DPB1*05:01 protein complex	HLA-DPB1*05:01		partial molecule
+HLA-DPB1*06:01 protein complex	HLA-DPB1*06:01		partial molecule
+HLA-DPB1*09:01 protein complex	HLA-DPB1*09:01		partial molecule
+HLA-DPB1*10:01 protein complex	HLA-DPB1*10:01		partial molecule
+HLA-DPB1*11:01 protein complex	HLA-DPB1*11:01	HLA-DPB1*110101	partial molecule
+HLA-DPB1*13:01 protein complex	HLA-DPB1*13:01		partial molecule
+HLA-DPB1*14:01 protein complex	HLA-DPB1*14:01		partial molecule
+HLA-DPB1*15:01 protein complex	HLA-DPB1*15:01		partial molecule
+HLA-DPB1*16:01 protein complex	HLA-DPB1*16:01		partial molecule
+HLA-DPB1*17:01 protein complex	HLA-DPB1*17:01		partial molecule
+HLA-DPB1*18:01 protein complex	HLA-DPB1*18:01		partial molecule
+HLA-DPB1*20:01 protein complex	HLA-DPB1*20:01		partial molecule
+HLA-DPB1*23:01 protein complex	HLA-DPB1*23:01		partial molecule
+HLA-DPB1*31:01 protein complex	HLA-DPB1*31:01		partial molecule
+HLA-DPB1*34:01 protein complex	HLA-DPB1*34:01		partial molecule
+HLA-DPB1*85:01 protein complex	HLA-DPB1*85:01	HLA-DPB1*8501	partial molecule
+HLA-DPB1*104:01 protein complex	HLA-DPB1*104:01		partial molecule
+HLA-DQA1*01:01 protein complex	HLA-DQA1*01:01		partial molecule
+HLA-DQA1*01:01/DQB1*02:01 protein complex	HLA-DQA1*01:01/DQB1*02:01		complete molecule
+HLA-DQA1*01:01/DQB1*03:01 protein complex	HLA-DQA1*01:01/DQB1*03:01		complete molecule
+HLA-DQA1*01:01/DQB1*03:02 protein complex	HLA-DQA1*01:01/DQB1*03:02		complete molecule
+HLA-DQA1*01:01/DQB1*05:01 protein complex	HLA-DQA1*01:01/DQB1*05:01		complete molecule
+HLA-DQA1*01:01/DQB1*05:03 protein complex	HLA-DQA1*01:01/DQB1*05:03		complete molecule
+HLA-DQA1*01:01/DQB1*06:02 protein complex	HLA-DQA1*01:01/DQB1*06:02		complete molecule
+HLA-DQA1*01:02 protein complex	HLA-DQA1*01:02		partial molecule
+HLA-DQA1*01:02/DQB1*02:01 protein complex	HLA-DQA1*01:02/DQB1*02:01		complete molecule
+HLA-DQA1*01:02/DQB1*02:02 protein complex	HLA-DQA1*01:02/DQB1*02:02		complete molecule
+HLA-DQA1*01:02/DQB1*03:01 protein complex	HLA-DQA1*01:02/DQB1*03:01	DQ3t12|HLA-DQA*0102/DQB1*0301	complete molecule
+HLA-DQA1*01:02/DQB1*03:02 protein complex	HLA-DQA1*01:02/DQB1*03:02		complete molecule
+HLA-DQA1*01:02/DQB1*03:03 protein complex	HLA-DQA1*01:02/DQB1*03:03		complete molecule
+HLA-DQA1*01:02/DQB1*05:01 protein complex	HLA-DQA1*01:02/DQB1*05:01		complete molecule
+HLA-DQA1*01:02/DQB1*05:02 protein complex	HLA-DQA1*01:02/DQB1*05:02		complete molecule
+HLA-DQA1*01:02/DQB1*05:03 protein complex	HLA-DQA1*01:02/DQB1*05:03		complete molecule
+HLA-DQA1*01:02/DQB1*06:02 protein complex	HLA-DQA1*01:02/DQB1*06:02		complete molecule
+HLA-DQA1*01:02/DQB1*06:03 protein complex	HLA-DQA1*01:02/DQB1*06:03		complete molecule
+HLA-DQA1*01:02/DQB1*06:04 protein complex	HLA-DQA1*01:02/DQB1*06:04		complete molecule
+HLA-DQA1*01:02/DRB1*15:01 protein complex	HLA-DQA1*01:02/DRB1*15:01		complete molecule
+HLA-DQA1*01:03 protein complex	HLA-DQA1*01:03		partial molecule
+HLA-DQA1*01:03/DQB1*02:01 protein complex	HLA-DQA1*01:03/DQB1*02:01		complete molecule
+HLA-DQA1*01:03/DQB1*02:02 protein complex	HLA-DQA1*01:03/DQB1*02:02		complete molecule
+HLA-DQA1*01:03/DQB1*03:02 protein complex	HLA-DQA1*01:03/DQB1*03:02		complete molecule
+HLA-DQA1*01:03/DQB1*06:01 protein complex	HLA-DQA1*01:03/DQB1*06:01		complete molecule
+HLA-DQA1*01:03/DQB1*06:03 protein complex	HLA-DQA1*01:03/DQB1*06:03		complete molecule
+HLA-DQA1*01:04 protein complex	HLA-DQA1*01:04		partial molecule
+HLA-DQA1*01:04 protein complex	HLA-DQA1*01:04		partial molecule
+HLA-DQA1*01:04/DQB1*05:03 protein complex	HLA-DQA1*01:04/DQB1*05:03		complete molecule
+HLA-DQA1*01:05 protein complex	HLA-DQA1*01:05		partial molecule
+HLA-DQA1*01:05/DQB1*05:01 protein complex	HLA-DQA1*01:05/DQB1*05:01		complete molecule
+HLA-DQA1*01:05/DQB1*05:02 protein complex	HLA-DQA1*01:05/DQB1*05:02		complete molecule
+HLA-DQA1*02:01 protein complex	HLA-DQA1*02:01		partial molecule
+HLA-DQA1*02:01/DQB1*02:01 protein complex	HLA-DQA1*02:01/DQB1*02:01		complete molecule
+HLA-DQA1*02:01/DQB1*02:02 protein complex	HLA-DQA1*02:01/DQB1*02:02		complete molecule
+HLA-DQA1*02:01/DQB1*03:01 protein complex	HLA-DQA1*02:01/DQB1*03:01		complete molecule
+HLA-DQA1*02:01/DQB1*03:02 protein complex	HLA-DQA1*02:01/DQB1*03:02		complete molecule
+HLA-DQA1*02:01/DQB1*03:03 protein complex	HLA-DQA1*02:01/DQB1*03:03		complete molecule
+HLA-DQA1*02:01/DQB1*04:02 protein complex	HLA-DQA1*02:01/DQB1*04:02		complete molecule
+HLA-DQA1*02:01/DQB1*06:03 protein complex	HLA-DQA1*02:01/DQB1*06:03		complete molecule
+HLA-DQA1*02:01/DQB1*06:04 protein complex	HLA-DQA1*02:01/DQB1*06:04		complete molecule
+HLA-DQA1*03:01 protein complex	HLA-DQA1*03:01		partial molecule
+HLA-DQA1*03:01/DQB1*02:01 protein complex	HLA-DQA1*03:01/DQB1*02:01		complete molecule
+HLA-DQA1*03:01/DQB1*03:01 protein complex	HLA-DQA1*03:01/DQB1*03:01		complete molecule
+HLA-DQA1*03:01/DQB1*03:02 protein complex	HLA-DQA1*03:01/DQB1*03:02		complete molecule
+HLA-DQA1*03:01/DQB1*03:03 protein complex	HLA-DQA1*03:01/DQB1*03:03		complete molecule
+HLA-DQA1*03:01/DQB1*04:01 protein complex	HLA-DQA1*03:01/DQB1*04:01		complete molecule
+HLA-DQA1*03:01/DQB1*05:01 protein complex	HLA-DQA1*03:01/DQB1*05:01		complete molecule
+HLA-DQA1*03:01/DQB1*06:02 protein complex	HLA-DQA1*03:01/DQB1*06:02		complete molecule
+HLA-DQA1*03:02 protein complex	HLA-DQA1*03:02		partial molecule
+HLA-DQA1*03:02/DQB1*03:01 protein complex	HLA-DQA1*03:02/DQB1*03:01	HLA-DQ7.3	complete molecule
+HLA-DQA1*03:02/DQB1*03:02 protein complex	HLA-DQA1*03:02/DQB1*03:02		complete molecule
+HLA-DQA1*03:02/DQB1*03:03 protein complex	HLA-DQA1*03:02/DQB1*03:03		complete molecule
+HLA-DQA1*03:02/DQB1*04:01 protein complex	HLA-DQA1*03:02/DQB1*04:01		complete molecule
+HLA-DQA1*03:03 protein complex	HLA-DQA1*03:03		partial molecule
+HLA-DQA1*03:03/DQB1*02:02 protein complex	HLA-DQA1*03:03/DQB1*02:02		complete molecule
+HLA-DQA1*03:03/DQB1*03:01 protein complex	HLA-DQA1*03:03/DQB1*03:01	DQ3	complete molecule
+HLA-DQA1*03:03/DQB1*03:02 protein complex	HLA-DQA1*03:03/DQB1*03:02		complete molecule
+HLA-DQA1*03:03/DQB1*04:02 protein complex	HLA-DQA1*03:03/DQB1*04:02		complete molecule
+HLA-DQA1*03:03/DQB1*06:02 protein complex	HLA-DQA1*03:03/DQB1*06:02		complete molecule
+HLA-DQA1*04:01 protein complex	HLA-DQA1*04:01		partial molecule
+HLA-DQA1*04:01/DQB1*03:01 protein complex	HLA-DQA1*04:01/DQB1*03:01		complete molecule
+HLA-DQA1*04:01/DQB1*04:02 protein complex	HLA-DQA1*04:01/DQB1*04:02		complete molecule
+HLA-DQA1*05:01 protein complex	HLA-DQA1*05:01		partial molecule
+HLA-DQA1*05:01/DQB1*02:01 protein complex	HLA-DQA1*05:01/DQB1*02:01		complete molecule
+HLA-DQA1*05:01/DQB1*03:01 protein complex	HLA-DQA1*05:01/DQB1*03:01		complete molecule
+HLA-DQA1*05:01/DQB1*03:02 protein complex	HLA-DQA1*05:01/DQB1*03:02	HLA-DQA1*0501/HLA-DQB1*0302	complete molecule
+HLA-DQA1*05:01/DQB1*03:03 protein complex	HLA-DQA1*05:01/DQB1*03:03		complete molecule
+HLA-DQA1*05:01/DQB1*04:02 protein complex	HLA-DQA1*05:01/DQB1*04:02		complete molecule
+HLA-DQA1*05:01/DQB1*05:01 protein complex	HLA-DQA1*05:01/DQB1*05:01		complete molecule
+HLA-DQA1*05:01/DQB1*06:02 protein complex	HLA-DQA1*05:01/DQB1*06:02		complete molecule
+HLA-DQA1*05:03 protein complex	HLA-DQA1*05:03		partial molecule
+HLA-DQA1*05:05 protein complex	HLA-DQA1*05:05		partial molecule
+HLA-DQA1*05:05/DQB1*02:02 protein complex	HLA-DQA1*05:05/DQB1*02:02		complete molecule
+HLA-DQA1*05:05/DQB1*03:01 protein complex	HLA-DQA1*05:05/DQB1*03:01		complete molecule
+HLA-DQA1*05:05/DQB1*03:02 protein complex	HLA-DQA1*05:05/DQB1*03:02		complete molecule
+HLA-DQA1*05:05/DQB1*04:02 protein complex	HLA-DQA1*05:05/DQB1*04:02		complete molecule
+HLA-DQA1*05:05/DQB1*05:01 protein complex	HLA-DQA1*05:05/DQB1*05:01		complete molecule
+HLA-DQA1*05:05/DQB1*05:03 protein complex	HLA-DQA1*05:05/DQB1*05:03		complete molecule
+HLA-DQA1*05:05/DQB1*06:02 protein complex	HLA-DQA1*05:05/DQB1*06:02		complete molecule
+HLA-DQA1*06:01/DQB1*04:02 protein complex	HLA-DQA1*06:01/DQB1*04:02		complete molecule
+HLA-DQB1*02:01 protein complex	HLA-DQB1*02:01		partial molecule
+HLA-DQB1*02:02 protein complex	HLA-DQB1*02:02		partial molecule
+HLA-DQB1*03:01 protein complex	HLA-DQB1*03:01		partial molecule
+HLA-DQB1*03:02 protein complex	HLA-DQB1*03:02		partial molecule
+HLA-DQB1*03:03 protein complex	HLA-DQB1*03:03		partial molecule
+HLA-DQB1*03:04 protein complex	HLA-DQB1*03:04		partial molecule
+HLA-DQB1*03:05 protein complex	HLA-DQB1*03:05		partial molecule
+HLA-DQB1*03:19 protein complex	HLA-DQB1*03:19		partial molecule
+HLA-DQB1*04:01 protein complex	HLA-DQB1*04:01		partial molecule
+HLA-DQB1*04:02 protein complex	HLA-DQB1*04:02		partial molecule
+HLA-DQB1*05:01 protein complex	HLA-DQB1*05:01		partial molecule
+HLA-DQB1*05:02 protein complex	HLA-DQB1*05:02		partial molecule
+HLA-DQB1*05:03 protein complex	HLA-DQB1*05:03		partial molecule
+HLA-DQB1*05:04 protein complex	HLA-DQB1*05:04		partial molecule
+HLA-DQB1*06:01 protein complex	HLA-DQB1*06:01		partial molecule
+HLA-DQB1*06:02 protein complex	HLA-DQB1*06:02		partial molecule
+HLA-DQB1*06:03 protein complex	HLA-DQB1*06:03		partial molecule
+HLA-DQB1*06:04 protein complex	HLA-DQB1*06:04		partial molecule
+HLA-DQB1*06:05 protein complex	HLA-DQB1*06:05		partial molecule
+HLA-DQB1*06:09 protein complex	HLA-DQB1*06:09		partial molecule
+HLA-DRA*01:01/DRB1*01:01 protein complex	HLA-DRA*01:01/DRB1*01:01	HLA-DRA1*0101/DRB1*0101	complete molecule
+HLA-DRA*01:01/DRB1*03:01 protein complex	HLA-DRA*01:01/DRB1*03:01	HLA-DRA1*0101/DRB1*0301	complete molecule
+HLA-DRA*01:01/DRB1*04:01 protein complex	HLA-DRA*01:01/DRB1*04:01	HLA-DRA1*0101/DRB1*0401	complete molecule
+HLA-DRA*01:01/DRB1*04:04 protein complex	HLA-DRA*01:01/DRB1*04:04	HLA-DRA1*0101/DRB1*0404	complete molecule
+HLA-DRA*01:01/DRB1*07:01 protein complex	HLA-DRA*01:01/DRB1*07:01	HLA-DRA1*0101/DRB1*0701	complete molecule
+HLA-DRA*01:01/DRB1*08:01 protein complex	HLA-DRA*01:01/DRB1*08:01	HLA-DRA/HLA-DRB1*0801	complete molecule
+HLA-DRA*01:01/DRB1*09:01 protein complex	HLA-DRA*01:01/DRB1*09:01		complete molecule
+HLA-DRA*01:01/DRB1*10:01 protein complex	HLA-DRA*01:01/DRB1*10:01		complete molecule
+HLA-DRA*01:01/DRB1*11:01 protein complex	HLA-DRA*01:01/DRB1*11:01		complete molecule
+HLA-DRA*01:01/DRB1*13:01 protein complex	HLA-DRA*01:01/DRB1*13:01		complete molecule
+HLA-DRA*01:01/DRB1*13:02 protein complex	HLA-DRA*01:01/DRB1*13:02		complete molecule
+HLA-DRA*01:01/DRB1*14:54 protein complex	HLA-DRA*01:01/DRB1*14:54		complete molecule
+HLA-DRA*01:01/DRB1*15:01 protein complex	HLA-DRA*01:01/DRB1*15:01		complete molecule
+HLA-DRA*01:01/DRB3*01:01 protein complex	HLA-DRA*01:01/DRB3*01:01		complete molecule
+HLA-DRA*01:01/DRB3*02:02 protein complex	HLA-DRA*01:01/DRB3*02:02		complete molecule
+HLA-DRA*01:01/DRB3*03:01 protein complex	HLA-DRA*01:01/DRB3*03:01		complete molecule
+HLA-DRA*01:01/DRB4*01:01 protein complex	HLA-DRA*01:01/DRB4*01:01		complete molecule
+HLA-DRA*01:01/DRB4*01:03 protein complex	HLA-DRA*01:01/DRB4*01:03		complete molecule
+HLA-DRA*01:01/DRB5*01:01 protein complex	HLA-DRA*01:01/DRB5*01:01		complete molecule
+HLA-DRA*01:02/DRB1*03:01 protein complex	HLA-DRA*01:02/DRB1*03:01		complete molecule
+HLA-DRA*01:02/DRB1*13:01 protein complex	HLA-DRA*01:02/DRB1*13:01		complete molecule
+HLA-DRA*01:02/DRB3*01:01 protein complex	HLA-DRA*01:02/DRB3*01:01		complete molecule
+HLA-DRA*01:02/DRB3*02:02 protein complex	HLA-DRA*01:02/DRB3*02:02		complete molecule
+HLA-DRB1*01:01 protein complex	HLA-DRB1*01:01	HLA-DRB1*010101	partial molecule
+HLA-DRB1*01:02 protein complex	HLA-DRB1*01:02	HLA-DRB1*010201	partial molecule
+HLA-DRB1*01:03 protein complex	HLA-DRB1*01:03		partial molecule
+HLA-DRB1*01:04 protein complex	HLA-DRB1*01:04		partial molecule
+HLA-DRB1*01:07 protein complex	HLA-DRB1*01:07		partial molecule
+HLA-DRB1*03:01 protein complex	HLA-DRB1*03:01	HLA-DRB1*03011	partial molecule
+HLA-DRB1*03:02 protein complex	HLA-DRB1*03:02		partial molecule
+HLA-DRB1*03:03 protein complex	HLA-DRB1*03:03		partial molecule
+HLA-DRB1*03:04 protein complex	HLA-DRB1*03:04		partial molecule
+HLA-DRB1*03:05 protein complex	HLA-DRB1*03:05		partial molecule
+HLA-DRB1*03:11 protein complex	HLA-DRB1*03:11		partial molecule
+HLA-DRB1*04:01 protein complex	HLA-DRB1*04:01	HLA-DRB1*040101	partial molecule
+HLA-DRB1*04:02 protein complex	HLA-DRB1*04:02		partial molecule
+HLA-DRB1*04:03 protein complex	HLA-DRB1*04:03	HLA-DRB1*040301	partial molecule
+HLA-DRB1*04:04 protein complex	HLA-DRB1*04:04		partial molecule
+HLA-DRB1*04:05 protein complex	HLA-DRB1*04:05	HLA-DRB1*040501	partial molecule
+HLA-DRB1*04:06 protein complex	HLA-DRB1*04:06		partial molecule
+HLA-DRB1*04:07 protein complex	HLA-DRB1*04:07	HLA-DRB1*040701	partial molecule
+HLA-DRB1*04:08 protein complex	HLA-DRB1*04:08		partial molecule
+HLA-DRB1*04:10 protein complex	HLA-DRB1*04:10		partial molecule
+HLA-DRB1*04:11 protein complex	HLA-DRB1*04:11		partial molecule
+HLA-DRB1*04:22 protein complex	HLA-DRB1*04:22		partial molecule
+HLA-DRB1*07:01 protein complex	HLA-DRB1*07:01	HLA-DRB1*070101	partial molecule
+HLA-DRB1*07:03 protein complex	HLA-DRB1*07:03		partial molecule
+HLA-DRB1*08:01 protein complex	HLA-DRB1*08:01	HLA-DRB1*080101	partial molecule
+HLA-DRB1*08:02 protein complex	HLA-DRB1*08:02	HLA-DRB1*080201	partial molecule
+HLA-DRB1*08:03 protein complex	HLA-DRB1*08:03	HLA-DRB1*080302	partial molecule
+HLA-DRB1*08:04 protein complex	HLA-DRB1*08:04		partial molecule
+HLA-DRB1*08:05 protein complex	HLA-DRB1*08:05		partial molecule
+HLA-DRB1*08:18 protein complex	HLA-DRB1*08:18		partial molecule
+HLA-DRB1*08:20 protein complex	HLA-DRB1*08:20		partial molecule
+HLA-DRB1*09:01 protein complex	HLA-DRB1*09:01	HLA-DRB1*090102	partial molecule
+HLA-DRB1*10:01 protein complex	HLA-DRB1*10:01	HLA-DRB1*100101	partial molecule
+HLA-DRB1*11:01 protein complex	HLA-DRB1*11:01	HLA-DRB1*11011|HLA-DRB1*110101	partial molecule
+HLA-DRB1*11:02 protein complex	HLA-DRB1*11:02		partial molecule
+HLA-DRB1*11:03 protein complex	HLA-DRB1*11:03		partial molecule
+HLA-DRB1*11:04 protein complex	HLA-DRB1*11:04	HLA-DRB1*110401	partial molecule
+HLA-DRB1*11:13 protein complex	HLA-DRB1*11:13		partial molecule
+HLA-DRB1*11:21 protein complex	HLA-DRB1*11:21		partial molecule
+HLA-DRB1*12:01 protein complex	HLA-DRB1*12:01	HLA-DRB1*120101	partial molecule
+HLA-DRB1*12:02 protein complex	HLA-DRB1*12:02		partial molecule
+HLA-DRB1*12:03 protein complex	HLA-DRB1*12:03		partial molecule
+HLA-DRB1*13:01 protein complex	HLA-DRB1*13:01	HLA-DRB1*130101	partial molecule
+HLA-DRB1*13:02 protein complex	HLA-DRB1*13:02	HLA-DRB1*130201	partial molecule
+HLA-DRB1*13:03 protein complex	HLA-DRB1*13:03	HLA-DRB1*130301	partial molecule
+HLA-DRB1*13:04 protein complex	HLA-DRB1*13:04		partial molecule
+HLA-DRB1*13:05 protein complex	HLA-DRB1*13:05		partial molecule
+HLA-DRB1*13:07 protein complex	HLA-DRB1*13:07		partial molecule
+HLA-DRB1*13:15 protein complex	HLA-DRB1*13:15		partial molecule
+HLA-DRB1*13:68 protein complex	HLA-DRB1*13:68		partial molecule
+HLA-DRB1*14:01 protein complex	HLA-DRB1*14:01	HLA-DRB1*140101	partial molecule
+HLA-DRB1*14:02 protein complex	HLA-DRB1*14:02		partial molecule
+HLA-DRB1*14:04 protein complex	HLA-DRB1*14:04		partial molecule
+HLA-DRB1*14:05 protein complex	HLA-DRB1*14:05	HLA-DRB1*140501	partial molecule
+HLA-DRB1*14:06 protein complex	HLA-DRB1*14:06		partial molecule
+HLA-DRB1*14:09 protein complex	HLA-DRB1*14:09		partial molecule
+HLA-DRB1*14:10 protein complex	HLA-DRB1*14:10		partial molecule
+HLA-DRB1*14:54 protein complex	HLA-DRB1*14:54		partial molecule
+HLA-DRB1*15:01 protein complex	HLA-DRB1*15:01	HLA-DRB1*150101	partial molecule
+HLA-DRB1*15:02 protein complex	HLA-DRB1*15:02	HLA-DRB1*150201	partial molecule
+HLA-DRB1*15:03 protein complex	HLA-DRB1*15:03		partial molecule
+HLA-DRB1*15:04 protein complex	HLA-DRB1*15:04		partial molecule
+HLA-DRB1*15:05 protein complex	HLA-DRB1*15:05		partial molecule
+HLA-DRB1*15:06 protein complex	HLA-DRB1*15:06		partial molecule
+HLA-DRB1*16:01 protein complex	HLA-DRB1*16:01		partial molecule
+HLA-DRB1*16:02 protein complex	HLA-DRB1*16:02		partial molecule
+HLA-DRB3*01:01 protein complex	HLA-DRB3*01:01	HLA-DR52a|HLA-DRB3*010101	partial molecule
+HLA-DRB3*02:01 protein complex	HLA-DRB3*02:01		partial molecule
+HLA-DRB3*02:02 protein complex	HLA-DRB3*02:02	HLA-DR52b|HLA-DRB3*020201	partial molecule
+HLA-DRB3*03:01 protein complex	HLA-DRB3*03:01	HLA-DR52c|HLA-DRB3*030101	partial molecule
+HLA-DRB4*01:01 protein complex	HLA-DRB4*01:01		partial molecule
+HLA-DRB4*01:02 protein complex	HLA-DRB4*01:02		partial molecule
+HLA-DRB4*01:03 protein complex	HLA-DRB4*01:03	HLA-DRB4*01030101	partial molecule
+HLA-DRB5*01:01 protein complex	HLA-DRB5*01:01		partial molecule
+HLA-DRB5*01:02 protein complex	HLA-DRB5*01:02		partial molecule
+HLA-DRB5*02:02 protein complex	HLA-DRB5*02:02	HLA-DRB5*0201	partial molecule
+HLA-E*01:01 protein complex	HLA-E*01:01		complete molecule
+HLA-E*01:03 protein complex	HLA-E*01:03		complete molecule
+HLA-F*01:01 protein complex	HLA-F*01:01		complete molecule
+HLA-F*01:03 protein complex	HLA-F*01:03		complete molecule
+HLA-F*01:04 protein complex	HLA-F*01:04		complete molecule
+HLA-G*01:01 protein complex	HLA-G*01:01		complete molecule
+HLA-G*01:03 protein complex	HLA-G*01:03		complete molecule
+HLA-G*01:04 protein complex	HLA-G*01:04		complete molecule
+Mafa-DQB1*18:01 protein complex	Mafa-DQB1*1801		partial molecule
+Mafa-DRB*w5:01 protein complex	Mafa-DRB*w501		partial molecule
+Mamu-A1*001:01 protein complex	Mamu-A1*001:01	Mamu-A*01	complete molecule
+Mamu-A1*002:01 protein complex	Mamu-A1*002:01	Mamu-A*02	complete molecule
+Mamu-A1*007:01 protein complex	Mamu-A1*007:01	Mamu-A*07	complete molecule
+Mamu-A1*011:01 protein complex	Mamu-A1*011:01	Mamu-A*11|MHCI-A*11	complete molecule
+Mamu-A1*022:02 protein complex	Mamu-A1*022:02	Mamu-A*08|Mamu-Ch_A*08	complete molecule
+Mamu-A1*065:01 protein complex	Mamu-A1*065:01		complete molecule
+Mamu-A2*01:02:01 protein complex	Mamu-A2*01:02:01	Mamu-Ch_A*12	complete molecule
+Mamu-A7*01:03 protein complex	Mamu-A7*01:03	Mamu-A7*0101	complete molecule
+Mamu-B*001:01 protein complex	Mamu-B*001:01	Mamu-B*01	complete molecule
+Mamu-B*003:01 protein complex	Mamu-B*003:01	Mamu-B*03	complete molecule
+Mamu-B*004:01 protein complex	Mamu-B*004:01	Mamu-B*04	complete molecule
+Mamu-B*008:01 protein complex	Mamu-B*008:01	Mamu*B08|Mamu-B*0801	complete molecule
+Mamu-B*012:02 protein complex	Mamu-B*012:02	Mamu-B*12	complete molecule
+Mamu-B*017:04 protein complex	Mamu-B*017:04	Mamu-B*17	complete molecule
+Mamu-B*029:01 protein complex	Mamu-B*029:01	Mamu-B*029	complete molecule
+Mamu-B*039:01 protein complex	Mamu-B*039:01	Mamu-B*39	complete molecule
+Mamu-B*051:04 protein complex	Mamu-B*051:04	Mamu-B*05104	complete molecule
+Mamu-B*065:02 protein complex	Mamu-B*065:02	Mamu-B*08|Mamu-Ch_B*08	complete molecule
+Mamu-B*066:01 protein complex	Mamu-B*066:01	B9-7	complete molecule
+Mamu-B*083:01 protein complex	Mamu-B*083:01	Mamu-Ch_B*06	complete molecule
+Mamu-B*087:01 protein complex	Mamu-B*087:01	Mamu-Ch_B*15	complete molecule
+Mamu-B*090:01 protein complex	Mamu-B*090:01	Mamu-Ch_B*20	complete molecule
+Mamu-B*098 protein complex	Mamu-B*098		complete molecule
+Mamu-DPB1*01:01 protein complex	Mamu-DPB1*01:01		partial molecule
+Mamu-DPB1*07:01 protein complex	Mamu-DPB1*07:01		partial molecule
+Mamu-DRB1*03:03 protein complex	Mamu-DRB1*03:03		partial molecule
+Mamu-DRB1*03:06 protein complex	Mamu-DRB1*03:06		partial molecule
+Mamu-DRB1*03:08 protein complex	Mamu-DRB1*03:08		partial molecule
+Mamu-DRB1*04:06 protein complex	Mamu-DRB1*04:06		partial molecule
+Mamu-DRB*W6:02 protein complex	Mamu-DRB*W6:02	Mamu-DRB6*0102	partial molecule
+Mamu-DRB*w2:01 protein complex	Mamu-DRB*w2:01	Mamu-DRBW2*0101	partial molecule
+Mamu-E*02:04 protein complex	Mamu-E*02:04		complete molecule
+Mamu-MR1 protein complex	Mamu-MR1		complete molecule
+Papa-A*06:01 protein complex	Papa-A*06:01	Papa-A06	complete molecule
+Patr-A*01:01 protein complex	Patr-A*01:01		complete molecule
+Patr-A*03:01 protein complex	Patr-A*03:01		complete molecule
+Patr-A*04:01 protein complex	Patr-A*04:01		complete molecule
+Patr-A*04:02 protein complex	Patr-A*04:02		complete molecule
+Patr-A*05:01 protein complex	Patr-A*05:01		complete molecule
+Patr-A*06:01 protein complex	Patr-A*06:01	Patr-A*06	complete molecule
+Patr-A*06:02 protein complex	Patr-A*06:02		complete molecule
+Patr-A*07:01 protein complex	Patr-A*07:01		complete molecule
+Patr-A*09:01 protein complex	Patr-A*09:01		complete molecule
+Patr-A*11:01 protein complex	Patr-A*11:01	Patr-A*11	complete molecule
+Patr-A*14:01 protein complex	Patr-A*14:01		complete molecule
+Patr-B*01:01 protein complex	Patr-B*01:01		complete molecule
+Patr-B*02:01 protein complex	Patr-B*02:01		complete molecule
+Patr-B*03:01 protein complex	Patr-B*03:01		complete molecule
+Patr-B*03:02 protein complex	Patr-B*03:02		complete molecule
+Patr-B*04:01 protein complex	Patr-B*04:01		complete molecule
+Patr-B*05:01 protein complex	Patr-B*05:01		complete molecule
+Patr-B*09:01 protein complex	Patr-B*09:01		complete molecule
+Patr-B*13:01 protein complex	Patr-B*13:01	Patr-B*13	complete molecule
+Patr-B*14:01 protein complex	Patr-B*14:01		complete molecule
+Patr-B*16:01 protein complex	Patr-B*16:01	Patr-B*16	complete molecule
+Patr-B*16:02 protein complex	Patr-B*16:02		complete molecule
+Patr-B*17:01 protein complex	Patr-B*17:01		complete molecule
+Patr-B*20:01 protein complex	Patr-B*20:01		complete molecule
+Patr-B*23:01 protein complex	Patr-B*23:01		complete molecule
+Patr-B*23:02 protein complex	Patr-B*23:02		complete molecule
+Patr-B*24:01 protein complex	Patr-B*24:01		complete molecule
+Patr-C*02:03 protein complex	Patr-C*02:03		complete molecule
+Patr-C*04:01 protein complex	Patr-C*04:01		complete molecule
+Patr-C*05:02 protein complex	Patr-C*05:02		complete molecule
+Patr-C*06:01 protein complex	Patr-C*06:01		complete molecule
+Patr-DRB1*03:08 protein complex	Patr-DRB1*03:08		partial molecule
+Patr-DRB1*07:01 protein complex	Patr-DRB1*07:01		partial molecule
+Patr-DRB1*10:01 protein complex	Patr-DRB1*10:01		partial molecule
+Patr-DRB5*03:10 protein complex	Patr-DRB5*03:10		partial molecule
+Ptal-N*01:01 protein complex	Ptal-N*01:01		complete molecule
+RLA-A*01 protein complex	RLA-A*01		complete molecule
+RT1-Aa protein complex	RT1-Aa		complete molecule
+RT1-Ac protein complex	RT1-Ac		complete molecule
+RT1-Ba protein complex	RT1-Ba		complete molecule
+RT1-Bk protein complex	RT1-Bk		complete molecule
+RT1-Bl protein complex	RT1-Bl		complete molecule
+RT1-Bn protein complex	RT1-Bn		complete molecule
+RT1-Bu protein complex	RT1-Bu		complete molecule
+RT1-Da protein complex	RT1-Da		complete molecule
+RT1-Dl protein complex	RT1-Dl		complete molecule
+RT1-Dn protein complex	RT1-Dn		complete molecule
+RT1-Du protein complex	RT1-Du		complete molecule
+SLA-1*03:02 protein complex	SLA-1*03:02		complete molecule
+SLA-1*04:01 protein complex	SLA-1*04:01		complete molecule
+SLA-1*07:02 protein complex	SLA-1*07:02	"SLA-1*0702, SLA-1*07ce08"	complete molecule
+SLA-1*08:09 protein complex	SLA-1*08:09	SLA-1*0809	complete molecule
+SLA-1*11:01 protein complex	SLA-1*11:01	SLA-1*1101	complete molecule
+SLA-1*11:10 protein complex	SLA-1*11:10	SLA-1*1110	complete molecule
+SLA-1*12:01 protein complex	SLA-1*12:01	SLA-1*1201	complete molecule
+SLA-1*13:01 protein complex	SLA-1*13:01	SLA-1*1301	complete molecule
+SLA-1*14:02 protein complex	SLA-1*14:02	SLA-1*es11	complete molecule
+SLA-1*15:02 protein complex	SLA-1*15:02		complete molecule
+SLA-1*20:01 protein complex	SLA-1*20:01	SLA-1*2001	complete molecule
+SLA-2*01:06 protein complex	SLA-2*01:06		complete molecule
+SLA-2*04:01 protein complex	SLA-2*04:01		complete molecule
+SLA-2*04:02 protein complex	SLA-2*04:02		complete molecule
+SLA-2*05:02 protein complex	SLA-2*05:02		complete molecule
+SLA-2*11:04 protein complex	SLA-2*11:04	Topigs|SLA-1*es22	complete molecule
+SLA-3*02:02 protein complex	SLA-3*02:02	SLA-3*hs0202	complete molecule
+SLA-3*04:01 protein complex	SLA-3*04:01		complete molecule
+YF1w*7.1 protein complex	YF1w*7.1	YF1*7.1	complete molecule
+cattle CD1b3 protein complex	cattle CD1b3	boCD1b3|cowCD1b3	complete molecule
+cattle CD1d protein complex	cattle CD1d	boCD1d|cowCD1d	complete molecule
+cattle MR1 protein complex	cattle MR1	boMR1|cowMR1	complete molecule
+chicken CD1-1 protein complex	chicken CD1-1	cCD1-1|CD1.1	complete molecule
+chicken CD1-2 protein complex	chicken CD1-2	cCD1-2|CD1.2	complete molecule
+human BTN3A1 protein complex	human BTN3A1	Butyrophilin BTN3A1	complete molecule
+human CD1a protein complex	human CD1a	hCD1a|HLA-CD1a	complete molecule
+human CD1b protein complex	human CD1b	hCD1b|HLA-CD1b	complete molecule
+human CD1c protein complex	human CD1c	hCD1c|HLA-CD1c	complete molecule
+human CD1d protein complex	human CD1d	hCD1d|HLA-CD1d	complete molecule
+human MR1 protein complex	human MR1	HLA-MR1|hMR1	complete molecule
+mouse CD1d1 protein complex	mouse CD1d1		complete molecule
+mouse CD1d2 protein complex	mouse CD1d2		complete molecule
+mouse MR1 protein complex	mouse MR1	mMR1	complete molecule
+rat CD1d protein complex	rat CD1d	rCD1d	complete molecule
+rhesus macaque MR1 protein complex	rhesus macaque MR1		complete molecule
