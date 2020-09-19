@@ -15,6 +15,7 @@ with open(molecule_file) as fh:
         or molecule["Restriction Level"] == "partial molecule"
     ]
 
+
 def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
 
     # Thanks to Austin Crinklaw
@@ -52,7 +53,7 @@ def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
 
 def validate_pep_seq_mhc_name(pep_seq, mhc_name):
     if mhc_name not in molecules:
-       return f"{mhc_name} is not a valid MHC name"
+        return f"{mhc_name} is not a valid MHC name"
     return None
     # Need to know how to match mhc_name with pep_seq
     # elif mhc_name:
