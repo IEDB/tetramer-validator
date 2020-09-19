@@ -1,6 +1,5 @@
 import csv
 import re
-import math
 from os import path
 
 here = path.abspath(path.dirname(__file__))
@@ -39,8 +38,8 @@ def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
             num_mod_types = len(mod_types)
             num_mod_pos = len(modifications)
             if num_mod_pos != num_mod_types:
-                num_types_pos_mismatch = f"""MismatchError: There are
-                {num_mod_pos} positions but {num_mod_types} modification types"""
+                return f"""MismatchError: There are {num_mod_pos} positions but
+                       {num_mod_types} modification types"""
         statement = validate_mod_pos(pep_seq, modifications)
         if statement:
             return statement
