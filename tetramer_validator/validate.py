@@ -10,8 +10,6 @@ with open(molecule_file) as fh:
     molecules = [
         molecule["IEDB Label"]
         for molecule in reader
-        if molecule["Restriction Level"] == "complete molecule"
-        or molecule["Restriction Level"] == "partial molecule"
     ]
 
 
