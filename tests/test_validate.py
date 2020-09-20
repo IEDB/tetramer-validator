@@ -38,7 +38,10 @@ def test_mod_pos_val_three():
 
 def test_mod_pos_val_four():
     system_err_pre = "Here is the error message from the system: "
-    formatted_string = "IndexError. 100 is greater than number of amino acids in peptide sequence NLVPOVATV."
+    formatted_string = (
+        "IndexError. 100 is greater than number of amino acids in"
+        " peptide sequence NLVPOVATV."
+    )
     final_string = (
         formatted_string + "\n" + system_err_pre + "string index out of range"
     )

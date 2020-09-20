@@ -35,10 +35,6 @@ def main():
             generate_messages_txt(messages)
 
 
-if __name__ == "__main__":
-    main()
-
-
 def generate_messages_txt(messages, filename="messages.txt"):
     cwd = getcwd()
     new_file = path.join(cwd, filename)
@@ -48,3 +44,7 @@ def generate_messages_txt(messages, filename="messages.txt"):
         message_file.write("\n")
     message_file.close()
     print(f"Please see {filename} for any errors")
+
+
+if __name__ == "__main__":
+    main()
