@@ -7,10 +7,7 @@ molecule_file = "data/molecule.tsv"
 molecule_file = path.join(here, molecule_file)
 with open(molecule_file) as fh:
     reader = csv.DictReader(fh, delimiter="\t")
-    molecules = [
-        molecule["IEDB Label"]
-        for molecule in reader
-    ]
+    molecules = [molecule["IEDB Label"] for molecule in reader]
 
 
 def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
@@ -109,7 +106,7 @@ def validate_mod_pos(pep_seq, positions):
         formatted_string_one = (
             f"IndexError. {position + 1} is greater than number of amino acids in "
         )
-        formatted_string_two = "peptide sequence {pep_seq}."
+        formatted_string_two = f"peptide sequence {pep_seq}."
         final_string = (
             formatted_string_one + formatted_string_two + "\n" + system_err_pre + str(i)
         )
