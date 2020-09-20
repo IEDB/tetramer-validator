@@ -6,19 +6,21 @@ import csv
 def parse_excel_file(filename):
     wb = load_workbook(filename)
     ws = wb.active
-
+    messages = []
     header = [entry.value for entry in ws[1]]
     if (
         header[0] != "Peptide Sequence"
-        and header[1] != "Modification Type"
-        and header[2] != "Modification Position"
-        and header[3] != "MHC Name"
+        or header[1] != "Modification Type"
+        or header[2] != "Modification Position"
+        or header[3] != "MHC Name"
     ):
-        return """Need to have 4 columns in header following order: Peptide Sequence,
-             Modification Type, Modification Position, MHC Name"""
+        messages.append(
+            "Need to have 4 columns in header in following order: Peptide Sequence, "
+            "Modification Type, Modification Position, MHC Name"
+        )
+        return messages
     rows = ws.iter_rows(min_row=2)
 
-    messages = []
     for row in rows:
         message = validate(
             pep_seq=row[0].value,

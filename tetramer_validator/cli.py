@@ -6,9 +6,9 @@ from os import getcwd, path
 def main():
     # Parse the arguments
     parser = argparse.ArgumentParser()
-    file_help_text = """Please enter .tsv, .csv, or .xlsx filename.
-        \nPlease make sure header and columns are in the following order:
-        Peptide Sequence, Modification Type, Modification Position, MHC name"""
+    file_help_text = """Please enter .tsv, .csv, or .xlsx filename
+        and that header is in following order:
+        Peptide Sequence, Modification Type, Modification Position, MHC Name"""
     out_help_text = "Enter output file text name.  Default is messages.txt"
     parser.add_argument("-f", "--filename", required=True, help=file_help_text)
     parser.add_argument("-o", "--output", required=False, help=out_help_text)
