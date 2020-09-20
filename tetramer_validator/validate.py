@@ -82,9 +82,11 @@ def validate_mod_pos(pep_seq, positions):
     system_err_pre = "Here is the error message from the system: "
     try:
         if any(len(pos) > 0 and pos[0] not in amino_acids for pos in positions):
-            return """Modification position is just numbers without amino acid
-                letter or format of modification position is incorrect
-                (amino acid and position switched)"""
+            return (
+                "Modification position is just numbers without amino acid "
+                "letter or format of modification position is incorrect "
+                "(amino acid and position switched)"
+            )
         for pos in positions:
             if len(pos) >= 2:
                 position = "".join(pos[1:])
