@@ -9,13 +9,13 @@ def parse_excel_file(filename):
 
     header = [entry.value for entry in ws[1]]
     if (
-        header[0] == "Peptide Sequence"
-        and header[1] == "Modification Type"
-        and header[2] == "Modification Position"
-        and header[3] == "MHC Name"
+        header[0] != "Peptide Sequence"
+        and header[1] != "Modification Type"
+        and header[2] != "Modification Position"
+        and header[3] != "MHC Name"
     ):
         return """Need to have 4 columns in header following order: Peptide Sequence,
-               Modification Type, Modification Position, MHC Name"""
+             Modification Type, Modification Position, MHC Name"""
     rows = ws.iter_rows(min_row=2)
 
     messages = []
