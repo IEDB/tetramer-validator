@@ -15,7 +15,7 @@ with open(molecule_file) as fh:
     ]
 
 
-def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
+def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
 
     # Thanks to Austin Crinklaw
     pattern = re.compile(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE)
@@ -31,16 +31,16 @@ def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
         return "Modification type provided but not modification position"
     if mod_pos:
         mod_pos = str(mod_pos)
-        modifications = mod_pos.replace(" ", "").split(",")
+        positions = mod_pos.replace(" ", "").split(",")
         if mod_type:
             mod_types = mod_type.replace(" ", "")
             mod_types = mod_types.split(",")
             num_mod_types = len(mod_types)
-            num_mod_pos = len(modifications)
+            num_mod_pos = len(positions)
             if num_mod_pos != num_mod_types:
                 return f"""MismatchError: There are {num_mod_pos} positions but
                        {num_mod_types} modification types"""
-        statement = validate_mod_pos(pep_seq, modifications)
+        statement = validate_mod_pos(pep_seq, positions)
         if statement:
             return statement
     if mhc_name:
@@ -84,6 +84,7 @@ def validate_mod_pos(pep_seq, positions):
         "X",
         "Y",
     ]
+    system_err_pre = "Here is the error message from the system: "
     try:
         if any(len(pos) > 0 and pos[0] not in amino_acids for pos in positions):
             return """Modification position is just numbers without amino acid
@@ -94,24 +95,25 @@ def validate_mod_pos(pep_seq, positions):
                 position = "".join(pos[1:])
                 position = int(position) - 1
                 if pep_seq[position] is not pos[0]:
-                    return f"""MismatchError: This peptide sequence {pep_seq} does not contain {pos[0]} at position {pos[1]}"""
+                    part_one = f"MismatchError: This peptide sequence {pep_seq} "
+                    part_two = f"does not contain {pos[0]} at position {pos[1]}"
+                    return part_one + part_two
             else:
-                return f"""There are {len(pos)} characters in one of the
-                    modification positions"""
+                return f"""There are {len(pos)} characters in one of the modification positions"""
+
     except ValueError as v:
-        return f"""ValueError.  {position} should be an integer.\n
-            Here is the error message from the system: """ + str(
-            v
-        )
+        formatted_string = f"ValueError.  {position} should be an integer.\n "
+        final_string = formatted_string + system_error_pre + str(v)
+        return final_string
     except TypeError as t:
-        return f"""TypeError. Perhaps there is bad value.\n
-            Here is the error message from the system: """ + str(
-            t
-        )
+        return "TypeError. Perhaps there is bad value.\n " + system_err_pre + str(t)
     except IndexError as i:
-        return f"""IndexError.  {position + 1} is greater than number of
-               amino acids in peptide sequence {pep_seq}.
-                \n Here is the error message from the system: """ + str(
-            i
+        formatted_string_one = (
+            f"IndexError. {position + 1} is greater than number of amino acids in "
         )
+        formatted_string_two = "peptide sequence {pep_seq}."
+        final_string = (
+            formatted_string_one + formatted_string_two + "\n" + system_err_pre + str(i)
+        )
+        return final_string
     return None
