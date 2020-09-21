@@ -1,32 +1,15 @@
-var substrMatcher = function(strs) {
-  return function findMatches(q, cb) {
-    var matches, substringRegex;
+$(document).ready(function(){
 
-    // an array that will be populated with substring matches
-    matches = [];
+  var engine = new Bloodhound({
+  local: ["deamidated residue", "dehydrated residue", "formylated residue", "galactosylated residue", "glucosylated residue", "glycosylated residue"],
+  datumTokenizer: Bloodhound.tokenizers.whitespace,
+  queryTokenizer: Bloodhound.tokenizers.whitespace
+});
 
-    // regex used to determine if a string contains the substring `q`
-    substrRegex = new RegExp(q, 'i');
+engine.initialize();
 
-    // iterate through the pool of strings and for any string that
-    // contains the substring `q`, add it to the `matches` array
-    $.each(strs, function(i, str) {
-      if (substrRegex.test(str)) {
-        matches.push(str);
-      }
-    });
+$('#tokenfield-typeahead').tokenfield({
+  typeahead: [null, { source: engine.ttAdapter() }]
+});
 
-    cb(matches);
-  };
-};
-
-var PTM_names = ["deamidated residue", "dehydrated residue", "formylated residue", "galactosylated residue", "glucosylated residue", "glycosylated residue"];
-
-$('#PTM_display .form-control').typeahead({
-  hint: true,
-  highlight: true,
-  minLength: 1
-}, {
-  name: 'PTM_names',
-  source: substrMatcher(PTM_names)
 });
