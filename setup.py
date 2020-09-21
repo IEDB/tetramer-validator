@@ -23,5 +23,6 @@ setuptools.setup(
     entry_points={
         "console_scripts": [
             "tv=tetramer_validator.cli:main",
-        ]}
+        ]
+    },
 )
