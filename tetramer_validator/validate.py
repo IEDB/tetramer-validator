@@ -9,9 +9,13 @@ with open(molecule_file) as fh:
     reader = csv.DictReader(fh, delimiter="\t")
     molecules = [molecule["IEDB Label"] for molecule in reader]
 
+PTM_file = "data/PTM_list.csv"
+PTM_file = path.join(here, PTM_file)
+with open(PTM_file) as fh_1:
+    reader = csv.DictReader(fh_1)
+    PTM_display = [name["display_name"] for name in reader]
 
 def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
-
     # Thanks to Austin Crinklaw
     pattern = re.compile(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE)
     if pep_seq == float("nan"):
@@ -28,13 +32,17 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
         mod_pos = str(mod_pos)
         positions = mod_pos.replace(" ", "").split(",")
         if mod_type:
-            mod_types = mod_type.replace(" ", "")
-            mod_types = mod_types.split(",")
+            #mod_types = mod_type.replace(" ", "")
+            mod_types = mod_type.split(",")
+            print(mod_types)
             num_mod_types = len(mod_types)
             num_mod_pos = len(positions)
             if num_mod_pos != num_mod_types:
                 return f"""MismatchError: There are {num_mod_pos} positions but
                        {num_mod_types} modification types"""
+            for type in mod_types:
+                if type not in PTM_display:
+                    return f"{type} is not a valid modification type"
         statement = validate_mod_pos(pep_seq, positions)
         if statement:
             return statement
