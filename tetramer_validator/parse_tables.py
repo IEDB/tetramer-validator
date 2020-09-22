@@ -7,26 +7,26 @@ def parse_excel_file(filename):
     wb = load_workbook(filename)
     ws = wb.active
     messages = []
-    header = [entry.value for entry in ws[1]]
-    if (
-        header[0] != "Peptide Sequence"
-        or header[1] != "Modification Type"
-        or header[2] != "Modification Position"
-        or header[3] != "MHC Name"
-    ):
+    col_num = ws.max_columns - 1
+    header = {"Peptide Sequence": -1, "Modification Type": -1, "Modification Position": -1, "MHC Name":-1}
+    for entry in ws[1]:
+        if entry in header.keys():
+            header[entry] = entry.column -1
+
+    if -1 in header.values():
         messages.append(
-            "Need to have 4 columns in header in following order: Peptide Sequence, "
-            "Modification Type, Modification Position, MHC Name"
+            "Need to have 4 columns in first row: Peptide Sequence, "
+            "Modification Type, Modification Position, and MHC Name"
         )
         return messages
     rows = ws.iter_rows(min_row=2)
 
     for row in rows:
         message = validate(
-            pep_seq=row[0].value,
-            mhc_name=row[3].value,
-            mod_type=row[1].value,
-            mod_pos=row[2].value,
+            pep_seq=row[header["Peptide Sequence"]].value,
+            mhc_name=row[header["Modification Type"]].value,
+            mod_type=row[header["Modification Position"]].value,
+            mod_pos=row[header["MHC Name"]].value,
         )
         if message:
             messages.append(message)
