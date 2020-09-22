@@ -1,5 +1,27 @@
 
-
+var PTM_names1 = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('display_name', 'synonyms'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  // url points to a json file that contains an array of country names, see
+  // https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
+  prefetch: {
+    url: 'PTM_list.json',
+    cache: false,
+    transform: function(response) { return response.data}
+  },
+  sorter: function(a, b) {
+    return a.score - b.score;
+  },
+  remote: {
+    url: 'query/genes/%QUERY/',
+    wildcard: '%QUERY',
+    transform: function(response) {
+        return response.data.sort( function(a, b) {
+            return a.score - b.score;
+        })
+    }
+  }
+});
 
 var substrMatcher = function(strs) {
   return function findMatches(q, cb) {
