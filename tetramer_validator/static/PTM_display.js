@@ -1,3 +1,6 @@
+
+
+
 var substrMatcher = function(strs) {
   return function findMatches(q, cb) {
     var matches, substringRegex;
@@ -25,7 +28,7 @@ var PTM_names = ["deamidated residue", "dehydrated residue", "formylated residue
 $('#PTM_display .form-control').typeahead({
   hint: true,
   highlight: true,
-  minLength: 1
+  minLength: 1, autoselect: true,
 }, {
   name: 'PTM_names',
   source: substrMatcher(PTM_names)
