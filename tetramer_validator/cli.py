@@ -1,6 +1,7 @@
 import argparse
 from tetramer_validator.parse_tables import parse_csv_tsv, parse_excel_file
 from os import getcwd, path
+import sys
 
 
 def main():

@@ -7,11 +7,15 @@ def parse_excel_file(filename):
     wb = load_workbook(filename)
     ws = wb.active
     messages = []
-    col_num = ws.max_columns - 1
-    header = {"Peptide Sequence": -1, "Modification Type": -1, "Modification Position": -1, "MHC Name":-1}
+    header = {
+        "Peptide Sequence": -1,
+        "Modification Type": -1,
+        "Modification Position": -1,
+        "MHC Name": -1,
+    }
     for entry in ws[1]:
         if entry in header.keys():
-            header[entry] = entry.column -1
+            header[entry] = entry.column - 1
 
     if -1 in header.values():
         messages.append(
