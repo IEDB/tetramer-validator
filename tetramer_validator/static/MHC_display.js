@@ -1,18 +1,14 @@
 var MHC_engine = new Bloodhound({
-  datumTokenizer: function(mhc) {
-    return Bloodhound.tokenizers.whitespace(mhc.value);
-  },
+  datumTokenizer: Bloodhound.tokenizers.whitespace,
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   prefetch: {
     url: '/data/molecule.json',
-    transform: function(request) {
-      request.data
-    }
+    transform: function(response) {response.data}
   }
 });
 
 
-
+MHC_engine.initialize();
 
 
 var substringMatcher = function(strs) {
@@ -29,7 +25,6 @@ var substringMatcher = function(strs) {
     //terate through the pool of strings and for any string that
     //contains the substring `q`, add it to the `matches` array
     $.each(strs, function(i, str) {
-      console.log(str)
       if (substringRegex.test(str)) {
         matches.push(str);
       }
@@ -48,5 +43,5 @@ $('#MHC_display .form-control').typeahead({
   }
 }, {
   name: 'MHC-display',
-  source: MHC_engine
+  source: MHC_engine.ttAdapter()
 });
