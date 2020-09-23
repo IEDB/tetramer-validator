@@ -1,47 +1,29 @@
-var MHC_engine = new Bloodhound({
-  datumTokenizer: Bloodhound.tokenizers.whitespace,
+var countries = new Bloodhound({
+  datumTokenizer: function(data) {
+      return Bloodhound.tokenizers.whitespace(data.value);
+  },
   queryTokenizer: Bloodhound.tokenizers.whitespace,
-  prefetch: {
-    url: '/data/molecule.json',
-    transform: function(response) {response.data}
+  remote: {
+    url: "/data/molecule.json",
+    filter: function(response) {
+      return response.data;
+    }
   }
 });
 
+// initialize the bloodhound suggestion engine
+countries.initialize();
 
-MHC_engine.initialize();
-
-
-var substringMatcher = function(strs) {
-
-  return function findMatches(q, cb) {
-    var matches, substringRegex;
-
-    //an array that will be populated with substring matches
-    matches = [];
-
-    //regex used to determine if a string contains the substring `q`
-    substrRegex = new RegExp(q, 'i');
-
-    //terate through the pool of strings and for any string that
-    //contains the substring `q`, add it to the `matches` array
-    $.each(strs, function(i, str) {
-      if (substringRegex.test(str)) {
-        matches.push(str);
-      }
-    });
-
-    cb(matches);
-  };
-};
-
-$('#MHC_display .form-control').typeahead({
-  hint: true,
-  highlight: true,
-  minLength: 1,
-  displayKey: function(obj) {
-    obj.Label
-  }
-}, {
-  name: 'MHC-display',
-  source: MHC_engine.ttAdapter()
+// instantiate the typeahead UI
+$('#MHC_display .form-control').typeahead(
+  { hint: true,
+    highlight: true,
+    minLength: 1
+  },
+  {
+  name: 'countries',
+  //displayKey: function(countries) {
+    //return countries;
+  //},
+  source: countries.ttAdapter()
 });
