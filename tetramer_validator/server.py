@@ -37,6 +37,7 @@ def output():
             PTM_display=validate.PTM_display,
         )
 
-@app.route('/README.html', methods=["GET"])
+
+@app.route("/README.html", methods=["GET"])
 def readme():
     return render_template("README.html")
