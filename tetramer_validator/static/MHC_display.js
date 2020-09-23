@@ -1,6 +1,6 @@
 var MHC_engine = new Bloodhound({
   datumTokenizer: function(mhc) {
-    return Bloodhound.tokenizers.whitespace(mhc.Label);
+    return Bloodhound.tokenizers.whitespace(mhc.value);
   },
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   prefetch: {
