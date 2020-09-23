@@ -35,7 +35,6 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
         if mod_type:
             # mod_types = mod_type.replace(" ", "")
             mod_types = mod_type.split(",")
-            print(mod_types)
             num_mod_types = len(mod_types)
             num_mod_pos = len(positions)
             if num_mod_pos != num_mod_types:
@@ -103,7 +102,9 @@ def validate_mod_pos(pep_seq, positions):
                 if pep_seq[position] is not pos[0]:
                     part_one = f"MismatchError: This peptide sequence {pep_seq} "
                     part_two = f"does not contain {pos[0]} at position {pos[1]}"
-                    return part_one + part_two
+                    result = part_one + part_two
+                    print(result)
+                    return result
             else:
                 return f"""There are {len(pos)} characters in one of the modification positions"""
 
