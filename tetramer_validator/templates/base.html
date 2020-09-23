@@ -8,13 +8,12 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <script src="{{url_for('static', filename='jquery-3.5.1.slim.min.js')}}"> </script>
   <script type="text/javascript" src="{{url_for('static', filename='typeahead.bundle.js')}}"> </script>
-   <script>
-       var PTM_display = JSON.parse('{{ PTM_display | tojson | safe}}');
+  <script>
+    var PTM_display = JSON.parse('{{ PTM_display | tojson | safe}}');
   </script>
   <script src="/static/PTM_display.js"> </script>
-  <style>
-  .twitter-typeahead {width: 100%;}
-  </style>
+
+
 </head>
 
 <body>
@@ -27,6 +26,28 @@
         </div>
         <div class="col" id="PTM_display">
           <label for="Modification Type">Modification Type</label>
+          <style>
+            .twitter-typeahead {
+              width: 100%;
+            }
+
+            .tt-menu {
+              width: 100%;
+              margin-top: 12px;
+              padding: 8px 0;
+              background-color: #fff;
+              border: 1px solid #ccc;
+              border: 1px solid rgba(0, 0, 0, 0.2);
+              border-radius: 8px;
+              box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+            }
+
+            .tt-suggestion.tt-cursor {
+              color: #fff;
+              background-color: #0097cf;
+            }
+          </style>
+
           <input name="mod_type" type="text" class="twitter-typeahead form-control" id="mod_type" autocomplete="off" spellcheck="false" value="{{mod_type}}">
         </div>
         <div class="col">
@@ -41,14 +62,14 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
 
-      </form>
+    </form>
 
-      {% if statement%}
-      <p> {{statement}} </p>
-      {% else %}
-      <p> Please enter info </p>
-      {% endif %}
-    </div>
+    {% if statement%}
+    <p> {{statement}} </p>
+    {% else %}
+    <p> Please enter info </p>
+    {% endif %}
+  </div>
 
 
 
