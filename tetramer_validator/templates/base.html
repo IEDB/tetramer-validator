@@ -18,10 +18,10 @@
 
 <body>
 
-  <div class="container">
+  <div class="container-fluid">
     <h1> Tetramer Validator </h1>
     <form method="GET" class="form-horizontal" action="{{url_for('output')}}">
-      <div class="form-row">
+      <div class="form-row center-block">
         <div class="col">
           <label for="Peptide Sequence">Peptide Sequence</label>
           <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{pep_seq}}">
@@ -42,11 +42,14 @@
               border: 1px solid rgba(0, 0, 0, 0.2);
               border-radius: 8px;
               box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+              text-align: left;
             }
 
             .tt-suggestion.tt-cursor {
-              color: #fff;
+              width: 100% color: #fff;
               background-color: #0097cf;
+              margin-left: 1px;
+              margin-right: 1px
             }
           </style>
 
@@ -61,17 +64,26 @@
           <label for="MHC Name">MHC Name</label>
           <input name="mhc_name" type="text" class="form-control" id="mhc_name" value="{{mhc_name}}">
         </div>
+
+      </div>
+      <style>
+      .form-actions {
+        margin: 10px;
+        text-align: center;
+      }
+      </style>
+      <div class="form-actions">
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
 
     </form>
 
-    {% if statement%}
-    <p> {{statement}} </p>
-    {% else %}
-    <p> Please enter info </p>
+    {% if statement and error%}
+    <p class="alert alert-danger" role="alert"> {{statement}} </p>
+    {% elif statement %}
+    <p class="alert alert-success" role="alert"> {{statement}} </p>
     {% endif %}
-    <p> Click <a href="{{url_for('readme')}}"> here </a> for documentation </p>
+    <p class="alert alert-info" role="alert"> Click <a href="{{url_for('readme')}}"> here </a> for documentation </p>
   </div>
 
 
