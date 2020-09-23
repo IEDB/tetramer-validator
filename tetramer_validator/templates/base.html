@@ -12,6 +12,7 @@
     var PTM_display = JSON.parse('{{ PTM_display | tojson | safe}}');
   </script>
   <script src="/static/PTM_display.js"> </script>
+  <script src="static/MHC_display.js"> </script>
   <style>
     .twitter-typeahead {
       width: 100%;
@@ -49,7 +50,6 @@
         <div class="col" id="PTM_display">
           <label for="Modification Type">Modification Type</label>
 
-
           <input name="mod_type" type="text" class="twitter-typeahead form-control" id="mod_type" autocomplete="off" spellcheck="false" value="{{mod_type}}">
         </div>
         <div class="col">
@@ -57,7 +57,7 @@
           <input name="mod_pos" type="text" class="form-control" id="mod_pos" value="{{mod_pos}}">
         </div>
 
-        <div class="col" id="MHC_names">
+        <div class="col" id="MHC_display">
           <label for="MHC Name">MHC Name</label>
           <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}">
         </div>
