@@ -12,7 +12,27 @@
     var PTM_display = JSON.parse('{{ PTM_display | tojson | safe}}');
   </script>
   <script src="/static/PTM_display.js"> </script>
+  <style>
+    .twitter-typeahead {
+      width: 100%;
+    }
 
+    .tt-menu {
+      width: 100%;
+      margin-top: 12px;
+      padding: 8px 0;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    }
+
+    .tt-suggestion.tt-cursor {
+      color: #fff;
+      background-color: #0097cf;
+    }
+  </style>
 
 </head>
 
@@ -28,27 +48,7 @@
         </div>
         <div class="col" id="PTM_display">
           <label for="Modification Type">Modification Type</label>
-          <style>
-            .twitter-typeahead {
-              width: 100%;
-            }
 
-            .tt-menu {
-              width: 100%;
-              margin-top: 12px;
-              padding: 8px 0;
-              background-color: #fff;
-              border: 1px solid #ccc;
-              border: 1px solid rgba(0, 0, 0, 0.2);
-              border-radius: 8px;
-              box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-            }
-
-            .tt-suggestion.tt-cursor {
-              color: #fff;
-              background-color: #0097cf;
-            }
-          </style>
 
           <input name="mod_type" type="text" class="twitter-typeahead form-control" id="mod_type" autocomplete="off" spellcheck="false" value="{{mod_type}}">
         </div>
@@ -57,9 +57,9 @@
           <input name="mod_pos" type="text" class="form-control" id="mod_pos" value="{{mod_pos}}">
         </div>
 
-        <div class="col">
+        <div class="col" id="MHC_names">
           <label for="MHC Name">MHC Name</label>
-          <input name="mhc_name" type="text" class="form-control" id="mhc_name" value="{{mhc_name}}">
+          <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
