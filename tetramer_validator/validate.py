@@ -103,7 +103,6 @@ def validate_mod_pos(pep_seq, positions):
                     part_one = f"MismatchError: This peptide sequence {pep_seq} "
                     part_two = f"does not contain {pos[0]} at position {pos[1]}"
                     result = part_one + part_two
-                    print(result)
                     return result
             else:
                 return f"""There are {len(pos)} characters in one of the modification positions"""
