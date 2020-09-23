@@ -1,11 +1,11 @@
 #Documentation
 
 
-##Installation for command line interface
+## Installation for command line interface
 
 The tetramer validator has a command line interface.  
 
-##Instructions for Web form
+## Instructions for Web form
 
 Please enter a peptide sequence, modification type, modification position, and the name of MHC molecule. 
 
@@ -17,7 +17,7 @@ MHC molecule name should be chosen from autocomplete list.
 
 Either modification position **and** modification type must be provided or no modification information should be entered.
 
-##Example of Valid Entry
+## Example of Valid Entry
 
 See the link below for an example for the following entry.
 
