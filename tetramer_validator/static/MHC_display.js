@@ -1,7 +1,5 @@
-var countries = new Bloodhound({
-  datumTokenizer: function(data) {
-      return Bloodhound.tokenizers.whitespace(data.value);
-  },
+var MHC_engine = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace("Label", "IEDB Label", "synonyms" ),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   remote: {
     url: "/data/molecule.json",
@@ -12,7 +10,7 @@ var countries = new Bloodhound({
 });
 
 // initialize the bloodhound suggestion engine
-countries.initialize();
+MHC_engine.initialize();
 
 // instantiate the typeahead UI
 $('#MHC_display .form-control').typeahead(
@@ -21,9 +19,10 @@ $('#MHC_display .form-control').typeahead(
     minLength: 1
   },
   {
-  name: 'countries',
-  //displayKey: function(countries) {
-    //return countries;
-  //},
-  source: countries.ttAdapter()
+  name: 'MHC_name',
+  displayKey: function(mhc) {
+    console.log(mhc)
+    return mhc.Label
+  },
+  source: MHC_engine.ttAdapter()
 });
