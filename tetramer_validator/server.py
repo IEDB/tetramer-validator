@@ -23,9 +23,16 @@ def output():
             mod_pos=mod_pos,
             mod_type=mod_type,
             mhc_name=mhc_name,
-            statement=statement, PTM_display=validate.PTM_display
+            statement=statement,
+            PTM_display=validate.PTM_display,
         )
     else:
         return render_template(
-            "base.html", pep_seq="", mod_pos="", mod_type="", mhc_name="", statement="", PTM_display=validate.PTM_display
+            "base.html",
+            pep_seq="",
+            mod_pos="",
+            mod_type="",
+            mhc_name="",
+            statement="",
+            PTM_display=validate.PTM_display,
         )
