@@ -18,16 +18,11 @@ with open(PTM_file) as fh_1:
 
 
 def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
+    args = list(locals().values())
     null_str = "NULL"
-    if (
-        pep_seq == null_str
-        or mhc_name == null_str
-        or mod_type is null_str
-        or mod_pos == null_str
-    ):
-        print(
-            "NULL value entered. If there is no need for a particular value, please leave blank"
-        )
+    if null_str in args:
+        return "NULL value entered. If there is no need for a particular value, please leave blank"
+
     # Thanks to Austin Crinklaw
     pattern = re.compile(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE)
     if pep_seq == float("nan"):
@@ -101,7 +96,6 @@ def validate_mod_pos(pep_seq, positions):
 
     try:
         system_err_pre = "Here is the error message from the system: "
-        x = repr(system_err_pre)
         if any(len(pos) > 0 and pos[0] not in amino_acids for pos in positions):
             return (
                 "Modification position is just numbers without amino acid "
