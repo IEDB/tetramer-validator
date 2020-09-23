@@ -1,64 +1,52 @@
-
-//var MHC_engine = new Bloodhound({
-//  datumTokenizer: Bloodhound.tokenizers.obj.whitespace("Label", "IEDB Label", "synonyms"),
-  //queryTokenizer: Bloodhound.tokenizers.whitespace,
-  //local: [{
-  //"Label": "Po",
-  //  "IEDB Label": "Poa",
-  //"synonyms": "Poal"
-  //}],
-//  identify: function(obj) {
-//    obj.Label;
-//  },
-//  prefetch: {
-//    url: '/data/molecule.json',
-//    transform: function(request) {
-//      request.data
-//    }
-//  }
-//});
+var MHC_engine = new Bloodhound({
+  datumTokenizer: function(mhc) {
+    return Bloodhound.tokenizers.whitespace(mhc.Label);
+  },
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  prefetch: {
+    url: '/data/molecule.json',
+    transform: function(request) {
+      request.data
+    }
+  }
+});
 
 
 
 
-$(document).ready(
 
+var substringMatcher = function(strs) {
 
-  function() {
-    var MHC_names;
-    $.getJSON("/data/molecule.json", function(json) { MHC_names = json; console.log(MHC_names); });
+  return function findMatches(q, cb) {
+    var matches, substringRegex;
 
-    var substringMatcher = function(strs) {
-      return function findMatches(q, cb) {
-        var matches, substringRegex;
+    //an array that will be populated with substring matches
+    matches = [];
 
-        // an array that will be populated with substring matches
-        matches = [];
+    //regex used to determine if a string contains the substring `q`
+    substrRegex = new RegExp(q, 'i');
 
-        // regex used to determine if a string contains the substring `q`
-        substrRegex = new RegExp(q, 'i');
-
-        // iterate through the pool of strings and for any string that
-        // contains the substring `q`, add it to the `matches` array
-        $.each(strs, function(i, str) {
-          if (substringRegex.test(str)) {
-            matches.push(str);
-          }
-        });
-
-        cb(matches);
-      };
-    };
-
-    $('#MHC_display .form-control').typeahead({
-      hint: true,
-      highlight: true,
-      minLength: 1,
-      displayKey: function(obj) {
-        obj.Label
+    //terate through the pool of strings and for any string that
+    //contains the substring `q`, add it to the `matches` array
+    $.each(strs, function(i, str) {
+      console.log(str)
+      if (substringRegex.test(str)) {
+        matches.push(str);
       }
-    }, {
-      name: 'MHC-display',
-      source: substringMatcher(MHC_names)
     });
-  });
+
+    cb(matches);
+  };
+};
+
+$('#MHC_display .form-control').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 1,
+  displayKey: function(obj) {
+    obj.Label
+  }
+}, {
+  name: 'MHC-display',
+  source: MHC_engine
+});

@@ -6,13 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Tetramer Validator</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-  <script src="{{url_for('static', filename='jquery-3.5.1.slim.min.js')}}"> </script>
+  <script src="{{url_for('static', filename='jquery-3.5.1.min.js')}}"> </script>
   <script type="text/javascript" src="{{url_for('static', filename='typeahead.bundle.js')}}"> </script>
   <script>
     var PTM_display = JSON.parse('{{ PTM_display | tojson | safe}}');
+    var MHC_names;
+    $.getJSON("/data/molecule.json", function(json) {
+      MHC_names = json;
+      console.log(MHC_names);
+    });
+    function sleep(milliseconds) {
+      const date = Date.now();
+      let currentDate = null;
+      do {
+        currentDate = Date.now();
+      } while (currentDate - date < milliseconds);
+    };
+    sleep(4000)
   </script>
   <script src="/static/PTM_display.js"> </script>
-  <script src="static/MHC_display.js"> </script>
+
   <style>
     .twitter-typeahead {
       width: 100%;
@@ -60,6 +73,7 @@
         <div class="col" id="MHC_display">
           <label for="MHC Name">MHC Name</label>
           <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}">
+          <script src="static/MHC_display.js"> </script>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
