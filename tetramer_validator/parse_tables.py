@@ -14,8 +14,8 @@ def parse_excel_file(filename):
         "MHC Name": -1,
     }
     for entry in ws[1]:
-        if entry in header.keys():
-            header[entry] = entry.column - 1
+        if entry.value in header.keys():
+            header[entry.value] = entry.column - 1
 
     if -1 in header.values():
         messages.append(
@@ -24,7 +24,7 @@ def parse_excel_file(filename):
         )
         return messages
     rows = ws.iter_rows(min_row=2)
-
+    any_errors =False
     for row in rows:
         message = validate(
             pep_seq=row[header["Peptide Sequence"]].value,
@@ -34,12 +34,14 @@ def parse_excel_file(filename):
         )
         if message:
             messages.append(message)
+            any_errors = True
         else:
             messages.append(f"Peptide sequence {row[0].value} is valid")
-    return messages
+    return (messages, any_errors)
 
 
 def parse_csv_tsv(filename, delimiter):
+    any_errors = False
     with open(filename, "r", encoding="utf-8-sig") as file_obj:
         reader = csv.DictReader(file_obj, delimiter=delimiter)
         messages = []
@@ -52,7 +54,8 @@ def parse_csv_tsv(filename, delimiter):
             )
             if message:
                 messages.append(message)
+                any_errors = True
             else:
                 pep_seq = entry["Peptide Sequence"]
                 messages.append(f"Peptide sequence {pep_seq} is valid")
-        return messages
+    return (messages, any_errors)

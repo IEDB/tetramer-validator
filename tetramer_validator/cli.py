@@ -11,30 +11,31 @@ def main():
         and that header is in following order:
         Peptide Sequence, Modification Type, Modification Position, MHC Name"""
     out_help_text = "Enter output file text name.  Default is messages.txt"
-    parser.add_argument("filename", required=True, help=file_help_text)
+    parser.add_argument("filename", help=file_help_text)
     parser.add_argument("-o", "--output", required=False, help=out_help_text)
 
     args = parser.parse_args()
     filename = args.filename
     output_file = args.output
+    messages = []
+    any_error = False
     if filename.endswith(".tsv"):
-        messages = parse_csv_tsv(filename, delimiter="\t")
+        messages, any_error = parse_csv_tsv(filename, delimiter="\t")
     elif filename.endswith(".csv"):
-        messages = parse_csv_tsv(filename, delimiter=",")
+        messages, any_error = parse_csv_tsv(filename, delimiter=",")
     elif filename.endswith(".xlsx"):
-        messages = parse_excel_file(filename)
+        print(parse_excel_file(filename))
     else:
         print("Sorry, file is not valid format. Must be .tsv, .csv, or .xlsx file")
         sys.exit(1)
-    if messages:
-        if output_file:
-            generate_messages_txt(messages, output_file)
-        else:
-            for message in messages:
-                print(message)
+    if output_file:
+        generate_messages_txt(messages, output_file)
+    else:
+        generate_messages_txt(messages)
+    return sys.exit(any_error)
 
 
-def generate_messages_txt(messages, filename):
+def generate_messages_txt(messages, filename="messages.txt"):
     cwd = getcwd()
     new_file = path.join(cwd, filename)
     message_file = open(new_file, "w+")
