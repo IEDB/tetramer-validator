@@ -1,13 +1,8 @@
 # Documentation
 
-
-## Installation for command line interface
-
-The tetramer validator has a command line interface.  
-
 ## Instructions for Web form
 
-Please enter a peptide sequence, modification type, modification position, and the name of MHC molecule. 
+Please enter a peptide sequence, modification type, modification position, and the name of MHC molecule.
 
 Modification position should be of the format `<amino acid><position>`
 
@@ -33,4 +28,4 @@ MHC Name: HLA-A*02:01
 
 Notice that Oxidation has been replaced with the display name of oxidized residue.  
 
-Also, notice that syntax of M5.  The modification is at the position 5 and the amino acid is methionine. 
+Also, notice that syntax of M5.  The modification is at the position 5 and the amino acid is methionine.
