@@ -41,7 +41,9 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
         mod_pos = str(mod_pos)
         pattern = re.compile(r",[\s]+")
         positions = re.sub(pattern, ",", mod_pos)
-        trailing_characters = re.findall(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y\d$]", positions)
+        trailing_characters = re.findall(
+            r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y\d$]", positions
+        )
         if trailing_characters:
             return (
                 f"FormatError: {trailing_characters} at the end of input {mod_pos}"
