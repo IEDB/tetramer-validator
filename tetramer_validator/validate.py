@@ -9,11 +9,11 @@ with open(molecule_file) as fh:
     reader = csv.DictReader(fh, delimiter="\t")
     molecules = [molecule["IEDB Label"] for molecule in reader]
 
-PTM_file = "data/PTM_list.csv"
+PTM_file = "data/PTM_list.tsv"
 PTM_file = path.join(here, PTM_file)
 
 with open(PTM_file) as fh_1:
-    reader = csv.DictReader(fh_1)
+    reader = csv.DictReader(fh_1, delimiter="\t")
     PTM_display = [name["display_name"] for name in reader]
 
 

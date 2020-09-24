@@ -21,7 +21,6 @@ $('#MHC_display .form-control').typeahead(
   {
   name: 'MHC_name',
   displayKey: function(mhc) {
-    console.log(mhc)
     return mhc.Label
   },
   source: MHC_engine.ttAdapter()
