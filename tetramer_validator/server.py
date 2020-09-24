@@ -5,7 +5,6 @@ from tetramer_validator import validate
 app = Flask(__name__)
 
 
-
 @app.route("/", methods=["GET"])
 def output():
     if request.args:

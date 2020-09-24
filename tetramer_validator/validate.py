@@ -8,7 +8,6 @@ molecule_file = path.join(here, molecule_file)
 with open(molecule_file) as fh:
     reader = csv.DictReader(fh, delimiter="\t")
     molecules = [molecule["IEDB Label"] for molecule in reader]
-
 PTM_file = "data/PTM_list.tsv"
 PTM_file = path.join(here, PTM_file)
 
@@ -18,29 +17,42 @@ with open(PTM_file) as fh_1:
 
 
 def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
-    args = list(locals().values())
+    args = locals()
     null_str = "NULL"
-    if null_str in args:
+    if null_str in args.values():
         return "NULL value entered. If there is no need for a particular value, please leave blank"
-
+    if "" == args["pep_seq"]:
+        return "Peptide sequence is required"
+    if "" == args["mhc_name"]:
+        return "MHC name is required"
     # Thanks to Austin Crinklaw
     pattern = re.compile(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE)
-    if pep_seq == float("nan"):
-        return "Peptide sequence is bad value (NULL) or is empty"
     has_amino_acids = pattern.findall(pep_seq)
     if has_amino_acids:
-        return f"""Peptide sequence {pep_seq} has characters {has_amino_acids}
-            that are not amino acids"""
+        return (
+            f"Unrecognized amino acid: Peptide sequence {pep_seq} has characters {has_amino_acids} "
+            "that are not amino acids"
+        )
     if mod_pos and not mod_type:
         return "Modificiation position provided but no modification type"
     if mod_type and not mod_pos:
         return "Modification type provided but not modification position"
     if mod_pos:
         mod_pos = str(mod_pos)
-        positions = mod_pos.replace(" ", "").split(",")
+        pattern = re.compile(r",[\s]+")
+        positions = re.sub(pattern, ",", mod_pos)
+        trailing_characters = re.findall(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y\d$]", positions)
+        if trailing_characters:
+            return (
+                f"FormatError: {trailing_characters} at the end of input {mod_pos}"
+                " are unrecognized"
+            )
+        positions = positions.split(",")
         if mod_type:
-            # mod_types = mod_type.replace(" ", "")
-            mod_types = mod_type.split(",")
+            mod_types = mod_type
+            pattern = re.compile(r",[\s]+")
+            mod_types = re.sub(pattern, ",", mod_types)
+            mod_types = mod_types.split(",")
             num_mod_types = len(mod_types)
             num_mod_pos = len(positions)
             if num_mod_pos != num_mod_types:
