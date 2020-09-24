@@ -15,7 +15,7 @@ def output():
         statement = validate.validate(
             pep_seq=pep_seq, mod_pos=mod_pos, mod_type=mod_type, mhc_name=mhc_name
         )
-        error=True
+        error = True
         if not statement:
             statement = "Success! This input is valid"
             error = False
@@ -27,7 +27,7 @@ def output():
             mhc_name=mhc_name,
             statement=statement,
             PTM_display=validate.PTM_display,
-            error=error
+            error=error,
         )
     else:
         return render_template(
@@ -38,7 +38,7 @@ def output():
             mhc_name="",
             statement="",
             PTM_display=validate.PTM_display,
-            error=False
+            error=False,
         )
 
 
