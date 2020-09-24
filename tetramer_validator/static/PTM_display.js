@@ -1,15 +1,26 @@
-$(document).ready(function(){
-
-  var engine = new Bloodhound({
-  local: ["deamidated residue", "dehydrated residue", "formylated residue", "galactosylated residue", "glucosylated residue", "glycosylated residue"],
-  datumTokenizer: Bloodhound.tokenizers.whitespace,
-  queryTokenizer: Bloodhound.tokenizers.whitespace
+var PTM_names = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace(["display_name", "IEDB_synonym_1", "IEDB_synonym_2", "synonym_1", "synonym_2"]),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  prefetch: {
+    url: "/data/PTM_list.json",
+    filter: function(response) {
+      return response.data;
+    }
+  }
 });
 
-engine.initialize();
+// initialize the bloodhound suggestion engine
+PTM_names.initialize();
 
-$('#tokenfield-typeahead').tokenfield({
-  typeahead: [null, { source: engine.ttAdapter() }]
-});
-
+$('#PTM_display .form-control').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 1,
+  autoselect: true,
+}, {
+  name: 'PTM_names',
+  displayKey: function(ptm) {
+    return ptm.display_name
+  },
+  source: PTM_names.ttAdapter()
 });

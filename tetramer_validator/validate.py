@@ -9,8 +9,19 @@ with open(molecule_file) as fh:
     reader = csv.DictReader(fh, delimiter="\t")
     molecules = [molecule["IEDB Label"] for molecule in reader]
 
+PTM_file = "data/PTM_list.tsv"
+PTM_file = path.join(here, PTM_file)
+
+with open(PTM_file) as fh_1:
+    reader = csv.DictReader(fh_1, delimiter="\t")
+    PTM_display = [name["display_name"] for name in reader]
+
 
 def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
+    args = list(locals().values())
+    null_str = "NULL"
+    if null_str in args:
+        return "NULL value entered. If there is no need for a particular value, please leave blank"
 
     # Thanks to Austin Crinklaw
     pattern = re.compile(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE)
@@ -28,13 +39,16 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
         mod_pos = str(mod_pos)
         positions = mod_pos.replace(" ", "").split(",")
         if mod_type:
-            mod_types = mod_type.replace(" ", "")
-            mod_types = mod_types.split(",")
+            # mod_types = mod_type.replace(" ", "")
+            mod_types = mod_type.split(",")
             num_mod_types = len(mod_types)
             num_mod_pos = len(positions)
             if num_mod_pos != num_mod_types:
                 return f"""MismatchError: There are {num_mod_pos} positions but
                        {num_mod_types} modification types"""
+            for type in mod_types:
+                if type not in PTM_display:
+                    return f"{type} is not a valid modification type"
         statement = validate_mod_pos(pep_seq, positions)
         if statement:
             return statement
@@ -79,8 +93,9 @@ def validate_mod_pos(pep_seq, positions):
         "X",
         "Y",
     ]
-    system_err_pre = "Here is the error message from the system: "
+
     try:
+        system_err_pre = "Here is the error message from the system: "
         if any(len(pos) > 0 and pos[0] not in amino_acids for pos in positions):
             return (
                 "Modification position is just numbers without amino acid "
@@ -94,13 +109,14 @@ def validate_mod_pos(pep_seq, positions):
                 if pep_seq[position] is not pos[0]:
                     part_one = f"MismatchError: This peptide sequence {pep_seq} "
                     part_two = f"does not contain {pos[0]} at position {pos[1]}"
-                    return part_one + part_two
+                    result = part_one + part_two
+                    return result
             else:
                 return f"""There are {len(pos)} characters in one of the modification positions"""
 
     except ValueError as v:
         formatted_string = f"ValueError.  {position} should be an integer.\n "
-        final_string = formatted_string + system_error_pre + str(v)
+        final_string = formatted_string + system_err_pre + str(v)
         return final_string
     except TypeError as t:
         return "TypeError. Perhaps there is bad value.\n " + system_err_pre + str(t)
