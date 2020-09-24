@@ -16,15 +16,15 @@ with open(PTM_file) as fh_1:
     PTM_display = [name["display_name"] for name in reader]
 
 
-def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
+def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
     args = locals()
     null_str = "NULL"
     if null_str in args.values():
-        return "NULL value entered. If there is no need for a particular value, please leave blank"
+        return "NULL value entered. If there is no need for a particular value, please leave blank."
     if "" == args["pep_seq"]:
-        return "Peptide sequence is required"
-    if "" == args["mhc_name"]:
-        return "MHC name is required"
+        return "Incorrect number of arguments: Peptide sequence is required"
+    if pep_seq != "" and mhc_name==None and mod_type==None and mod_pos==None:
+        return "Incorrect number of arguments: Please enter modification information ""and/or MHC molecule information."
     # Thanks to Austin Crinklaw
     pattern = re.compile(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE)
     has_amino_acids = pattern.findall(pep_seq)
@@ -34,9 +34,15 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
             "that are not amino acids"
         )
     if mod_pos and not mod_type:
-        return "Modificiation position provided but no modification type"
+        return (
+            "Incorrect combination of arguments: Modificiation position provided"
+            " but no modification type"
+        )
     if mod_type and not mod_pos:
-        return "Modification type provided but not modification position"
+        return (
+            "Incorrect combination of arguments: Modification type provided"
+            " but not modification position"
+        )
     if mod_pos:
         mod_pos = str(mod_pos)
         pattern = re.compile(r",[\s]+")
@@ -58,8 +64,10 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
             num_mod_types = len(mod_types)
             num_mod_pos = len(positions)
             if num_mod_pos != num_mod_types:
-                return f"""MismatchError: There are {num_mod_pos} positions but
-                       {num_mod_types} modification types"""
+                return (
+                    f"MismatchError: There are {num_mod_pos} positions but {num_mod_types}"
+                    " modification types"
+                )
             for type in mod_types:
                 if type not in PTM_display:
                     return f"{type} is not a valid modification type"
