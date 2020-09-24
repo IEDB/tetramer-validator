@@ -14,13 +14,6 @@
     $.getJSON("/data/molecule.json", function(json) {
       MHC_names = json;
     });
-    function sleep(milliseconds) {
-      const date = Date.now();
-      let currentDate = null;
-      do {
-        currentDate = Date.now();
-      } while (currentDate - date < milliseconds);
-    };
   </script>
   <script src="/static/PTM_display.js"> </script>
 

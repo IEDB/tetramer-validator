@@ -1,7 +1,7 @@
 var MHC_engine = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace("Label", "IEDB Label", "synonyms" ),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
-  remote: {
+  prefetch: {
     url: "/data/molecule.json",
     filter: function(response) {
       return response.data;
@@ -16,12 +16,14 @@ MHC_engine.initialize();
 $('#MHC_display .form-control').typeahead(
   { hint: true,
     highlight: true,
-    minLength: 1
+    minLength: 1,
+    autoselect: true,
   },
   {
   name: 'MHC_name',
   displayKey: function(mhc) {
     return mhc.Label
   },
+
   source: MHC_engine.ttAdapter()
 });

@@ -4,9 +4,6 @@ from tetramer_validator import validate
 
 app = Flask(__name__)
 
-app.add_url_rule(
-    "/data/<path:filename>", endpoint="data", view_func=app.send_static_file
-)
 
 
 @app.route("/", methods=["GET"])
@@ -51,6 +48,6 @@ def readme():
     return render_template("README.html")
 
 
-@app.route("/data/molecule.json")
-def send_js():
-    return send_from_directory("data", filename="molecule.json")
+@app.route("/data/<path:filename>")
+def send_js(filename):
+    return send_from_directory("data", filename=filename)
