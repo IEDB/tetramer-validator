@@ -27,8 +27,8 @@ Modification Position: M5
 MHC Name: HLA-A*02:01
 
 ![1] ![2]
-[1]: (tetramer_validator/static/Example_1)
-[2]: (tetramer_validator/static/Example_2)
+[1]: (https://raw.githubusercontent.com/IEDB/tetramer-validator/master/tetramer_validator/static/Example_1.png)
+[2]: (https://raw.githubusercontent.com/IEDB/tetramer-validator/master/tetramer_validator/static/Example_2)
 
 Notice that there is the display name of oxidized residue for Oxidation. Please choose from the display names or else validation will not be successful.  
 
