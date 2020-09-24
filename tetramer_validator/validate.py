@@ -51,7 +51,7 @@ def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
         pattern = re.compile(r",[\s]+")
         positions = re.sub(pattern, ",", mod_pos)
         trailing_characters = re.findall(
-            r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y\d$]", positions
+            r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y\d]+$", positions
         )
         if trailing_characters:
             return (
@@ -133,7 +133,7 @@ def validate_mod_pos(pep_seq, positions):
                 position = int(position) - 1
                 if pep_seq[position] is not pos[0]:
                     part_one = f"MismatchError: This peptide sequence {pep_seq} "
-                    part_two = f"does not contain {pos[0]} at position {pos[1]}"
+                    part_two = f"does not contain {pos[0]} at position {pos[1:]}"
                     result = part_one + part_two
                     return result
             else:
