@@ -24,18 +24,19 @@ def main():
     elif filename.endswith(".csv"):
         messages, any_error = parse_csv_tsv(filename, delimiter=",")
     elif filename.endswith(".xlsx"):
-        print(parse_excel_file(filename))
+        messages, any_error = parse_excel_file(filename)
     else:
         print("Sorry, file is not valid format. Must be .tsv, .csv, or .xlsx file")
         sys.exit(1)
     if output_file:
         generate_messages_txt(messages, output_file)
     else:
-        generate_messages_txt(messages)
+        for message in messages:
+            print(message)
     return sys.exit(any_error)
 
 
-def generate_messages_txt(messages, filename="messages.txt"):
+def generate_messages_txt(messages, filename):
     cwd = getcwd()
     new_file = path.join(cwd, filename)
     message_file = open(new_file, "w+")

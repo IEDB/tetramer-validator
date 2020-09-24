@@ -24,13 +24,13 @@ def parse_excel_file(filename):
         )
         return messages
     rows = ws.iter_rows(min_row=2)
-    any_errors =False
+    any_errors = False
     for row in rows:
         message = validate(
             pep_seq=row[header["Peptide Sequence"]].value,
-            mhc_name=row[header["Modification Type"]].value,
-            mod_type=row[header["Modification Position"]].value,
-            mod_pos=row[header["MHC Name"]].value,
+            mod_type=row[header["Modification Type"]].value,
+            mod_pos=row[header["Modification Position"]].value,
+            mhc_name=row[header["MHC Name"]].value,
         )
         if message:
             messages.append(message)
