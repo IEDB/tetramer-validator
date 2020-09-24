@@ -25,6 +25,8 @@ Modification Type: Oxidation
 Modification Position: M5
 
 MHC Name: HLA-A*02:01
+![Example with oxidation and suggestion][1]
+![After hitting submit][2]
 
 ![1]: (tetramer_validator/static/Example_1_1.png)
 ![2]: (tetramer-validator/master/tetramer_validator/static/Example_1_2.png)
