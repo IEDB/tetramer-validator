@@ -62,11 +62,13 @@ def test_validate_six():
             mod_type="oxidized residue",
         )
         == "FormatError:"
-        " [',', ',', 'u', 'd', 'd', 's', 's', 'd', 'a', 'g', 'v', 'f', 'u', 'a', 'd']"
+        " [',uddssdagvfuad']"
         " at the end of input N1, N2,uddssdagvfuad"
         " are unrecognized"
     )
 
+def test_validate_seven():
+    assert (validate(pep_seq="SILKIHAREIFDSRG", mod_type="acetylated residue, L-citrylline, L-citrylline", mod_pos="S1, A7, S10") =="MismatchError: This peptide sequence SILKIHAREIFDSRG does not contain S at position 10")
 
 def test_mod_pos_val_one():
     assert validate_mod_pos(pep_seq="NLVPMVATV", positions=["M5"]) is None
