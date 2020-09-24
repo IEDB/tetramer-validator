@@ -10,10 +10,15 @@ from tetramer_validator.validate import validate, validate_mod_pos
 #    )
 
 
+def test_validate_one():
+    assert validate(pep_seq="NLVPMVATV", mhc_name="HLA-A*02:01") is None
+
+
 def test_validate_two():
     assert (
         validate(pep_seq="NLVPMVATV", mhc_name="HLA-A*02:01", mod_pos="M5")
-        == "Modificiation position provided but no modification type"
+        == "Incorrect combination of arguments: Modificiation position provided"
+        " but no modification type"
     )
 
 
@@ -37,7 +42,29 @@ def test_validate_four():
             mod_pos="NULL",
             mod_type="oxidized residue",
         )
-        == "NULL value entered. If there is no need for a particular value, please leave blank"
+        == "NULL value entered. If there is no need for a particular value, please leave blank."
+    )
+
+
+def test_validate_five():
+    assert (
+        validate(pep_seq="", mod_pos="N1", mod_type="oxidized residue")
+        == "Incorrect number of arguments: Peptide sequence is required"
+    )
+
+
+def test_validate_six():
+    assert (
+        validate(
+            pep_seq="NLVPMVATV",
+            mhc_name="HLA-A&02:0",
+            mod_pos="N1, N2,uddssdagvfuad",
+            mod_type="oxidized residue",
+        )
+        == "FormatError:"
+        " [',', ',', 'u', 'd', 'd', 's', 's', 'd', 'a', 'g', 'v', 'f', 'u', 'a', 'd']"
+        " at the end of input N1, N2,uddssdagvfuad"
+        " are unrecognized"
     )
 
 
