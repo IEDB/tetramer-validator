@@ -1,25 +1,25 @@
-display_name	synonyms
-amidated residue	Amidation|AMID
-2-pyrrolidone-5-carboxylic acid (Glu)	Pyrrolidone carboxylic acid|PYRE|PCA|pyroglutamic acid
-9-fluorenylmethyloxycarbonyl (Fmoc)	Fluorenylmethyloxycarbonyl|FMOC
-acetylated residue	Acetylation|ACET|AcRes|Acetyl
-biotinylated residue	Biotin|BIOT|BtnRes|Biotinylation
-cysteinylation (disulfide with free L-cysteine)	Cysteinylation|CYSTL|SCysCys
-deamidated and methyl esterified residue	Deamidation followed by a methylation|DEAME
-deamidated residue	Deamidation|DEAM|dNRes|Deamidated
-dehydrated residue	Dehydration|DEHY|Dehydrated
-formylated residue	Formylation|FORM|FoRes|Formyl
-galactosylated residue	Galactosylation|GAL|GalRes
-glucosylated residue	Glucosylation|GLUC|GlcRes|Glycation
-glycosylated residue	Glycosylation|GLYC|GlycoRes
-hydroxylated residue	Hydroxylation|HYL|HyRes
-L-2-aminobutanoic acid (Glu)	L-α-Aminobutyric acid|Abu|Abu
-L-citrylline	Citrullination|CITR|Cit|Deamidated
-methylated residue	Methylation|METH|MeRes
-myristoylated residue	Myristoylation|MYRI|MyrRes
-N-acetylated residue	N-acetylation|NAc|NAcRes|N-Acetyl
-oxidized residue	Oxidation|OX|OxRes
-palmitoylated residue	Palmitoylation|PALM|PALM|PamRes|Palmitoyl
-phosphorylated residue	Phosphorylation|PHOS|PhosRes|Phospho
-reduced residue	Reduction|RED|RedRes
-sulfated residue	Sulfation|SULF|SulfRes|Sulfo
+display_name	IEDB_synonym_1	IEDB_synonym_2	synonym_1	synonym_2
+amidated residue	Amidation	AMID		
+2-pyrrolidone-5-carboxylic acid (Glu)	Pyrrolidone carboxylic acid	PYRE	PCA	pyroglutamic acid
+9-fluorenylmethyloxycarbonyl (Fmoc)	Fluorenylmethyloxycarbonyl	FMOC
+acetylated residue	Acetylation	ACET	AcRes	Acetyl
+biotinylated residue	Biotin	BIOT	BtnRes	Biotinylation
+cysteinylation (disulfide with free L-cysteine)	Cysteinylation	CYSTL	SCysCys
+deamidated and methyl esterified residue	Deamidation followed by a methylation	DEAME
+deamidated residue	Deamidation	DEAM	dNRes	Deamidated
+dehydrated residue	Dehydration	DEHY	Dehydrated
+formylated residue	Formylation	FORM	FoRes	Formyl
+galactosylated residue	Galactosylation	GAL	GalRes
+glucosylated residue	Glucosylation	GLUC	GlcRes	Glycation
+glycosylated residue	Glycosylation	GLYC	GlycoRes
+hydroxylated residue	Hydroxylation	HYL	HyRes
+L-2-aminobutanoic acid (Glu)	L-_-Aminobutyric acid	Abu	Abu
+L-citrylline	Citrullination	CITR	Cit	Deamidated
+methylated residue	Methylation	METH	MeRes
+myristoylated residue	Myristoylation	MYRI	MyrRes
+N-acetylated residue	N-acetylation	NAc	NAcRes	N-Acetyl
+oxidized residue	Oxidation	OX	OxRes
+palmitoylated residue	Palmitoylation|PALM	PALM	PamRes	Palmitoyl
+phosphorylated residue	Phosphorylation	PHOS	PhosRes	Phospho
+reduced residue	Reduction	RED	RedRes
+sulfated residue	Sulfation	SULF	SulfRes	Sulfo
