@@ -23,8 +23,11 @@ def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
         return "NULL value entered. If there is no need for a particular value, please leave blank."
     if "" == args["pep_seq"]:
         return "Incorrect number of arguments: Peptide sequence is required"
-    if pep_seq != "" and mhc_name==None and mod_type==None and mod_pos==None:
-        return "Incorrect number of arguments: Please enter modification information ""and/or MHC molecule information."
+    if pep_seq != "" and mhc_name is None and mod_type is None and mod_pos is None:
+        return (
+            "Incorrect number of arguments: Please enter modification information "
+            "and/or MHC molecule information."
+        )
     # Thanks to Austin Crinklaw
     pattern = re.compile(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE)
     has_amino_acids = pattern.findall(pep_seq)
