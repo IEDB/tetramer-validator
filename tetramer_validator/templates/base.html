@@ -1,38 +1,69 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-<!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Tetramer Validator</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="{{url_for('static', filename='jquery-3.5.1.min.js')}}"> </script>
+  <script type="text/javascript" src="{{url_for('static', filename='typeahead.bundle.js')}}"> </script>
+  <link rel="stylesheet" href="{{url_for('static', filename='typeaheadjs.css')}}" />
+
 </head>
+
 <body>
-<form method="GET" class="form-horizontal" action="{{url_for('output')}}">
-  <div class="form-row">
-<div class="col">
-    <label for="Peptide Sequence">Peptide Sequence</label>
-    <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{pep_seq}}">
-  </div>
-    <div class="col">
-    <label for="Modification Type">Modification Type</label>
-    <input name="mod_type" type="text" class="form-control" id="mod_type" value="{{mod_type}}">
-  </div>
-<div class="col">
-    <label for="Modification Position">Modification Position</label>
-    <input name="mod_pos" type="text" class="form-control" id="mod_pos" value="{{mod_pos}}">
-  </div>
-  
+
+  <div class="container-fluid">
+    <h1> Tetramer Validator </h1>
+    <form method="GET" class="form-horizontal" action="{{url_for('output')}}">
+      <div class="form-row center-block">
         <div class="col">
-    <label for="MHC Name">MHC Name</label>
-    <input name="mhc_name" type="text" class="form-control" id="mhc_name" value="{{mhc_name}}">
-	</div>
-    </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-{% if statement%}
- <p> {{statement}} </p>
-{% else %}
-  <p> Please enter info </p>
-{% endif %}
+          <label for="Peptide Sequence">Peptide Sequence</label>
+          <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{pep_seq}}">
+        </div>
+        <div class="col" id="PTM_display">
+          <label for="Modification Type">Modification Type</label>
+
+          <input name="mod_type" type="text" class="twitter-typeahead form-control" id="mod_type" autocomplete="off" spellcheck="false" value="{{mod_type}}">
+          <script src="/static/PTM_display.js"> </script>
+        </div>
+        <div class="col">
+          <label for="Modification Position">Modification Position</label>
+          <input name="mod_pos" type="text" class="form-control" id="mod_pos" value="{{mod_pos}}">
+        </div>
+
+        <div class="col" id="MHC_display">
+          <label for="MHC Name">MHC Name</label>
+          <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}">
+          <script src="static/MHC_display.js"> </script>
+        </div>
+
+      </div>
+      <style>
+        .form-actions {
+          margin: 10px;
+          text-align: center;
+        }
+      </style>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+
+    </form>
+
+    {% if statement and error%}
+    <p class="alert alert-danger" role="alert"> {{statement}} </p>
+    {% elif statement %}
+    <p class="alert alert-success" role="alert"> {{statement}} </p>
+    {% endif %}
+    <p class="alert alert-info" role="alert"> Click <a href="{{url_for('readme')}}"> here </a> for documentation </p>
+  </div>
+
+
+
+
+
 </body>
+
 </html>

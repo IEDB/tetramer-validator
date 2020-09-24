@@ -1,8 +1,9 @@
 from flask import Flask
-from flask import render_template, request
+from flask import render_template, request, send_from_directory
 from tetramer_validator import validate
 
 app = Flask(__name__)
+
 
 
 @app.route("/", methods=["GET"])
@@ -15,8 +16,10 @@ def output():
         statement = validate.validate(
             pep_seq=pep_seq, mod_pos=mod_pos, mod_type=mod_type, mhc_name=mhc_name
         )
+        error = True
         if not statement:
             statement = "Success! This input is valid"
+            error = False
         return render_template(
             "base.html",
             pep_seq=pep_seq,
@@ -24,8 +27,27 @@ def output():
             mod_type=mod_type,
             mhc_name=mhc_name,
             statement=statement,
+            PTM_display=validate.PTM_display,
+            error=error,
         )
     else:
         return render_template(
-            "base.html", pep_seq="", mod_pos="", mod_type="", mhc_name="", statement=""
+            "base.html",
+            pep_seq="",
+            mod_pos="",
+            mod_type="",
+            mhc_name="",
+            statement="",
+            PTM_display=validate.PTM_display,
+            error=False,
         )
+
+
+@app.route("/README.html", methods=["GET"])
+def readme():
+    return render_template("README.html")
+
+
+@app.route("/data/<path:filename>")
+def send_js(filename):
+    return send_from_directory("data", filename=filename)
