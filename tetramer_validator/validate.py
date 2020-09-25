@@ -16,7 +16,19 @@ with open(PTM_file) as fh_1:
     reader = csv.DictReader(fh_1, delimiter="\t")
     PTM_display = [name["display_name"] for name in reader]
 
+def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
+    args = locals()
+    statement = properNumArguments(args)
+    if statement:
+        return statement
+    if mod_pos and mod_type:
+        validate_peptide(pep_seq, mod_type, mod_pos)
 
+    statement = validate_pep_seq_mhc_name(pep_seq, mhc_name)
+    if statement:
+        return statement
+    return None
+    
 def properNumArguments(args):
     incorrect_num_str = "Incorrect number of arguments:"
 
@@ -137,20 +149,6 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
     if statement:
         return statement
 
-    return None
-
-
-def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
-    args = locals()
-    statement = properNumArguments(args)
-    if statement:
-        return statement
-    if mod_pos and mod_type:
-        validate_peptide(pep_seq, mod_type, mod_pos)
-
-    statement = validate_pep_seq_mhc_name(pep_seq, mhc_name)
-    if statement:
-        return statement
     return None
 
 
