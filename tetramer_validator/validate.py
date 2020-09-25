@@ -11,23 +11,38 @@ with open(molecule_file) as fh:
 PTM_file = "data/PTM_list.tsv"
 PTM_file = path.join(here, PTM_file)
 
+
 with open(PTM_file) as fh_1:
     reader = csv.DictReader(fh_1, delimiter="\t")
     PTM_display = [name["display_name"] for name in reader]
 
 
-def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
-    args = locals()
+def properNumArguments(args):
+    incorrect_num_str = "Incorrect number of arguments:"
+
+    if not args["pep_seq"]:
+        return "".join(incorrect_num_str, "Peptide sequence is required")
+    if not args["mhc_name"]:
+        return "".join(incorrect_num_str, "MHC molecule required")
+    if args["mod_pos"] and not args["mod_type"]:
+        return (
+            "Incorrect number of arguments: Modificiation position provided"
+            " but no modification type"
+        )
+    if args["mod_type"] and not args["mod_pos"]:
+        return (
+            "Incorrect number of arguments: Modification type provided"
+            " but not modification position"
+        )
+
     null_str = "NULL"
     if null_str in args.values():
         return "NULL value entered. If there is no need for a particular value, please leave blank."
-    if "" == args["pep_seq"]:
-        return "Incorrect number of arguments: Peptide sequence is required"
-    if pep_seq != "" and mhc_name is None and mod_type is None and mod_pos is None:
-        return (
-            "Incorrect number of arguments: Please enter modification information "
-            "and/or MHC molecule information."
-        )
+
+    return None
+
+
+def validate_amino_acids(pep_seq):
     # Thanks to Austin Crinklaw
     pattern = re.compile(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE)
     has_amino_acids = pattern.findall(pep_seq)
@@ -36,97 +51,117 @@ def validate(pep_seq, mhc_name=None, mod_type=None, mod_pos=None):
             f"Unrecognized amino acid: Peptide sequence {pep_seq} has characters {has_amino_acids} "
             "that are not amino acids"
         )
-    if mod_pos and not mod_type:
-        return (
-            "Incorrect combination of arguments: Modificiation position provided"
-            " but no modification type"
-        )
-    if mod_type and not mod_pos:
-        return (
-            "Incorrect combination of arguments: Modification type provided"
-            " but not modification position"
-        )
-    if mod_pos:
-        mod_pos = str(mod_pos)
-        pattern = re.compile(r",[\s]+")
-        positions = re.sub(pattern, ",", mod_pos)
-        trailing_characters = re.findall(
-            r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y\d]+$", positions
-        )
-        if trailing_characters:
-            return (
-                f"FormatError: {trailing_characters} at the end of input {mod_pos}"
-                " are unrecognized"
+    return None
+
+
+def format_mod_info(mod_pos, mod_type):
+    mod_pos = str(mod_pos)
+    pattern = re.compile(r",[\s]+")
+    positions = re.sub(pattern, ",", mod_pos)
+    mod_types = mod_type
+    mod_types = re.sub(pattern, ",", mod_types)
+    return positions, mod_types
+
+
+def validate_PTM_names(mod_types):
+    for type in mod_types:
+        if type not in PTM_display:
+            return f"{type} is not a valid modification type"
+
+
+def validate_mod_pos_syntax(positions):
+    main_pattern = re.compile(
+        r"[A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]\d+", re.IGNORECASE
+    )
+    digits = re.compile(r"\d+")
+    reversed_pattern = re.compile(
+        r"\d+[A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE
+    )
+    for pos in positions:
+        if re.fullmatch(main_pattern, pos) is None:
+            formatted_string = (
+                f"{pos} is not a valid modification position."
+                "Modification Position field should be a comma separated list of amino acid "
+                "letter followed by position number (e.g. F1, S10, S300)"
             )
-        positions = positions.split(",")
-        if mod_type:
-            mod_types = mod_type
-            pattern = re.compile(r",[\s]+")
-            mod_types = re.sub(pattern, ",", mod_types)
-            mod_types = mod_types.split(",")
-            num_mod_types = len(mod_types)
-            num_mod_pos = len(positions)
-            if num_mod_pos != num_mod_types:
+            if re.fullmatch(pattern=digits, string=pos):
+                return formatted_string + "This input is just digit(s)"
+            elif re.fullmatch(pattern=reversed_pattern, string=pos):
                 return (
-                    f"MismatchError: There are {num_mod_pos} positions but {num_mod_types}"
-                    " modification types"
+                    formatted_string
+                    + "This input has syntax reversed syntax."
+                    + f"Should be {pos[-1]}{pos[:-1]}"
                 )
-            for type in mod_types:
-                if type not in PTM_display:
-                    return f"{type} is not a valid modification type"
-        statement = validate_mod_pos(pep_seq, positions)
-        if statement:
-            return statement
-    if mhc_name:
-        statement = validate_pep_seq_mhc_name(pep_seq, mhc_name)
-        if statement:
-            return statement
+            else:
+                return formatted_string
+    return None
+
+
+def validate_peptide(pep_seq, mod_pos, mod_type):
+    statement = validate_amino_acids(pep_seq)
+
+    if statement:
+        return statement
+
+    positions, mod_types = format_mod_info(mod_pos)
+
+    trailing_characters = re.findall(
+        r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y\d]+$", positions
+    )
+    if trailing_characters:
+        return (
+            f"FormatError: {trailing_characters} at the end of input {mod_pos}"
+            " are unrecognized"
+        )
+
+    positions = positions.split(",")
+    mod_types = mod_types.split(",")
+
+    statement = validate_mod_pos_syntax(positions)
+    if statement:
+        return statement
+
+    num_mod_types = len(mod_types)
+    num_mod_pos = len(positions)
+    if num_mod_pos != num_mod_types:
+        return (
+            f"MismatchError: There are {num_mod_pos} positions but {num_mod_types}"
+            " modification types"
+        )
+
+    statement = validate_PTM_names(mod_types)
+    if statement:
+        return statement
+
+    statement = validate_mod_pos(pep_seq, positions)
+    if statement:
+        return statement
+
+    return None
+
+
+def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
+    args = locals()
+    statement = properNumArguments(args)
+    if statement:
+        return statement
+    if mod_pos and mod_type:
+        validate_peptide(pep_seq, mod_type, mod_pos)
+
+    statement = validate_pep_seq_mhc_name(pep_seq, mhc_name)
+    if statement:
+        return statement
     return None
 
 
 def validate_pep_seq_mhc_name(pep_seq, mhc_name):
     if mhc_name not in molecules:
-        return f"{mhc_name} is not a valid MHC name"
+        return f"{mhc_name} is not a valid MHC molecule name"
     return None
-    # Need to know how to match mhc_name with pep_seq
-    # elif mhc_name:
-    # else:
-    # return None
 
 
 def validate_mod_pos(pep_seq, positions):
-    amino_acids = [
-        "A",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "K",
-        "L",
-        "M",
-        "N",
-        "P",
-        "Q",
-        "R",
-        "S",
-        "T",
-        "V",
-        "W",
-        "X",
-        "Y",
-    ]
-
     try:
-        system_err_pre = "Here is the error message from the system: "
-        if any(len(pos) > 0 and pos[0] not in amino_acids for pos in positions):
-            return (
-                "Modification position is just numbers without amino acid "
-                "letter or format of modification position is incorrect "
-                "(amino acid and position switched)"
-            )
         for pos in positions:
             if len(pos) >= 2:
                 position = "".join(pos[1:])
@@ -139,17 +174,12 @@ def validate_mod_pos(pep_seq, positions):
             else:
                 return f"""There are {len(pos)} characters in one of the modification positions"""
 
-    except ValueError as v:
-        formatted_string = f"ValueError.  {position} should be an integer.\n "
-        final_string = formatted_string + system_err_pre + str(v)
-        return final_string
-    except TypeError as t:
-        return "TypeError. Perhaps there is bad value.\n " + system_err_pre + str(t)
     except IndexError as i:
         formatted_string_one = (
             f"IndexError. {position + 1} is greater than number of amino acids in "
         )
         formatted_string_two = f"peptide sequence {pep_seq}."
+        system_err_pre = "Here is the error message from the system: "
         final_string = (
             formatted_string_one + formatted_string_two + "\n" + system_err_pre + str(i)
         )
