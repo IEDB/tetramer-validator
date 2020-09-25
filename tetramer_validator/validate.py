@@ -16,7 +16,9 @@ with open(PTM_file) as fh_1:
     reader = csv.DictReader(fh_1, delimiter="\t")
     PTM_display = [name["display_name"] for name in reader]
 
+
 def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
+    """Main validate function."""
     args = locals()
     statement = properNumArguments(args)
     if statement:
@@ -28,8 +30,11 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
     if statement:
         return statement
     return None
-    
+
+
 def properNumArguments(args):
+    """Checks for proper number and combination of arguments for validate function"""
+
     incorrect_num_str = "Incorrect number of arguments:"
 
     if not args["pep_seq"]:
@@ -55,7 +60,8 @@ def properNumArguments(args):
 
 
 def validate_amino_acids(pep_seq):
-    # Thanks to Austin Crinklaw
+    """Thanks to Austin Crinklaw.  Simple function to validate if given string has valid amino
+    acids letters"""
     pattern = re.compile(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE)
     has_amino_acids = pattern.findall(pep_seq)
     if has_amino_acids:
@@ -67,6 +73,9 @@ def validate_amino_acids(pep_seq):
 
 
 def format_mod_info(mod_pos, mod_type):
+    """Simple helper function to turn strings that have modification position and modification
+    types into lists and remove whitespace"""
+
     mod_pos = str(mod_pos)
     pattern = re.compile(r",[\s]+")
     positions = re.sub(pattern, ",", mod_pos)
@@ -76,12 +85,16 @@ def format_mod_info(mod_pos, mod_type):
 
 
 def validate_PTM_names(mod_types):
+    """Check if given list of modification types match up to MOD list"""
     for type in mod_types:
         if type not in PTM_display:
             return f"{type} is not a valid modification type"
 
 
 def validate_mod_pos_syntax(positions):
+    """Given list of modification positions, validates list against syntax of amino acid followed
+    by position number (e.g. ['N1', 'N100'])"""
+
     main_pattern = re.compile(
         r"[A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]\d+", re.IGNORECASE
     )
@@ -110,6 +123,8 @@ def validate_mod_pos_syntax(positions):
 
 
 def validate_peptide(pep_seq, mod_pos, mod_type):
+    """Main helper function to validate.py, checks for validation of peptide sequence, modification
+    position, and modification type"""
     statement = validate_amino_acids(pep_seq)
 
     if statement:
@@ -153,12 +168,15 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
 
 
 def validate_pep_seq_mhc_name(pep_seq, mhc_name):
+    """Check if given MHC name match up to MRO name"""
     if mhc_name not in molecules:
         return f"{mhc_name} is not a valid MHC molecule name"
     return None
 
 
 def validate_mod_pos(pep_seq, positions):
+    """Validates the list of modification positions (in proper syntax) for peptide sequence entered
+    as occuring at the stated position."""
     try:
         for pos in positions:
             if len(pos) >= 2:
