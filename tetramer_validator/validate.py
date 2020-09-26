@@ -24,16 +24,16 @@ def generate_problem_table(level, rule_name, value, instructions, fix=None):
 def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
     """Main validate function."""
     args = locals()
-    statement = properNumArguments(args)
-    if statement:
-        return statement
+    properNumArguments(args)
+    null_input_check(args)
+    if errors:
+        return errors
     if mod_pos and mod_type:
         validate_peptide(pep_seq, mod_type, mod_pos)
 
-    statement = validate_pep_seq_mhc_name(pep_seq, mhc_name)
-    if statement:
-        return statement
-    return None
+    validate_mhc_name(mhc_name)
+
+    return errors
 
 
 def properNumArguments(args):
@@ -73,6 +73,7 @@ def properNumArguments(args):
             instructions="Provide modificiation position(s)",
         )
 
+def null_input_check(args):
     null_rule_name = "NullValueEntered"
     null_strs = [
         "#N/A",
@@ -223,17 +224,13 @@ def validate_mod_pos_syntax(pep_seq, positions):
                     value=pos,
                     instructions=formatted_string,
                 )
-    return None
 
 
 def validate_peptide(pep_seq, mod_pos, mod_type):
-    """Main helper function to validate.py, checks for validation of peptide sequence, modification
+    """Main helper function to validate, checks for validation of peptide sequence, modification
     position, and modification type"""
 
-    statement = validate_amino_acids(pep_seq)
-
-    if statement:
-        return statement
+    validate_amino_acids(pep_seq)
 
     positions, mod_types = format_mod_info(mod_pos)
 
@@ -251,7 +248,7 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
 
     positions = positions.split(",")
     mod_types = mod_types.split(",")
-
+    validate_PTM_names(mod_types)
     validate_mod_pos_syntax(pep_seq, positions)
 
     num_mod_types = len(mod_types)
@@ -274,12 +271,11 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
             " or increase number of modification types",
         )
 
-    validate_PTM_names(mod_types)
-
     validate_mod_pos(pep_seq, positions)
+    return errors
 
 
-def validate_pep_seq_mhc_name(mhc_name):
+def validate_mhc_name(mhc_name):
     """Check if given MHC name match up to MRO name"""
     invalid_MHC_rule = "InvalidMHCmol"
     if mhc_name not in molecules:
