@@ -16,6 +16,7 @@ MHC_engine.initialize();
 
 // instantiate the typeahead UI
 $('#MHC_display .form-control').typeahead({
+
   hint: true,
   highlight: true,
   minLength: 1,
@@ -23,7 +24,7 @@ $('#MHC_display .form-control').typeahead({
 }, {
   name: 'MHC_name',
   displayKey: function(mhc) {
-    return mhc.Label
+    return mhc["IEDB Label"]
   },
 
   source: MHC_engine.ttAdapter()
