@@ -52,10 +52,17 @@
 
     </form>
 
-    {% if statement and error%}
-    <p class="alert alert-danger" role="alert"> {{statement}} </p>
-    {% elif statement %}
-    <p class="alert alert-success" role="alert"> {{statement}} </p>
+    {% for error in errors%}
+       {% if error %}
+          <p class="alert alert-danger" role="alert"> {{error["instructions"]}}
+          {% if error["fix"] %}
+              {{"Suggested fix is" + error["fix"]}}
+          {% endif %}
+          </p>
+        {% endif %}
+    {% endfor %}
+    {% if not error and success %}
+      <p class="alert alert-success" role="alert"> Success! Input is valid </p>
     {% endif %}
     <p class="alert alert-info" role="alert"> Click <a href="{{url_for('readme')}}"> here </a> for documentation </p>
   </div>

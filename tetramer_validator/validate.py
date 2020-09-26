@@ -18,21 +18,28 @@ with open(PTM_file) as fh_1:
 
 
 def generate_problem_table(level, rule_name, value, instructions, fix=None):
+    global errors
     errors.append(locals())
-
+    print("generae")
+    print(errors)
 
 def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
     """Main validate function."""
     args = locals()
+    global errors
+    errors = []
     properNumArguments(args)
     null_input_check(args)
+
     if errors:
         return errors
+
     if mod_pos and mod_type:
-        validate_peptide(pep_seq, mod_type, mod_pos)
-
+        validate_peptide(pep_seq, mod_type=mod_type, mod_pos=mod_pos)
+    print(errors)
     validate_mhc_name(mhc_name)
-
+    print("validate")
+    print(errors)
     return errors
 
 
@@ -72,6 +79,7 @@ def properNumArguments(args):
             value=args["mod_pos"],
             instructions="Provide modificiation position(s)",
         )
+
 
 def null_input_check(args):
     null_rule_name = "NullValueEntered"
@@ -184,9 +192,9 @@ def validate_mod_pos_syntax(pep_seq, positions):
     for pos in positions:
         if re.fullmatch(main_pattern, pos) is None:
             formatted_string = (
-                f"{pos} is not a valid modification position."
+                f"{pos} is not a valid modification position. "
                 "Modification Position field should be a comma separated list of amino acid "
-                "letter followed by position number (e.g. F1, S10, S300) "
+                "letter followed by position number (e.g. F1, S10, S300). "
             )
 
             if re.fullmatch(pattern=digits, string=pos):
@@ -232,7 +240,7 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
 
     validate_amino_acids(pep_seq)
 
-    positions, mod_types = format_mod_info(mod_pos)
+    positions, mod_types = format_mod_info(mod_pos, mod_type)
 
     trailing_rule_name = "TrailingCharacters"
     trailing_characters = re.findall(
@@ -245,12 +253,12 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
             value=mod_pos,
             instructions=f"Remove {trailing_characters} from modification position",
         )
+        return errors
 
     positions = positions.split(",")
     mod_types = mod_types.split(",")
     validate_PTM_names(mod_types)
     validate_mod_pos_syntax(pep_seq, positions)
-
     num_mod_types = len(mod_types)
     num_mod_pos = len(positions)
     mod_num_mismatch = "NumModPosTypeMismatch"
@@ -272,12 +280,15 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
         )
 
     validate_mod_pos(pep_seq, positions)
+    print("Validate_peptide")
+    print(errors)
     return errors
 
 
 def validate_mhc_name(mhc_name):
     """Check if given MHC name match up to MRO name"""
-    invalid_MHC_rule = "InvalidMHCmol"
+
+    invalid_MHC_rule = "InvalidMHCMol"
     if mhc_name not in molecules:
         generate_problem_table(
             level="error",
@@ -293,10 +304,15 @@ def validate_mod_pos(pep_seq, positions):
 
     pos_pep_seq_rule = "AminoAcidPosMismatch"
     try:
+        print("Trying")
         for pos in positions:
+            print(pos)
             if len(pos) >= 2:
                 position = "".join(pos[1:])
                 position = int(position) - 1
+                print(position)
+                print(pep_seq[0])
+                print(pep_seq[position])
                 if pep_seq[position] is not pos[0]:
                     part_one = "This peptide sequence "
                     part_two = f"does not contain {pos[0]} at position {pos[1:]}. "
@@ -322,3 +338,5 @@ def validate_mod_pos(pep_seq, positions):
             instructions=formatted_string
             + "Enter position that is less than length of peptide sequence and more than 0.",
         )
+        print("valdiate_mod_pos")
+        print(errors)
