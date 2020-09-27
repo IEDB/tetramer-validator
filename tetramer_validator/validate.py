@@ -31,7 +31,7 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
         return errors
 
     if mod_pos and mod_type:
-        validate_peptide(pep_seq, mod_type=mod_type, mod_pos=mod_pos)
+        errors.extend(validate_peptide(pep_seq, mod_type=mod_type, mod_pos=mod_pos))
 
     validate_mhc_name(mhc_name)
     return errors
@@ -293,6 +293,7 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
                 level="error",
                 rule_name=trailing_rule_name,
                 value=mod_pos,
+                field = "mod_pos",
                 instructions=f"Remove {trailing_characters} from modification position",
             )
         )
@@ -311,6 +312,7 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
                 level="warn",
                 rule_name=mod_num_mismatch,
                 value=mod_pos,
+                field = "mod_pos",
                 instructions="Decrease number of modification types"
                 " or increase number of modification positions",
             )
@@ -321,14 +323,13 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
                 level="warn",
                 rule_name=mod_num_mismatch,
                 value=mod_type,
+                field = "mod_type",
                 instructions="Decrease number of modification positions"
                 " or increase number of modification types",
             )
         )
 
     errors.extend(validate_mod_pos(pep_seq, positions))
-    print("Validate_peptide")
-    print(errors)
     return errors
 
 
@@ -342,6 +343,7 @@ def validate_mhc_name(mhc_name):
                 level="error",
                 rule_name=invalid_MHC_rule,
                 value=mhc_name,
+                field = "mhc_name",
                 instructions="Enter MHC molecule from prepopulated list",
             )
         )
@@ -354,15 +356,10 @@ def validate_mod_pos(pep_seq, positions):
     errors = []
     pos_pep_seq_rule = "AminoAcidPosMismatch"
     try:
-        print("Trying")
         for pos in positions:
-            print(pos)
             if len(pos) >= 2:
                 position = "".join(pos[1:])
                 position = int(position) - 1
-                print(position)
-                print(pep_seq[0])
-                print(pep_seq[position])
                 if pep_seq[position] is not pos[0]:
                     part_one = "This peptide sequence "
                     part_two = f"does not contain {pos[0]} at position {pos[1:]}. "
@@ -372,6 +369,7 @@ def validate_mod_pos(pep_seq, positions):
                             level="error",
                             rule_name=pos_pep_seq_rule,
                             value=pos,
+                            field = "mod_pos",
                             instructions=result
                             + "Enter a amino acid letter and matching position from peptide sequence",
                         )
@@ -388,10 +386,9 @@ def validate_mod_pos(pep_seq, positions):
                 level="error",
                 rule_name=index_rule,
                 value=int(pos[1:]),
+                field = "mod_pos",
                 instructions=formatted_string
                 + "Enter position that is less than length of peptide sequence and more than 0.",
             )
         )
-        print("valdiate_mod_pos")
-        print(errors)
     return errors

@@ -20,7 +20,7 @@
       <div class="form-row center-block">
         <div class="col">
           <label for="Peptide Sequence">Peptide Sequence</label>
-          <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{pep_seq}}">
+          <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{pep_seq}}" required>
         </div>
         <div class="col" id="PTM_display">
           <label for="Modification Type">Modification Type</label>
@@ -35,7 +35,7 @@
 
         <div class="col" id="MHC_display">
           <label for="MHC Name">MHC Name</label>
-          <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}">
+          <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}" required>
           <script src="static/MHC_display.js"> </script>
         </div>
 
@@ -59,6 +59,10 @@
               {{"Suggested fix is" + error["fix"]}}
           {% endif %}
           </p>
+          <script>
+            var field = "#{{error["field"]}}";
+            $(field).addClass("is-invalid");
+          </script>
         {% endif %}
     {% endfor %}
     {% if not error and success %}
