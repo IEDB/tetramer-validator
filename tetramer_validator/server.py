@@ -17,7 +17,7 @@ def output():
         )
         success = False
         if not errors:
-            success=True
+            success = True
         return render_template(
             "base.html",
             pep_seq=pep_seq,
@@ -26,7 +26,7 @@ def output():
             mhc_name=mhc_name,
             errors=errors,
             PTM_display=validate.PTM_display,
-            success = success
+            success=success,
         )
     else:
         return render_template(
@@ -37,7 +37,7 @@ def output():
             mhc_name="",
             PTM_display=validate.PTM_display,
             errors="",
-            success = False
+            success=False,
         )
 
 
