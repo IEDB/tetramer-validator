@@ -65,6 +65,14 @@
           </script>
         {% endif %}
     {% endfor %}
+    <script>
+      var inputs = $("input");
+      for(i = 0; i <inputs.length; i++){
+      if(!($(inputs[i]).hasClass("is-invalid"))) {
+        $($(inputs[i]).addClass("is-valid"));
+      }
+    }
+    </script>
     {% if not error and success %}
       <p class="alert alert-success" role="alert"> Success! Input is valid </p>
     {% endif %}
