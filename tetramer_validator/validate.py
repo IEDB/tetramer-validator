@@ -93,8 +93,7 @@ def null_input_check(args):
     null_rule_name = "NullValueEntered"
     null_strs = [
         "#N/A",
-        "#N/A",
-        "N/A",
+        "#N/A N/A",
         "#NA",
         "-1.#IND",
         "-1.#QNAN",
@@ -102,14 +101,14 @@ def null_input_check(args):
         "-nan",
         "1.#IND",
         "1.#QNAN",
+        "<NA>",
+        "N/A",
         "NA",
         "NULL",
         "NaN",
-        r"n/a",
+        "n/a",
         "nan",
         "null",
-        "<NA>",
-        "N/A",
     ]
     for (param, value) in args.items():
         if value in null_strs:
@@ -196,7 +195,7 @@ def validate_PTM_names(mod_types):
                     rule_name=invalid_PTM_rule,
                     value=type,
                     field="mod_type",
-                    instructions="Please choose a post-translational type from the autocomplete list",
+                    instructions="Please choose a post-translational type from the prepopulated list",
                 )
             )
     return errors
@@ -293,7 +292,7 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
                 level="error",
                 rule_name=trailing_rule_name,
                 value=mod_pos,
-                field = "mod_pos",
+                field="mod_pos",
                 instructions=f"Remove {trailing_characters} from modification position",
             )
         )
@@ -312,7 +311,7 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
                 level="warn",
                 rule_name=mod_num_mismatch,
                 value=mod_pos,
-                field = "mod_pos",
+                field="mod_pos",
                 instructions="Decrease number of modification types"
                 " or increase number of modification positions",
             )
@@ -323,7 +322,7 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
                 level="warn",
                 rule_name=mod_num_mismatch,
                 value=mod_type,
-                field = "mod_type",
+                field="mod_type",
                 instructions="Decrease number of modification positions"
                 " or increase number of modification types",
             )
@@ -343,7 +342,7 @@ def validate_mhc_name(mhc_name):
                 level="error",
                 rule_name=invalid_MHC_rule,
                 value=mhc_name,
-                field = "mhc_name",
+                field="mhc_name",
                 instructions="Enter MHC molecule from prepopulated list",
             )
         )
@@ -369,7 +368,7 @@ def validate_mod_pos(pep_seq, positions):
                             level="error",
                             rule_name=pos_pep_seq_rule,
                             value=pos,
-                            field = "mod_pos",
+                            field="mod_pos",
                             instructions=result
                             + "Enter a amino acid letter and matching position from peptide sequence",
                         )
@@ -386,7 +385,7 @@ def validate_mod_pos(pep_seq, positions):
                 level="error",
                 rule_name=index_rule,
                 value=int(pos[1:]),
-                field = "mod_pos",
+                field="mod_pos",
                 instructions=formatted_string
                 + "Enter position that is less than length of peptide sequence and more than 0.",
             )
