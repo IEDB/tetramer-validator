@@ -1,5 +1,5 @@
 var PTM_names = new Bloodhound({
-  datumTokenizer: Bloodhound.tokenizers.obj.whitespace(["display_name", "IEDB_synonym_1", "IEDB_synonym_2", "synonym_1", "synonym_2"]),
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace(["value", "IEDB_synonym_1", "IEDB_synonym_2", "synonym_1", "synonym_2"]),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   prefetch: {
     url: "/data/PTM_list.json",
@@ -12,15 +12,17 @@ var PTM_names = new Bloodhound({
 // initialize the bloodhound suggestion engine
 PTM_names.initialize();
 
-$('#PTM_display .form-control').typeahead({
-  hint: true,
-  highlight: true,
-  minLength: 1,
-  autoselect: true,
-}, {
-  name: 'PTM_names',
-  displayKey: function(ptm) {
-    return ptm.display_name
-  },
-  source: PTM_names.ttAdapter()
+$('#PTM_display_1').tokenfield({
+  typeahead: [{
+    hint: true,
+    highlight: true,
+    minLength: 1,
+    autoselect: true,
+  }, {
+    name: 'PTM_names',
+    displayKey: function(ptm) {
+      return ptm.value
+    },
+    source: PTM_names.ttAdapter()
+  }]
 });

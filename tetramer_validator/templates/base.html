@@ -9,7 +9,8 @@
   <script src="{{url_for('static', filename='jquery-3.5.1.min.js')}}"> </script>
   <script type="text/javascript" src="{{url_for('static', filename='typeahead.bundle.js')}}"> </script>
   <link rel="stylesheet" href="{{url_for('static', filename='typeaheadjs.css')}}" />
-
+  <link rel="stylesheet" href="{{url_for('static', filename='bootstrap-tokenfield.min.css')}}" />
+  <script type="text/javascript" src="{{url_for('static', filename='bootstrap-tokenfield.min.js')}}"> </script>
 </head>
 
 <body>
@@ -25,7 +26,7 @@
         <div class="col" id="PTM_display">
           <label for="Modification Type">Modification Type</label>
 
-          <input name="mod_type" type="text" class="twitter-typeahead form-control" id="tokenfield-typeahead"  autocomplete="off" spellcheck="false" value="{{mod_type}}">
+          <input name="mod_type" type="text" class="twitter-typeahead form-control" id="PTM_display_1"  autocomplete="off" spellcheck="false" value="{{mod_type}}">
           <script src="/static/PTM_display.js"> </script>
         </div>
         <div class="col">
