@@ -12,7 +12,7 @@ var PTM_names = new Bloodhound({
 // initialize the bloodhound suggestion engine
 PTM_names.initialize();
 
-$('#PTM_display_1').tokenfield({
+$('#mod_type').tokenfield({
   typeahead: [{
     hint: true,
     highlight: true,
