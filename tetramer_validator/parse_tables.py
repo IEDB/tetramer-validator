@@ -7,35 +7,41 @@ def parse_excel_file(filename):
     wb = load_workbook(filename)
     ws = wb.active
     messages = []
-    header = [entry.value for entry in ws[1]]
-    if (
-        header[0] != "Peptide Sequence"
-        or header[1] != "Modification Type"
-        or header[2] != "Modification Position"
-        or header[3] != "MHC Name"
-    ):
+    header = {
+        "Peptide Sequence": -1,
+        "Modification Type": -1,
+        "Modification Position": -1,
+        "MHC Name": -1,
+    }
+    for entry in ws[1]:
+        if entry.value in header.keys():
+            header[entry.value] = entry.column - 1
+
+    if -1 in header.values():
         messages.append(
-            "Need to have 4 columns in header in following order: Peptide Sequence, "
-            "Modification Type, Modification Position, MHC Name"
+            "Need to have 4 columns in first row: Peptide Sequence, "
+            "Modification Type, Modification Position, and MHC Name"
         )
         return messages
     rows = ws.iter_rows(min_row=2)
-
+    any_errors = False
     for row in rows:
         message = validate(
-            pep_seq=row[0].value,
-            mhc_name=row[3].value,
-            mod_type=row[1].value,
-            mod_pos=row[2].value,
+            pep_seq=row[header["Peptide Sequence"]].value,
+            mod_type=row[header["Modification Type"]].value,
+            mod_pos=row[header["Modification Position"]].value,
+            mhc_name=row[header["MHC Name"]].value,
         )
         if message:
             messages.append(message)
+            any_errors = True
         else:
             messages.append(f"Peptide sequence {row[0].value} is valid")
-    return messages
+    return (messages, any_errors)
 
 
 def parse_csv_tsv(filename, delimiter):
+    any_errors = False
     with open(filename, "r", encoding="utf-8-sig") as file_obj:
         reader = csv.DictReader(file_obj, delimiter=delimiter)
         messages = []
@@ -48,7 +54,8 @@ def parse_csv_tsv(filename, delimiter):
             )
             if message:
                 messages.append(message)
+                any_errors = True
             else:
                 pep_seq = entry["Peptide Sequence"]
                 messages.append(f"Peptide sequence {pep_seq} is valid")
-        return messages
+    return (messages, any_errors)
