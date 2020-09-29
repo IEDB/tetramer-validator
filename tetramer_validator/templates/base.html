@@ -35,7 +35,7 @@
 
         <div class="col" id="MHC_display">
           <label for="MHC Name">MHC Name</label>
-          <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}" required>
+          <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}" autocomplete="off" required>
           <script src="static/MHC_display.js"> </script>
         </div>
 
@@ -52,11 +52,13 @@
 
     </form>
 
+
+
     {% for error in errors%}
        {% if error %}
           <p class="alert alert-danger" role="alert"> {{error["instructions"]}}
           {% if error["fix"] %}
-              {{"Suggested fix is" + error["fix"]}}
+              {{"Suggested fix is " + error["fix"]}}
           {% endif %}
           </p>
           <script>
@@ -65,18 +67,23 @@
           </script>
         {% endif %}
     {% endfor %}
-    <script>
-      var inputs = $("input");
-      for(i = 0; i <inputs.length; i++){
-      if(!($(inputs[i]).hasClass("is-invalid"))) {
-        $($(inputs[i]).addClass("is-valid"));
-      }
-    }
-    </script>
+
+
     {% if not error and success %}
       <p class="alert alert-success" role="alert"> Success! Input is valid </p>
     {% endif %}
     <p class="alert alert-info" role="alert"> Click <a href="{{url_for('readme')}}"> here </a> for documentation </p>
+    <script>
+    if ($("p").hasClass("alert-danger") || $("p").hasClass("alert-success")) {
+      var inputs = $("input");
+
+      for(i = 0; i <inputs.length; i++){
+      if(!( $(inputs[i]).hasClass("is-invalid") || inputs[i].value == "")) {
+        $(inputs[i]).addClass("is-valid");
+      }
+    }};
+
+    </script>
   </div>
 
 

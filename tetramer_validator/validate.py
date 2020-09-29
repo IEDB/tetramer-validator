@@ -46,7 +46,7 @@ def properNumArguments(args):
         errors.append(
             generate_problem_table(
                 level="error",
-                rule_name=incorrect_num_str,
+                rule_name=incorrect_num_str+"PepSeq",
                 value=args["pep_seq"],
                 field="pep_seq",
                 instructions="Enter peptide sequence",
@@ -57,7 +57,7 @@ def properNumArguments(args):
         errors.append(
             generate_problem_table(
                 level="error",
-                rule_name=incorrect_num_str,
+                rule_name=incorrect_num_str+"MHCMol",
                 value=args["mhc_name"],
                 field="mhc_name",
                 instructions="Enter MHC molecule",
@@ -68,7 +68,7 @@ def properNumArguments(args):
         errors.append(
             generate_problem_table(
                 level="error",
-                rule_name=incorrect_num_str,
+                rule_name=incorrect_num_str+"ModType",
                 value=args["mod_type"],
                 field="mod_type",
                 instructions="Provide modificiation type(s)",
@@ -79,7 +79,7 @@ def properNumArguments(args):
         errors.append(
             generate_problem_table(
                 level="error",
-                rule_name=incorrect_num_str,
+                rule_name=incorrect_num_str+"ModPos",
                 value=args["mod_pos"],
                 field="mod_pos",
                 instructions="Provide modificiation position(s)",
@@ -90,7 +90,7 @@ def properNumArguments(args):
 
 def null_input_check(args):
     errors = []
-    null_rule_name = "NullValueEntered"
+    null_rule_name = "UndefinedArgNullValue"
     null_strs = [
         "#N/A",
         "#N/A N/A",
@@ -154,7 +154,7 @@ def validate_amino_acids(pep_seq):
     acids letters"""
 
     errors = []
-    aa_rule_name = "UnrecognizedAminoAcid"
+    aa_rule_name = "UndefinedArgAminoAcid"
     pattern = re.compile(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE)
     has_amino_acids = pattern.findall(pep_seq)
     if has_amino_acids:
@@ -180,13 +180,14 @@ def format_mod_info(mod_pos, mod_type):
     positions = re.sub(pattern, ",", mod_pos)
     mod_types = mod_type
     mod_types = re.sub(pattern, ",", mod_types)
+    print(positions)
     return positions, mod_types
 
 
 def validate_PTM_names(mod_types):
     """Check if given list of modification types match up to MOD list"""
     errors = []
-    invalid_PTM_rule = "InvalidPTMtype"
+    invalid_PTM_rule = "UndefinedArgPTMtype"
     for type in mod_types:
         if type not in PTM_display:
             errors.append(
@@ -212,11 +213,11 @@ def validate_mod_pos_syntax(pep_seq, positions):
     reversed_pattern = re.compile(
         r"\d+[A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE
     )
-    just_digits = "JustDigits"
-    reversed = "ReverseAminoAcid"
-    general = "GeneralModPos"
+    just_digits = "FormatErrorJustDigits"
+    reversed = "FormatErrorReverseAminoAcid"
+    general = "FormatErrorGeneralModPos"
     for pos in positions:
-        if re.fullmatch(main_pattern, pos) is None:
+        if re.fullmatch(main_pattern, pos) == None:
             formatted_string = (
                 f"{pos} is not a valid modification position. "
                 "Modification Position field should be a comma separated list of amino acid "
@@ -271,6 +272,7 @@ def validate_mod_pos_syntax(pep_seq, positions):
                         instructions=formatted_string,
                     )
                 )
+    print(errors)
     return errors
 
 
@@ -282,7 +284,7 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
 
     positions, mod_types = format_mod_info(mod_pos, mod_type)
 
-    trailing_rule_name = "TrailingCharacters"
+    trailing_rule_name = "FormatErrorTrailingCharacters"
     trailing_characters = re.findall(
         r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y\d]+$", positions
     )
@@ -304,7 +306,7 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
     errors.extend(validate_mod_pos_syntax(pep_seq, positions))
     num_mod_types = len(mod_types)
     num_mod_pos = len(positions)
-    mod_num_mismatch = "NumModPosTypeMismatch"
+    mod_num_mismatch = "MismatchErrorNumModPosType"
     if num_mod_pos < num_mod_types:
         errors.append(
             generate_problem_table(
@@ -328,14 +330,18 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
             )
         )
 
+    if errors:
+        return errors
+
     errors.extend(validate_mod_pos(pep_seq, positions))
+
     return errors
 
 
 def validate_mhc_name(mhc_name):
     """Check if given MHC name match up to MRO name"""
     errors = []
-    invalid_MHC_rule = "InvalidMHCMol"
+    invalid_MHC_rule = "UndefinedMHCMol"
     if mhc_name not in molecules:
         errors.append(
             generate_problem_table(
@@ -353,15 +359,15 @@ def validate_mod_pos(pep_seq, positions):
     """Validates the list of modification positions (in proper syntax) for peptide sequence entered
     as occuring at the stated position."""
     errors = []
-    pos_pep_seq_rule = "AminoAcidPosMismatch"
+    pos_pep_seq_rule = "MismatchErrorAminoAcidPos"
     try:
         for pos in positions:
             if len(pos) >= 2:
                 position = "".join(pos[1:])
                 position = int(position) - 1
-                if pep_seq[position] is not pos[0]:
+                if pep_seq[position].upper() != pos[0].upper():
                     part_one = "This peptide sequence "
-                    part_two = f"does not contain {pos[0]} at position {pos[1:]}. "
+                    part_two = f"does not contain {pos[0].upper()} at position {pos[1:]}. "
                     result = part_one + part_two
                     errors.append(
                         generate_problem_table(
@@ -375,7 +381,7 @@ def validate_mod_pos(pep_seq, positions):
                     )
 
     except IndexError:
-        index_rule = "PosGreaterPepLen"
+        index_rule = "MismatchErrorPosGreaterPepLen"
         formatted_string = (
             f"IndexError. {position + 1} is greater than number of"
             " amino acids in peptide sequence. "
