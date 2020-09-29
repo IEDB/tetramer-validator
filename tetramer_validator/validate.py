@@ -30,7 +30,7 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
     if errors:
         return errors
 
-    if mod_pos and mod_type:
+    if pep_seq and mod_pos and mod_type:
         errors.extend(validate_peptide(pep_seq, mod_type=mod_type, mod_pos=mod_pos))
 
     validate_mhc_name(mhc_name)
@@ -46,10 +46,10 @@ def properNumArguments(args):
         errors.append(
             generate_problem_table(
                 level="error",
-                rule_name=incorrect_num_str+"PepSeq",
+                rule_name=incorrect_num_str + "PepSeq",
                 value=args["pep_seq"],
                 field="pep_seq",
-                instructions="Enter peptide sequence",
+                instructions="Enter peptide sequence.",
             )
         )
 
@@ -57,10 +57,10 @@ def properNumArguments(args):
         errors.append(
             generate_problem_table(
                 level="error",
-                rule_name=incorrect_num_str+"MHCMol",
+                rule_name=incorrect_num_str + "MHCMol",
                 value=args["mhc_name"],
                 field="mhc_name",
-                instructions="Enter MHC molecule",
+                instructions="Enter MHC molecule.",
             )
         )
 
@@ -68,10 +68,10 @@ def properNumArguments(args):
         errors.append(
             generate_problem_table(
                 level="error",
-                rule_name=incorrect_num_str+"ModType",
+                rule_name=incorrect_num_str + "ModType",
                 value=args["mod_type"],
                 field="mod_type",
-                instructions="Provide modificiation type(s)",
+                instructions="Provide modificiation type(s).",
             )
         )
 
@@ -79,10 +79,10 @@ def properNumArguments(args):
         errors.append(
             generate_problem_table(
                 level="error",
-                rule_name=incorrect_num_str+"ModPos",
+                rule_name=incorrect_num_str + "ModPos",
                 value=args["mod_pos"],
                 field="mod_pos",
-                instructions="Provide modificiation position(s)",
+                instructions="Provide modificiation position(s).",
             )
         )
     return errors
@@ -180,7 +180,6 @@ def format_mod_info(mod_pos, mod_type):
     positions = re.sub(pattern, ",", mod_pos)
     mod_types = mod_type
     mod_types = re.sub(pattern, ",", mod_types)
-    print(positions)
     return positions, mod_types
 
 
@@ -196,7 +195,7 @@ def validate_PTM_names(mod_types):
                     rule_name=invalid_PTM_rule,
                     value=type,
                     field="mod_type",
-                    instructions="Please choose a post-translational type from the prepopulated list",
+                    instructions="Please choose a post-translational type from the prepopulated list.",
                 )
             )
     return errors
@@ -205,6 +204,7 @@ def validate_PTM_names(mod_types):
 def validate_mod_pos_syntax(pep_seq, positions):
     """Given list of modification positions, validates list against syntax of amino acid followed
     by position number (e.g. ['N1', 'N100'])"""
+
     errors = []
     main_pattern = re.compile(
         r"[A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]\d+", re.IGNORECASE
@@ -217,7 +217,7 @@ def validate_mod_pos_syntax(pep_seq, positions):
     reversed = "FormatErrorReverseAminoAcid"
     general = "FormatErrorGeneralModPos"
     for pos in positions:
-        if re.fullmatch(main_pattern, pos) == None:
+        if re.fullmatch(main_pattern, pos) is None:
             formatted_string = (
                 f"{pos} is not a valid modification position. "
                 "Modification Position field should be a comma separated list of amino acid "
@@ -233,7 +233,8 @@ def validate_mod_pos_syntax(pep_seq, positions):
                             value=pos,
                             field="mod_pos",
                             instructions=formatted_string
-                            + "This input is just digit(s)",
+                            + "This input is just digit(s)."
+                            " Digit is bigger than length of peptide sequence",
                         )
                     )
                 else:
@@ -245,7 +246,7 @@ def validate_mod_pos_syntax(pep_seq, positions):
                             value=pos,
                             field="mod_pos",
                             instructions=formatted_string
-                            + "Enter amino acid before digit(s)",
+                            + "Enter amino acid before digit(s). ",
                         )
                     )
 
@@ -272,7 +273,6 @@ def validate_mod_pos_syntax(pep_seq, positions):
                         instructions=formatted_string,
                     )
                 )
-    print(errors)
     return errors
 
 
@@ -295,7 +295,7 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
                 rule_name=trailing_rule_name,
                 value=mod_pos,
                 field="mod_pos",
-                instructions=f"Remove {trailing_characters} from modification position",
+                instructions=f"Remove {trailing_characters} from modification position.",
             )
         )
         return errors
@@ -331,10 +331,17 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
         )
 
     if errors:
-        return errors
+        for error in errors:
+            if (
+                error["rule_name"] == "FormatErrorJustDigits"
+                or error["rule_name"] == "FormatErrorReverseAminoAcid"
+            ):
+                positions.remove(error["value"])
+            if error["rule_name"] == "FormatErrorGeneralModPos":
+                return errors
 
     errors.extend(validate_mod_pos(pep_seq, positions))
-
+    print(errors)
     return errors
 
 
@@ -367,7 +374,9 @@ def validate_mod_pos(pep_seq, positions):
                 position = int(position) - 1
                 if pep_seq[position].upper() != pos[0].upper():
                     part_one = "This peptide sequence "
-                    part_two = f"does not contain {pos[0].upper()} at position {pos[1:]}. "
+                    part_two = (
+                        f"does not contain {pos[0].upper()} at position {pos[1:]}. "
+                    )
                     result = part_one + part_two
                     errors.append(
                         generate_problem_table(

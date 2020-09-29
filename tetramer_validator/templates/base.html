@@ -71,9 +71,13 @@
 
     {% if not error and success %}
       <p class="alert alert-success" role="alert"> Success! Input is valid </p>
+      <script>
+           $("input").removeClass("is-invalid");
+           $("input").addClass("is-valid");
+          </script>
     {% endif %}
     <p class="alert alert-info" role="alert"> Click <a href="{{url_for('readme')}}"> here </a> for documentation </p>
-    <script>
+    <!--script>
     if ($("p").hasClass("alert-danger") || $("p").hasClass("alert-success")) {
       var inputs = $("input");
 
@@ -83,7 +87,7 @@
       }
     }};
 
-    </script>
+  </script-->
   </div>
 
 

@@ -1,0 +1,1 @@
+from tetramer_validator.validate import format_mod_info
