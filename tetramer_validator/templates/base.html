@@ -20,7 +20,7 @@
       <div class="form-row center-block">
         <div class="col">
           <label for="Peptide Sequence">Peptide Sequence</label>
-          <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{pep_seq}}">
+          <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{pep_seq}}" required>
         </div>
         <div class="col" id="PTM_display">
           <label for="Modification Type">Modification Type</label>
@@ -35,7 +35,7 @@
 
         <div class="col" id="MHC_display">
           <label for="MHC Name">MHC Name</label>
-          <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}">
+          <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}" autocomplete="off" required>
           <script src="static/MHC_display.js"> </script>
         </div>
 
@@ -52,12 +52,42 @@
 
     </form>
 
-    {% if statement and error%}
-    <p class="alert alert-danger" role="alert"> {{statement}} </p>
-    {% elif statement %}
-    <p class="alert alert-success" role="alert"> {{statement}} </p>
+
+    {% if errors %}
+    <ul class="alert alert-danger" role="alert">
+    {% for error in errors%}
+          <li> {{error["instructions"]}}
+          {% if error["fix"] %}
+              {{"Suggested fix is " + error["fix"] + "."}}
+          {% endif %}
+        </li>
+          <script>
+            var field = "#{{error["field"]}}";
+            $(field).addClass("is-invalid");
+          </script>
+    {% endfor %}
+  </ul>
+    {% endif %}
+
+    {% if success %}
+      <p class="alert alert-success" role="alert"> Success! Input is valid </p>
+      <script>
+           $("input").removeClass("is-invalid");
+           $("input").addClass("is-valid");
+          </script>
     {% endif %}
     <p class="alert alert-info" role="alert"> Click <a href="{{url_for('readme')}}"> here </a> for documentation </p>
+    <!--script>
+    if ($("p").hasClass("alert-danger") || $("p").hasClass("alert-success")) {
+      var inputs = $("input");
+
+      for(i = 0; i <inputs.length; i++){
+      if(!( $(inputs[i]).hasClass("is-invalid") || inputs[i].value == "")) {
+        $(inputs[i]).addClass("is-valid");
+      }
+    }};
+
+  </script-->
   </div>
 
 

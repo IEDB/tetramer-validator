@@ -7,7 +7,8 @@ var MHC_engine = new Bloodhound({
     url: "/data/molecule.json",
     filter: function(response) {
       return response.data;
-    }
+    },
+    cache: true
   }
 });
 

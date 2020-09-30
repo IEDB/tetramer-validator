@@ -12,22 +12,21 @@ def output():
         mod_pos = request.args["mod_pos"]
         mod_type = request.args["mod_type"]
         mhc_name = request.args["mhc_name"]
-        statement = validate.validate(
+        errors = validate.validate(
             pep_seq=pep_seq, mod_pos=mod_pos, mod_type=mod_type, mhc_name=mhc_name
         )
-        error = True
-        if not statement:
-            statement = "Success! This input is valid"
-            error = False
+        success = False
+        if not errors:
+            success = True
         return render_template(
             "base.html",
             pep_seq=pep_seq,
             mod_pos=mod_pos,
             mod_type=mod_type,
             mhc_name=mhc_name,
-            statement=statement,
+            errors=errors,
             PTM_display=validate.PTM_display,
-            error=error,
+            success=success,
         )
     else:
         return render_template(
@@ -36,9 +35,9 @@ def output():
             mod_pos="",
             mod_type="",
             mhc_name="",
-            statement="",
             PTM_display=validate.PTM_display,
-            error=False,
+            errors="",
+            success=False,
         )
 
 
