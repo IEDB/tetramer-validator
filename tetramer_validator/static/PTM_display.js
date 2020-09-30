@@ -12,17 +12,32 @@ var PTM_names = new Bloodhound({
 // initialize the bloodhound suggestion engine
 PTM_names.initialize();
 
-$('#mod_type').tokenfield({
-  typeahead: [{
-    hint: true,
-    highlight: true,
-    minLength: 1,
-    autoselect: true,
-  }, {
-    name: 'PTM_names',
-    displayKey: function(ptm) {
-      return ptm.value
-    },
-    source: PTM_names.ttAdapter()
-  }]
+
+$('#PTM_display .form-control').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 1,
+  autoselect: true,
+}, {
+  name: 'PTM_names',
+  displayKey: function(ptm) {
+    return ptm.display_name
+  },
+  source: PTM_names.ttAdapter()
 });
+
+// multiselect
+// $('#mod_type').tokenfield({
+//   typeahead: [{
+//     hint: true,
+//     highlight: true,
+//     minLength: 1,
+//     autoselect: true,
+//   }, {
+//     name: 'PTM_names',
+//     displayKey: function(ptm) {
+//       return ptm.value
+//     },
+//     source: PTM_names.ttAdapter()
+//   }]
+// });
