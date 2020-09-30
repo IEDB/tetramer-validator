@@ -167,7 +167,7 @@ def validate_amino_acids(pep_seq):
                 "value": pep_seq,
                 "field": "pep_seq",
                 "instructions": f"The peptide sequence has characters {has_amino_acids}"
-                " that are not amino acids",
+                " that are not amino acids.",
                 "fix": None,
             }
         )

@@ -53,23 +53,23 @@
     </form>
 
 
-
+    {% if errors %}
+    <p class="alert alert-danger" role="alert">
     {% for error in errors%}
-       {% if error %}
-          <p class="alert alert-danger" role="alert"> {{error["instructions"]}}
+           {{error["instructions"]}}
           {% if error["fix"] %}
-              {{"Suggested fix is " + error["fix"]}}
+              {{"Suggested fix is " + error["fix"] + "."}}
           {% endif %}
-          </p>
+          <br />
           <script>
             var field = "#{{error["field"]}}";
             $(field).addClass("is-invalid");
           </script>
-        {% endif %}
     {% endfor %}
+  </p>
+    {% endif %}
 
-
-    {% if not error and success %}
+    {% if success %}
       <p class="alert alert-success" role="alert"> Success! Input is valid </p>
       <script>
            $("input").removeClass("is-invalid");
