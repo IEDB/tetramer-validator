@@ -19,27 +19,25 @@
     <h1> Tetramer Validator </h1>
     <form method="GET" class="form-horizontal" action="{{url_for('output')}}">
       <div class="form-row center-block">
+        <div class="col" id="MHC_display">
+          <label for="MHC Molecule">MHC Molecule</label>
+          <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}" placeholder="HLA-A*02:01">
+          <script src="static/MHC_display.js"> </script>
+        </div>
         <div class="col">
           <label for="Peptide Sequence">Peptide Sequence</label>
-          <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{pep_seq}}">
+          <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{pep_seq}}" placeholder="NLVPMVATV">
         </div>
         <div class="col" id="PTM_display">
           <label for="Modification Type">Modification Type</label>
 
-          <input name="mod_type" type="text" class="twitter-typeahead form-control" id="mod_type"  autocomplete="off" spellcheck="false" value="{{mod_type}}">
+          <input name="mod_type" type="text" class="twitter-typeahead form-control" id="mod_type"  autocomplete="off" spellcheck="false" value="{{mod_type}}" placeholder="oxidized residue">
           <script src="/static/PTM_display.js"> </script>
         </div>
         <div class="col">
           <label for="Modification Position">Modification Position</label>
-          <input name="mod_pos" type="text" class="form-control" id="mod_pos" value="{{mod_pos}}">
+          <input name="mod_pos" type="text" class="form-control" id="mod_pos" value="{{mod_pos}}" placeholder="M5">
         </div>
-
-        <div class="col" id="MHC_display">
-          <label for="MHC Name">MHC Name</label>
-          <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}">
-          <script src="static/MHC_display.js"> </script>
-        </div>
-
       </div>
       <style>
         .form-actions {
@@ -49,6 +47,11 @@
       </style>
       <div class="form-actions">
         <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-secondary"> Reset
+        <script>
+        $(".form-horizontal").trigger("reset");
+        </script>
+        </button>
       </div>
 
     </form>
