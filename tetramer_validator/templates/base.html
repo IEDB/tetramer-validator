@@ -54,19 +54,19 @@
 
 
     {% if errors %}
-    <p class="alert alert-danger" role="alert">
+    <ul class="alert alert-danger" role="alert">
     {% for error in errors%}
-           {{error["instructions"]}}
+          <li> {{error["instructions"]}}
           {% if error["fix"] %}
               {{"Suggested fix is " + error["fix"] + "."}}
           {% endif %}
-          <br />
+        </li>
           <script>
             var field = "#{{error["field"]}}";
             $(field).addClass("is-invalid");
           </script>
     {% endfor %}
-  </p>
+  </ul>
     {% endif %}
 
     {% if success %}
