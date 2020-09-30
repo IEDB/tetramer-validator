@@ -341,7 +341,6 @@ def validate_peptide(pep_seq, mod_pos, mod_type):
                 return errors
 
     errors.extend(validate_mod_pos(pep_seq, positions))
-    print(errors)
     return errors
 
 
