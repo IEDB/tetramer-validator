@@ -26,10 +26,10 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
     if errors:
         return errors
 
-    if pep_seq and mod_pos and mod_type:
+    if pep_seq:
         errors.extend(validate_peptide(pep_seq, mod_type=mod_type, mod_pos=mod_pos))
 
-    validate_mhc_name(mhc_name)
+    errors.extend(validate_mhc_name(mhc_name))
     return errors
 
 
@@ -282,12 +282,16 @@ def validate_mod_pos_syntax(pep_seq, positions):
     return errors
 
 
-def validate_peptide(pep_seq, mod_pos, mod_type):
+def validate_peptide(pep_seq, mod_pos = None, mod_type = None):
     """Main helper function to validate, checks for validation of peptide sequence, modification
     position, and modification type"""
     errors = []
     errors.extend(validate_amino_acids(pep_seq))
-
+    if mod_pos and mod_type:
+        errors.extend(validate_modification(pep_seq, mod_pos, mod_type))
+    return errors
+def validate_modification(pep_seq, mod_pos, mod_type):
+    errors = []
     positions, mod_types = format_mod_info(mod_pos, mod_type)
 
     trailing_rule_name = "FormatErrorTrailingCharacters"

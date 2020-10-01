@@ -48,7 +48,7 @@ def test_validate_amino_acids_one():
             "value": "NLBPMVATV",
             "field": "pep_seq",
             "instructions": "The peptide sequence has characters ['B']"
-            " that are not amino acids",
+            " that are not amino acids.",
             "fix": None,
         }
     ]
