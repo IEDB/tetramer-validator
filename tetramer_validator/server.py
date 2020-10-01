@@ -15,9 +15,7 @@ def output():
         errors = validate.validate(
             pep_seq=pep_seq, mod_pos=mod_pos, mod_type=mod_type, mhc_name=mhc_name
         )
-        success = False
-        if not errors:
-            success = True
+        success = not errors
         return render_template(
             "base.html",
             pep_seq=pep_seq,

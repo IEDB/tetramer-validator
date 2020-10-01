@@ -21,13 +21,13 @@
       <div class="form-row center-block">
         <div class="col" id="MHC_display">
           <label for="MHC Molecule">MHC Molecule</label>
-          <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}" placeholder="HLA-A*02:01">
+          <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}" placeholder="HLA-A*02:01" autocomplete="off" required>
           <script src="static/MHC_display.js"> </script>
         </div>
         <div class="col">
           <label for="Peptide Sequence">Peptide Sequence</label>
 
-          <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{pep_seq}}" placeholder="NLVPMVATV">
+          <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{pep_seq}}" placeholder="NLVPMVATV" required>
         </div>
         <div class="col" id="PTM_display">
           <label for="Modification Type">Modification Type</label>
@@ -48,7 +48,15 @@
       </style>
       <div class="form-actions">
         <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="reset" class="btn btn-secondary"> Reset </button>
+        <button class="btn btn-secondary"id="Clear"> Clear </button>
+        <script>
+        $("#Clear").click(function (event) {
+          $("input").val("");
+          $("input").removeClass("is-valid");
+          $("input").removeClass("is-invalid");
+          event.preventDefault();
+        });
+        </script>
       </div>
 
     </form>
