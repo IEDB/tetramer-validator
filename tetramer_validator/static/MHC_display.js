@@ -27,6 +27,6 @@ $('#MHC_display .form-control').typeahead({
   displayKey: function(mhc) {
     return mhc["IEDB Label"]
   },
-
+  limit: 10,
   source: MHC_engine.ttAdapter()
 });

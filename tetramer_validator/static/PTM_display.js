@@ -21,9 +21,31 @@ $('#PTM_display .form-control').typeahead({
 }, {
   name: 'PTM_names',
   displayKey: function(ptm) {
-    return ptm.display_name
+    return ptm.value
   },
-  source: PTM_names.ttAdapter()
+  source: PTM_names.ttAdapter(),
+  limit: 10,
+  templates: {
+    suggestion: function (ptm) {
+      var names = [];
+      names.push(ptm.value);
+      if(ptm.IEDB_synonym_1 != null) {
+        names.push(ptm.IEDB_synonym_1);
+      }
+      if(ptm.IEDB_synonym_2 != null) {
+        names.push(ptm.IEDB_synonym_2);
+      }
+      if(ptm.synonym_1 != null) {
+        names.push(ptm.synonym_1);
+      }
+      if(ptm.synonym_2 != null) {
+        names.push(ptm.synonym_2);
+      }
+      //names.push("</p>")
+      return_html = '<p>' + names.join(" - ") + '</p>';
+      return return_html;
+    }
+  }
 });
 
 // multiselect

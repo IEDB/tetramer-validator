@@ -32,7 +32,7 @@
         <div class="col" id="PTM_display">
           <label for="Modification Type">Modification Type</label>
 
-          <input name="mod_type" type="text" class="twitter-typeahead form-control" id="mod_type"  autocomplete="off" spellcheck="false" value="{{mod_type}}" placeholder="oxidized residue">
+          <input name="mod_type" type="text" class="twitter-typeahead form-control" id="mod_type" autocomplete="off" spellcheck="false" value="{{mod_type}}" placeholder="oxidized residue">
           <script src="/static/PTM_display.js"> </script>
         </div>
         <div class="col">
@@ -48,14 +48,14 @@
       </style>
       <div class="form-actions">
         <button type="submit" class="btn btn-primary">Submit</button>
-        <button class="btn btn-secondary"id="Clear"> Clear </button>
+        <button class="btn btn-secondary" id="Clear"> Clear </button>
         <script>
-        $("#Clear").click(function (event) {
-          $("input").val("");
-          $("input").removeClass("is-valid");
-          $("input").removeClass("is-invalid");
-          event.preventDefault();
-        });
+          $("#Clear").click(function(event) {
+            $("input").val("");
+            $("input").removeClass("is-valid");
+            $("input").removeClass("is-invalid");
+            event.preventDefault();
+          });
         </script>
       </div>
 
@@ -64,26 +64,26 @@
 
     {% if errors %}
     <ul class="alert alert-danger" role="alert">
-    {% for error in errors%}
-          <li> {{error["instructions"]}}
-          {% if error["fix"] %}
-              {{"Suggested fix is " + error["fix"] + "."}}
-          {% endif %}
-        </li>
-          <script>
-            var field = "#{{error["field"]}}";
-            $(field).addClass("is-invalid");
-          </script>
-    {% endfor %}
-  </ul>
+      {% for error in errors%}
+      <li> {{error["instructions"]}}
+        {% if error["fix"] %}
+        {{"Suggested fix is " + error["fix"] + "."}}
+        {% endif %}
+      </li>
+      <script>
+        var field = "#{{error["field"]}}";
+        $(field).addClass("is-invalid");
+      </script>
+      {% endfor %}
+    </ul>
     {% endif %}
 
     {% if success %}
-      <p class="alert alert-success" role="alert"> Success! Input is valid </p>
-      <script>
-           $("input").removeClass("is-invalid");
-           $("input").addClass("is-valid");
-          </script>
+    <p class="alert alert-success" role="alert"> Success! Input is valid </p>
+    <script>
+      $("input").removeClass("is-invalid");
+      $("input").addClass("is-valid");
+    </script>
     {% endif %}
     <p class="alert alert-info" role="alert"> Click <a href="{{url_for('readme')}}"> here </a> for documentation </p>
     <!--script>
