@@ -11,32 +11,61 @@
   <link rel="stylesheet" href="{{url_for('static', filename='typeaheadjs.css')}}" />
   <link rel="stylesheet" href="{{url_for('static', filename='bootstrap-tokenfield.min.css')}}" />
   <script type="text/javascript" src="{{url_for('static', filename='bootstrap-tokenfield.min.js')}}"> </script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </head>
 
 <body>
-
+  <script>
+  $(document).ready(function(){
+    $('[data-toggle="popover"]').popover({html: true});
+  });
+</script>
   <div class="container-fluid">
     <h1> Tetramer Validator </h1>
     <form method="GET" class="form-horizontal" action="{{url_for('output')}}">
       <div class="form-row center-block">
         <div class="col" id="MHC_display">
-          <label for="MHC Molecule">MHC Molecule</label>
+          <label for="MHC Molecule">MHC Molecule
+            <span>
+              <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-question" data-toggle="popover" data-trigger="hover" data-content="Enter MHC molecule from prepopulated list. Click <a href='{{(url_for('readme'))}}'> here </a> for documentation" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+              </svg>
+            </span>
+          </label>
           <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}" placeholder="HLA-A*02:01" autocomplete="off" required>
           <script src="static/MHC_display.js"> </script>
         </div>
         <div class="col">
-          <label for="Peptide Sequence">Peptide Sequence</label>
-
+          <label for="Peptide Sequence">Peptide Sequence
+            <span>
+              <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-question" data-toggle="popover" data-trigger="hover" data-content="Enter valid amino acid sequence. Click <a href='{{(url_for('readme'))}}'> here </a> for documentation" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+              </svg>
+            </span>
+          </label>
           <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{pep_seq}}" placeholder="NLVPMVATV" required>
+
         </div>
         <div class="col" id="PTM_display">
-          <label for="Modification Type">Modification Type</label>
-
+          <label for="Modification Type">Modification Type
+            <span>
+              <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-question" data-toggle="popover" data-trigger="hover" data-content="Please choose a post-translational type from the prepopulated list. Click <a href='{{(url_for('readme'))}}'> here </a> for documentation" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+              </svg>
+            </span>
+          </label>
           <input name="mod_type" type="text" class="twitter-typeahead form-control" id="mod_type" autocomplete="off" spellcheck="false" value="{{mod_type}}" placeholder="oxidized residue">
           <script src="/static/PTM_display.js"> </script>
         </div>
         <div class="col">
-          <label for="Modification Position">Modification Position</label>
+          <label for="Modification Position">Modification Position
+            <span>
+              <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-question" data-toggle="popover" data-trigger="hover" data-content="Enter a amino acid letter and matching position from peptide sequence. Modification Position field should be a comma separated list of amino acid letter followed by position number (e.g. F1, S10, S300). Click <a href='{{(url_for('readme'))}}'> here </a> for documentation" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+              </svg>
+            </span>
+          </label>
           <input name="mod_pos" type="text" class="form-control" id="mod_pos" value="{{mod_pos}}" placeholder="M5">
         </div>
       </div>
