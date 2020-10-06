@@ -19,8 +19,6 @@ def upload():
     if request.method=='POST':
         if 'file' not in request.files:
                 flash('No file part')
-                print(request.url)
-                print("lala")
                 return redirect(request.url)
         file = request.files['file']
         # if user does not select file, browser also
@@ -38,7 +36,6 @@ def upload():
     return ""
 
 def results(path):
-    print(path)
     results = []
     any_errors = False
     if path.endswith("csv"):
