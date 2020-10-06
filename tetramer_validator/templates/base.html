@@ -76,7 +76,7 @@
         }
       </style>
       <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit form </button>
         <button class="btn btn-secondary" id="Clear"> Clear </button>
         <script>
           $("#Clear").click(function(event) {
@@ -90,6 +90,10 @@
 
     </form>
 
+    <form method="POST" class="form-horizontal" enctype=multipart/form-data action="{{url_for("upload")}}">
+      <input type="file" id="file" name="file">  </input>
+      <button type="submit" class="btn btn-primary"> Submit file </button>
+    </form>
     <script>
       function removePlaceholders() {
         $("input").removeAttr("placeholder");
