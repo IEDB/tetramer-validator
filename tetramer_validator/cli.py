@@ -1,8 +1,12 @@
 import argparse
-from tetramer_validator.parse_tables import parse_csv_tsv, parse_excel_file, generate_messages_txt
-from os import getcwd, path
+from tetramer_validator.parse_tables import (
+    parse_csv_tsv,
+    parse_excel_file,
+    generate_messages_txt,
+)
+
 import sys
-import shutil
+
 
 def main():
     # Parse the arguments

@@ -2,7 +2,14 @@ from tetramer_validator.validate import validate, PTM_synonyms, PTM_display
 from openpyxl import load_workbook
 import csv
 
-var_names = {"pep_seq": "Peptide Sequence", "mhc_name": "MHC Molecule", "mod_type": "Modification Type", "mod_pos": "Modification Position"}
+var_names = {
+    "pep_seq": "Peptide Sequence",
+    "mhc_name": "MHC Molecule",
+    "mod_type": "Modification Type",
+    "mod_pos": "Modification Position",
+}
+
+
 def parse_excel_file(filename):
     wb = load_workbook(filename)
     ws = wb.active
@@ -17,7 +24,7 @@ def parse_excel_file(filename):
         if entry.value in header.keys():
             header[entry.value] = entry.column - 1
 
-    incorrect_header_string="IncorrectHeader"
+    incorrect_header_string = "IncorrectHeader"
 
     for (key, value) in header.items():
         if value == -1:
@@ -44,8 +51,15 @@ def parse_excel_file(filename):
             mhc_name=row[header["MHC Molecule"]].value,
         )
         if message:
-            num_errors +=1
-            list(map(lambda error: error.update({"cell" : row[header[var_names[error["field"]]]].coordinate}), message))
+            num_errors += 1
+            list(
+                map(
+                    lambda error: error.update(
+                        {"cell": row[header[var_names[error["field"]]]].coordinate}
+                    ),
+                    message,
+                )
+            )
             messages.extend(message)
             any_errors = True
     return (messages, any_errors)
@@ -74,21 +88,34 @@ def parse_csv_tsv(filename, delimiter):
             entry_num += 1
     return (messages, any_errors)
 
+
 def preprocess(mod_type):
     mod_types = "".join(mod_type.split())
     mod_types = mod_types.split(sep="|")
     for type in mod_types:
         try:
             return PTM_display[PTM_synonyms[type]]
-        except KeyError as k:
+        except KeyError:
             try:
                 return PTM_display[PTM_synonyms[type.lower()]]
-            except KeyError as k:
+            except KeyError:
                 continue
     return mod_type
 
+
 def generate_messages_txt(messages, file_obj):
-    writer = csv.DictWriter(f=file_obj, fieldnames=["level", "rule name", "value", "field", "instructions", "fix", "cell"])
+    writer = csv.DictWriter(
+        f=file_obj,
+        fieldnames=[
+            "level",
+            "rule name",
+            "value",
+            "field",
+            "instructions",
+            "fix",
+            "cell",
+        ],
+    )
     writer.writeheader()
     writer.writerows(messages)
     file_obj.close()

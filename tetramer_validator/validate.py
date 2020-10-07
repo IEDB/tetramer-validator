@@ -12,18 +12,23 @@ with open(molecule_file) as fh:
 PTM_synonyms = {}
 PTM_display = []
 
+
 def loadPTMlist(mod_type):
     PTM_display.append(mod_type["display_name"])
     index = len(PTM_display) - 1
-    PTM_synonyms.update({mod_type[key]: index for key in mod_type.keys() if key !="display_name"})
+    PTM_synonyms.update(
+        {mod_type[key]: index for key in mod_type.keys() if key != "display_name"}
+    )
+
 
 PTM_file = "data/PTM_list.tsv"
 PTM_file = path.join(here, PTM_file)
 with open(PTM_file) as fh_1:
     reader = csv.DictReader(fh_1, delimiter="\t")
-    #PTM_temp = [name for name in reader]
+    # PTM_temp = [name for name in reader]
     list(map(loadPTMlist, reader))
     del PTM_synonyms[None]
+
 
 def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
     """Main validate function."""
@@ -291,7 +296,7 @@ def validate_mod_pos_syntax(pep_seq, positions):
     return errors
 
 
-def validate_peptide(pep_seq, mod_pos = None, mod_type = None):
+def validate_peptide(pep_seq, mod_pos=None, mod_type=None):
     """Main helper function to validate, checks for validation of peptide sequence, modification
     position, and modification type"""
     errors = []
