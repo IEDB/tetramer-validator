@@ -69,7 +69,8 @@ def properNumArguments(args):
                 "rule name": incorrect_num_str + "ModType",
                 "value": args["mod_type"],
                 "field": "mod_type",
-                "instructions": "Provide modificiation type(s).",
+                "instructions": "Modification position is filled, but modification type is not."
+                " Provide modificiation type(s).",
                 "fix": None,
             }
         )
@@ -81,7 +82,8 @@ def properNumArguments(args):
                 "rule name": incorrect_num_str + "ModPos",
                 "value": args["mod_pos"],
                 "field": "mod_pos",
-                "instructions": "Provide modificiation position(s).",
+                "instructions": "Modification type is filled, but modification position is not."
+                " Provide modificiation position(s).",
                 "fix": None,
             }
         )
@@ -198,7 +200,8 @@ def validate_PTM_names(mod_types):
                     "rule name": invalid_PTM_rule,
                     "value": type,
                     "field": "mod_type",
-                    "instructions": "Please choose a post-translational type from the prepopulated list.",
+                    "instructions": "Invalid entry for post-translational modification type."
+                    " Please use post-translational modification type as cataloged in PSI-MOD.",
                     "fix": None,
                 }
             )
@@ -282,7 +285,7 @@ def validate_mod_pos_syntax(pep_seq, positions):
     return errors
 
 
-def validate_peptide(pep_seq, mod_pos = None, mod_type = None):
+def validate_peptide(pep_seq, mod_pos=None, mod_type=None):
     """Main helper function to validate, checks for validation of peptide sequence, modification
     position, and modification type"""
     errors = []
@@ -290,6 +293,8 @@ def validate_peptide(pep_seq, mod_pos = None, mod_type = None):
     if mod_pos and mod_type:
         errors.extend(validate_modification(pep_seq, mod_pos, mod_type))
     return errors
+
+
 def validate_modification(pep_seq, mod_pos, mod_type):
     errors = []
     positions, mod_types = format_mod_info(mod_pos, mod_type)
@@ -368,7 +373,8 @@ def validate_mhc_name(mhc_name):
                 "rule name": invalid_MHC_rule,
                 "value": mhc_name,
                 "field": "mhc_name",
-                "instructions": "Enter MHC molecule from prepopulated list",
+                "instructions": "Invalid entry in MHC molecule field."
+                " Please use MHC molecule names as cataloged in MRO.",
                 "fix": None,
             }
         )
