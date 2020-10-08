@@ -13,9 +13,11 @@ from tetramer_validator.parse_tables import (
     parse_excel_file,
     parse_csv_tsv,
     generate_messages_txt,
+    generate_formatted_data,
 )
 import os
 from tempfile import NamedTemporaryFile, TemporaryDirectory
+import zipfile as zip
 
 app = Flask(__name__)
 
@@ -49,23 +51,31 @@ def upload():
 
 
 def results(path):
-    results = []
+    errors = []
     any_errors = False
     if path.endswith("csv"):
-        results, any_errors = parse_csv_tsv(path, delimiter=",")
+        errors, any_errors = parse_csv_tsv(path, delimiter=",")
     elif path.endswith("tsv"):
-        results, any_errors = parse_csv_tsv(path, delimiter="\t")
+        errors, any_errors = parse_csv_tsv(path, delimiter="\t")
     else:
-        results, any_errors = parse_excel_file(path)
-    temp_obj = NamedTemporaryFile(
+        errors, any_errors = parse_excel_file(path)
+        generate_formatted_data(path, errors)
+    errors_obj = NamedTemporaryFile(
         mode="w",
-        prefix="results",
+        prefix="errors",
         suffix=".csv",
         dir=app.config["UPLOAD_FOLDER"],
         delete=False,
     )
-    generate_messages_txt(messages=results, file_obj=temp_obj)
-    return send_file(temp_obj.name)
+    generate_messages_txt(messages=errors, file_obj=errors_obj)
+    zipped = NamedTemporaryFile(
+        prefix="output", suffix=".zip", dir=app.config["UPLOAD_FOLDER"], delete=False
+    )
+    output = zip.ZipFile(file=zipped, mode="x", compression=zip.ZIP_DEFLATED)
+    output.write(filename=path, arcname=os.path.split(path)[1])
+    output.write(filename=errors_obj.name, arcname=os.path.split(errors_obj.name)[1])
+    output.close()
+    return send_file(zipped.name)
 
 
 def allowed_file(filename):

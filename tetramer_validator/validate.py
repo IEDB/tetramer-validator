@@ -197,6 +197,8 @@ def format_mod_info(mod_pos, mod_type):
     positions = re.sub(pattern, ",", mod_pos)
     mod_types = mod_type
     mod_types = re.sub(pattern, ",", mod_types)
+    mod_types = mod_types.strip()
+    positions = positions.strip()
     return positions, mod_types
 
 
