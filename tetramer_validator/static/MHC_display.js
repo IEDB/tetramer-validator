@@ -1,15 +1,16 @@
 var MHC_engine = new Bloodhound({
-  datumTokenizer: Bloodhound.tokenizers.obj.whitespace([
+  datumTokenizer: Bloodhound.tokenizers.obj.ngram([
     "Label", "IEDB Label", "synonyms"
   ]),
-  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  queryTokenizer: Bloodhound.tokenizers.ngram,
   prefetch: {
     url: "/data/molecule.json",
     filter: function(response) {
       return response.data;
     },
     cache: true
-  }
+  },
+  matchAnyQueryToken: true
 });
 
 // initialize the bloodhound suggestion engine
