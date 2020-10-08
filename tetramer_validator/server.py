@@ -6,6 +6,7 @@ from flask import (
     redirect,
     flash,
     send_file,
+    url_for
 )
 from tetramer_validator import validate
 from werkzeug.utils import secure_filename
@@ -32,14 +33,14 @@ app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
 def upload():
     if request.method == "POST":
         if "file" not in request.files:
-            flash("No file part")
-            return redirect(request.url)
+            #flash("No file part")
+            return redirect(url_for("output"))
         file = request.files["file"]
         # if user does not select file, browser also
         # submit an empty part without filename
         if file.filename == "":
-            flash("No selected file")
-            return redirect(request.url)
+            #flash("No selected file")
+            return redirect(url_for("output"))
         if file and allowed_file(file.filename):
             temp_dir = TemporaryDirectory(prefix="upload", suffix="")
             app.config["UPLOAD_FOLDER"] = temp_dir.name
