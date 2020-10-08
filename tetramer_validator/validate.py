@@ -45,7 +45,7 @@ def properNumArguments(args):
                 "rule": incorrect_num_str + "PepSeq",
                 "value": args["pep_seq"],
                 "field": "pep_seq",
-                "message": "Enter peptide sequence.",
+                "message": "Peptide sequence missing. Enter peptide sequence.",
                 "suggestion": None,
             }
         )
@@ -57,7 +57,7 @@ def properNumArguments(args):
                 "rule": incorrect_num_str + "MHCMol",
                 "value": args["mhc_name"],
                 "field": "mhc_name",
-                "message": "Enter MHC molecule.",
+                "message": "MHC molecule missing. Enter MHC molecule.",
                 "suggestion": None,
             }
         )
@@ -169,7 +169,7 @@ def validate_amino_acids(pep_seq):
                 "value": pep_seq,
                 "field": "pep_seq",
                 "message": f"The peptide sequence has characters {has_amino_acids}"
-                " that are not amino acids.",
+                " that are not amino acids. Please remove them.",
                 "suggestion": None,
             }
         )
@@ -239,8 +239,7 @@ def validate_mod_pos_syntax(pep_seq, positions):
                             "rule": just_digits,
                             "value": pos,
                             "field": "mod_pos",
-                            "message": formatted_string
-                            + "This input is just digit(s)."
+                            "message": formatted_string + "This input is just digit(s)."
                             " Digit is bigger than length of peptide sequence",
                             "suggestion": None,
                         }
@@ -310,7 +309,8 @@ def validate_modification(pep_seq, mod_pos, mod_type):
                 "rule": trailing_rule_name,
                 "value": mod_pos,
                 "field": "mod_pos",
-                "message": f"Remove {trailing_characters} from modification position.",
+                "message": "Syntax error in Modification Position field."
+                + f" Remove {trailing_characters} from Modification Position.",
                 "suggestion": None,
             }
         )
@@ -330,7 +330,9 @@ def validate_modification(pep_seq, mod_pos, mod_type):
                 "rule": mod_num_mismatch,
                 "value": mod_pos,
                 "field": "mod_pos",
-                "message": "Decrease number of modification types"
+                "message": f"There are {num_mod_pos} modification positions entered, but {num_mod_types}"
+                "Number of modification positions is less than number of modification types."
+                " Decrease number of modification types"
                 " or increase number of modification positions",
                 "suggestion": None,
             }
@@ -342,7 +344,9 @@ def validate_modification(pep_seq, mod_pos, mod_type):
                 "rule": mod_num_mismatch,
                 "value": mod_type,
                 "field": "mod_type",
-                "message": "Decrease number of modification positions"
+                "message": f"There are {num_mod_pos} modification positions entered, but {num_mod_types}"
+                "Number of modification types is less than number of modification positions."
+                "Decrease number of modification positions"
                 " or increase number of modification types",
                 "suggestion": None,
             }
