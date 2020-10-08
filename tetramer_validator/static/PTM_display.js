@@ -15,41 +15,6 @@ var PTM_names = new Bloodhound({
 // initialize the bloodhound suggestion engine
 PTM_names.initialize();
 
-// $('#PTM_display .form-control').typeahead({
-//   hint: true,
-//   highlight: true,
-//   minLength: 1,
-//   autoselect: true,
-// }, {
-//   name: 'PTM_names',
-//   displayKey: function(ptm) {
-//     return ptm.value
-//   },
-//   source: PTM_names.ttAdapter(),
-//   limit: 10,
-//   templates: {
-//     suggestion: function (ptm) {
-//       var names = [];
-//       names.push(ptm.value);
-//       if(ptm.IEDB_synonym_1 != null) {
-//         names.push(ptm.IEDB_synonym_1);
-//       }
-//       if(ptm.IEDB_synonym_2 != null) {
-//         names.push(ptm.IEDB_synonym_2);
-//       }
-//       if(ptm.synonym_1 != null) {
-//         names.push(ptm.synonym_1);
-//       }
-//       if(ptm.synonym_2 != null) {
-//         names.push(ptm.synonym_2);
-//       }
-//       //names.push("</p>")
-//       return_html = '<p>' + names.join(" - ") + '</p>';
-//       return return_html;
-//     }
-//   }
-// });
-
 // multiselect
 $('#mod_type').tokenfield({
   typeahead: [{
