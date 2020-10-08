@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, request, send_from_directory
+from flask import render_template, request, send_from_directory, make_response
 from tetramer_validator import validate
 
 app = Flask(__name__)
@@ -16,7 +16,7 @@ def output():
             pep_seq=pep_seq, mod_pos=mod_pos, mod_type=mod_type, mhc_name=mhc_name
         )
         success = not errors
-        return render_template(
+        resp = make_response(render_template(
             "base.html",
             pep_seq=pep_seq,
             mod_pos=mod_pos,
@@ -25,7 +25,12 @@ def output():
             errors=errors,
             PTM_display=validate.PTM_display,
             success=success,
-        )
+        ))
+        to_save = {}
+        to_save["input"] = request.args
+        to_save["errors"]  = errors
+        resp.set_cookie('feedback', str(to_save))
+        return resp
     else:
         return render_template(
             "base.html",
