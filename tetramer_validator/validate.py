@@ -331,9 +331,9 @@ def validate_modification(pep_seq, mod_pos, mod_type):
                 "value": mod_pos,
                 "field": "mod_pos",
                 "message": f"There are {num_mod_pos} modification positions entered, but {num_mod_types}"
-                "Number of modification positions is less than number of modification types."
+                "Number of modification positions is less than number of modification types. "
                 " Decrease number of modification types"
-                " or increase number of modification positions",
+                " or increase number of modification positions.",
                 "suggestion": None,
             }
         )
@@ -344,10 +344,11 @@ def validate_modification(pep_seq, mod_pos, mod_type):
                 "rule": mod_num_mismatch,
                 "value": mod_type,
                 "field": "mod_type",
-                "message": f"There are {num_mod_pos} modification positions entered, but {num_mod_types}"
-                "Number of modification types is less than number of modification positions."
+                "message": f"There are {num_mod_pos} modification positions entered,"
+                + f" but {num_mod_types} modification types. "
+                "Number of modification types is less than number of modification positions. "
                 "Decrease number of modification positions"
-                " or increase number of modification types",
+                " or increase number of modification types.",
                 "suggestion": None,
             }
         )
