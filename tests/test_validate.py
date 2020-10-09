@@ -27,11 +27,12 @@ def test_validate_PTM_names_one():
     assert validate_PTM_names(["oxidized"]) == [
         {
             "level": "error",
-            "rule name": "UndefinedArgPTMtype",
+            "rule": "UndefinedArgPTMtype",
             "value": "oxidized",
-            "instructions": "Please choose a post-translational type from the prepopulated list.",
+            "message": "Invalid entry for post-translational modification type."
+            " Please use post-translational modification type as cataloged in PSI-MOD.",
             "field": "mod_type",
-            "fix": None,
+            "suggestion": None,
         }
     ]
 
@@ -44,12 +45,12 @@ def test_validate_amino_acids_one():
     assert validate_amino_acids(pep_seq="NLBPMVATV") == [
         {
             "level": "error",
-            "rule name": "UndefinedArgAminoAcid",
+            "rule": "UndefinedArgAminoAcid",
             "value": "NLBPMVATV",
             "field": "pep_seq",
-            "instructions": "The peptide sequence has characters ['B']"
-            " that are not amino acids.",
-            "fix": None,
+            "message": "The peptide sequence has characters ['B']"
+            " that are not amino acids. Please remove them.",
+            "suggestion": None,
         }
     ]
 
@@ -66,11 +67,12 @@ def test_validate_mhc_name_two():
     assert validate_mhc_name(mhc_name="HLA-A2") == [
         {
             "level": "error",
-            "rule name": "UndefinedMHCMol",
+            "rule": "UndefinedMHCMol",
             "value": "HLA-A2",
             "field": "mhc_name",
-            "instructions": "Enter MHC molecule from prepopulated list",
-            "fix": None,
+            "message": "Invalid entry in MHC molecule field."
+            " Please use MHC molecule names as cataloged in MRO.",
+            "suggestion": None,
         }
     ]
 
@@ -83,12 +85,12 @@ def test_validate_mod_pos_two():
     assert validate_mod_pos(pep_seq="NLVPMVATV", positions=["K5"]) == [
         {
             "level": "error",
-            "rule name": "MismatchErrorAminoAcidPos",
+            "rule": "MismatchErrorAminoAcidPos",
             "value": "K5",
-            "instructions": "This peptide sequence does not contain K at position 5."
+            "message": "This peptide sequence does not contain K at position 5."
             " Enter a amino acid letter and matching position from peptide sequence",
             "field": "mod_pos",
-            "fix": None,
+            "suggestion": None,
         }
     ]
 
@@ -98,12 +100,12 @@ def test_validate_mod_pos_three():
     assert validate_mod_pos(pep_seq="NMLVPOVATV", positions=["M5"]) == [
         {
             "level": "error",
-            "rule name": "MismatchErrorAminoAcidPos",
+            "rule": "MismatchErrorAminoAcidPos",
             "value": "M5",
-            "instructions": "This peptide sequence does not contain M at position 5."
+            "message": "This peptide sequence does not contain M at position 5."
             " Enter a amino acid letter and matching position from peptide sequence",
             "field": "mod_pos",
-            "fix": None,
+            "suggestion": None,
         }
     ]
 
@@ -112,12 +114,12 @@ def test_valdate_mod_pos_four():
     assert validate_mod_pos(pep_seq="NLVPMVATV", positions=["M100"]) == [
         {
             "level": "error",
-            "rule name": "MismatchErrorPosGreaterPepLen",
+            "rule": "MismatchErrorPosGreaterPepLen",
             "value": 100,
-            "instructions": "IndexError. 100 is greater than number of amino acids in peptide sequence."
+            "message": "IndexError. 100 is greater than number of amino acids in peptide sequence."
             " Enter position that is less than length of peptide sequence and more than 0.",
             "field": "mod_pos",
-            "fix": None,
+            "suggestion": None,
         }
     ]
 
@@ -129,12 +131,12 @@ def test_validate_mod_pos_five():
     ) == [
         {
             "level": "error",
-            "rule name": "MismatchErrorAminoAcidPos",
+            "rule": "MismatchErrorAminoAcidPos",
             "value": "S10",
-            "instructions": "This peptide sequence does not contain S at position 10."
+            "message": "This peptide sequence does not contain S at position 10."
             " Enter a amino acid letter and matching position from peptide sequence",
             "field": "mod_pos",
-            "fix": None,
+            "suggestion": None,
         }
     ]
 
@@ -143,13 +145,13 @@ def test_validate_mod_pos_syntax_one():
     assert validate_mod_pos_syntax(pep_seq="NLVPMVATV", positions=["5"]) == [
         {
             "level": "error",
-            "rule name": "FormatErrorJustDigits",
+            "rule": "FormatErrorJustDigits",
             "value": "5",
-            "instructions": "5 is not a valid modification position. "
+            "message": "5 is not a valid modification position. "
             "Modification Position field should be a comma separated list of amino acid letter"
             " followed by position number (e.g. F1, S10, S300). Enter amino acid before digit(s). ",
             "field": "mod_pos",
-            "fix": "M5",
+            "suggestion": "M5",
         }
     ]
 
@@ -158,23 +160,23 @@ def test_validate_mod_pos_syntax_two():
     assert validate_mod_pos_syntax(pep_seq="NLVPMVATV", positions=["5", "1"]) == [
         {
             "level": "error",
-            "rule name": "FormatErrorJustDigits",
+            "rule": "FormatErrorJustDigits",
             "value": "5",
-            "instructions": "5 is not a valid modification position. "
+            "message": "5 is not a valid modification position. "
             "Modification Position field should be a comma separated list of amino acid letter"
             " followed by position number (e.g. F1, S10, S300). Enter amino acid before digit(s). ",
             "field": "mod_pos",
-            "fix": "M5",
+            "suggestion": "M5",
         },
         {
             "level": "error",
-            "rule name": "FormatErrorJustDigits",
+            "rule": "FormatErrorJustDigits",
             "value": "1",
-            "instructions": "1 is not a valid modification position. "
+            "message": "1 is not a valid modification position. "
             "Modification Position field should be a comma separated list of amino acid letter"
             " followed by position number (e.g. F1, S10, S300). Enter amino acid before digit(s). ",
             "field": "mod_pos",
-            "fix": "N1",
+            "suggestion": "N1",
         },
     ]
 
@@ -183,13 +185,13 @@ def test_validate_mod_pos_syntax_three():
     assert validate_mod_pos_syntax(pep_seq="NLVPMVATV", positions=["1N"]) == [
         {
             "level": "error",
-            "rule name": "FormatErrorReverseAminoAcid",
+            "rule": "FormatErrorReverseAminoAcid",
             "value": "1N",
-            "instructions": "1N is not a valid modification position. "
+            "message": "1N is not a valid modification position. "
             "Modification Position field should be a comma separated list of amino acid letter"
             " followed by position number (e.g. F1, S10, S300). Enter amino acid followed by position.",
             "field": "mod_pos",
-            "fix": "N1",
+            "suggestion": "N1",
         }
     ]
 
@@ -198,14 +200,14 @@ def test_validate_mod_pos_syntax_four():
     assert validate_mod_pos_syntax(pep_seq="NLVPMVATV", positions=["90"]) == [
         {
             "level": "error",
-            "rule name": "FormatErrorJustDigits",
+            "rule": "FormatErrorJustDigits",
             "value": "90",
-            "instructions": "90 is not a valid modification position. "
+            "message": "90 is not a valid modification position. "
             "Modification Position field should be a comma separated list of amino acid letter"
             " followed by position number (e.g. F1, S10, S300). This input is just digit(s). "
             "Digit is bigger than length of peptide sequence",
             "field": "mod_pos",
-            "fix": None,
+            "suggestion": None,
         }
     ]
 
@@ -214,13 +216,13 @@ def test_validate_mod_pos_syntax_five():
     assert validate_mod_pos_syntax(pep_seq="NLVPMVATV", positions=["A1/A2"]) == [
         {
             "level": "error",
-            "rule name": "FormatErrorGeneralModPos",
+            "rule": "FormatErrorGeneralModPos",
             "value": "A1/A2",
-            "instructions": "A1/A2 is not a valid modification position. Modification Position "
+            "message": "A1/A2 is not a valid modification position. Modification Position "
             "field should be a comma separated list of amino acid letter followed by position number "
             "(e.g. F1, S10, S300). ",
             "field": "mod_pos",
-            "fix": None,
+            "suggestion": None,
         }
     ]
 
@@ -233,11 +235,12 @@ def test_validate_peptide_one():
     ) == [
         {
             "level": "error",
-            "rule name": "FormatErrorTrailingCharacters",
+            "rule": "FormatErrorTrailingCharacters",
             "value": "N1, N2,uddssdagvfuad",
             "field": "mod_pos",
-            "instructions": "Remove [',uddssdagvfuad'] from modification position.",
-            "fix": None,
+            "message": "Syntax error in Modification Position field."
+            " Remove [',uddssdagvfuad'] from Modification Position.",
+            "suggestion": None,
         }
     ]
 
@@ -248,12 +251,14 @@ def test_validate_peptide_two():
     ) == [
         {
             "level": "warn",
-            "rule name": "MismatchErrorNumModPosType",
+            "rule": "MismatchErrorNumModPosType",
             "value": "amidated residue",
-            "instructions": "Decrease number of modification positions or increase number of "
-            "modification types",
+            "message": "There are 2 modification positions entered, but 1 modification types. "
+            "Number of modification types is less than number of modification positions."
+            " Decrease number of modification positions or increase number of "
+            "modification types.",
             "field": "mod_type",
-            "fix": None,
+            "suggestion": None,
         }
     ]
 
@@ -264,11 +269,12 @@ def test_properNumArguments_one():
     ) == [
         {
             "level": "error",
-            "rule name": "IncorrectNumArgs" + "ModType",
+            "rule": "IncorrectNumArgs" + "ModType",
             "value": "",
             "field": "mod_type",
-            "instructions": "Provide modificiation type(s).",
-            "fix": None,
+            "message": "Modification position is filled, but modification type is not."
+            " Provide modificiation type(s).",
+            "suggestion": None,
         }
     ]
 
@@ -284,11 +290,12 @@ def test_properNumArguments_two():
     ) == [
         {
             "level": "error",
-            "rule name": "IncorrectNumArgs" + "ModPos",
+            "rule": "IncorrectNumArgs" + "ModPos",
             "value": "",
             "field": "mod_pos",
-            "instructions": "Provide modificiation position(s).",
-            "fix": None,
+            "message": "Modification type is filled, but modification position is not."
+            " Provide modificiation position(s).",
+            "suggestion": None,
         }
     ]
 
@@ -304,10 +311,10 @@ def test_properNumArguments_three():
     ) == [
         {
             "level": "error",
-            "rule name": "IncorrectNumArgs" + "PepSeq",
+            "rule": "IncorrectNumArgs" + "PepSeq",
             "value": "",
             "field": "pep_seq",
-            "instructions": "Enter peptide sequence.",
-            "fix": None,
+            "message": "Peptide sequence missing. Enter peptide sequence.",
+            "suggestion": None,
         }
     ]
