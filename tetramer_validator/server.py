@@ -4,14 +4,26 @@ from tetramer_validator import validate
 
 app = Flask(__name__)
 
+@app.route("/")
+def start():
+    return render_template(
+        "base.html",
+        pep_seq="",
+        mod_pos="",
+        mod_type="",
+        mhc_name="",
+        PTM_display=validate.PTM_display,
+        errors="",
+        success=False,
+    )
 
-@app.route("/", methods=["GET"])
+@app.route("/output", methods=["POST"])
 def output():
-    if request.args:
-        pep_seq = request.args["pep_seq"]
-        mod_pos = request.args["mod_pos"]
-        mod_type = request.args["mod_type"]
-        mhc_name = request.args["mhc_name"]
+    if request.method == "POST":
+        pep_seq = request.form["pep_seq"]
+        mod_pos = request.form["mod_pos"]
+        mod_type = request.form["mod_type"]
+        mhc_name = request.form["mhc_name"]
         errors = validate.validate(
             pep_seq=pep_seq, mod_pos=mod_pos, mod_type=mod_type, mhc_name=mhc_name
         )
@@ -25,17 +37,6 @@ def output():
             errors=errors,
             PTM_display=validate.PTM_display,
             success=success,
-        )
-    else:
-        return render_template(
-            "base.html",
-            pep_seq="",
-            mod_pos="",
-            mod_type="",
-            mhc_name="",
-            PTM_display=validate.PTM_display,
-            errors="",
-            success=False,
         )
 
 
