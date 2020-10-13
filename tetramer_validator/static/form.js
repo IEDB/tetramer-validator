@@ -1,23 +1,34 @@
-// $(document).ready(function(){
-//   $('[data-toggle="popover"]').popover({html: true});
-// });
+var num_rows = 0;
+$(document).ready(function() {
+  $('[data-toggle="popover"]').popover({
+    html: true
+  });
+  newMHCTypeahead();
+  newPTMTypeahead();
+});
 
-function removePlaceholders() {
-  $("input").removeAttr("placeholder");
-}
 
-function field_error_highlight(field) {
-var field = field;
-$(field).addClass("is-invalid");
-}
+$("#Add").click(function(event) {
+  var string = "#1";
+  $(".mhc_name input").typeahead('destroy');
+  $(".mod_type input").tokenfield('destroy');
+  var x = $(string).clone(true, true);
 
-function field_success_highlight() {
+  num_rows = num_rows + 1;
+  //x.removeAttr("id");
+  $(x).attr("id", num_rows.toString());
+  num_rows = num_rows-1;
+  $(x).insertAfter("#".concat(num_rows.toString()));
+  num_rows += 1;
+  newMHCTypeahead();
+  newPTMTypeahead();
+  event.preventDefault();
+});
+
+
+$("#Clear").click(function(event) {
+  $("input").val("");
+  $("input").removeClass("is-valid");
   $("input").removeClass("is-invalid");
-  var inputs = $("input[id]");
-  for(input = 0; input < inputs.length; input++) {
-    if(inputs[input].value != "") {
-      $(inputs[input]).addClass("is-valid");
-    }
-  }
-  removePlaceholders();
-}
+  event.preventDefault();
+});

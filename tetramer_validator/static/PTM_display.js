@@ -16,7 +16,8 @@ var PTM_names = new Bloodhound({
 PTM_names.initialize();
 
 // multiselect
-$('#mod_type').tokenfield({
+function newPTMTypeahead() {
+$(".mod_type input").tokenfield({
   typeahead: [{
     hint: true,
     highlight: true,
@@ -52,3 +53,4 @@ $('#mod_type').tokenfield({
     limit: 10
   }]
 });
+}

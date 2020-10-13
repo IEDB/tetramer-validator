@@ -8,7 +8,8 @@ var MHC_engine = new Bloodhound({
     filter: function(response) {
       return response.data;
     },
-    cache: true
+    cache: true,
+    thumbprint: true
   },
   matchAnyQueryToken: true
 });
@@ -17,7 +18,8 @@ var MHC_engine = new Bloodhound({
 MHC_engine.initialize();
 
 // instantiate the typeahead UI
-$('#MHC_display .form-control').typeahead({
+function newMHCTypeahead() {
+$(".mhc_name input").typeahead({
 
   hint: true,
   highlight: true,
@@ -31,3 +33,4 @@ $('#MHC_display .form-control').typeahead({
   limit: 10,
   source: MHC_engine.ttAdapter()
 });
+}

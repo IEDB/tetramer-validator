@@ -8,36 +8,31 @@ app = Flask(__name__)
 def start():
     return render_template(
         "base.html",
-        pep_seq="",
-        mod_pos="",
-        mod_type="",
-        mhc_name="",
-        PTM_display=validate.PTM_display,
-        errors="",
-        success=False,
     )
 
 @app.route("/output", methods=["POST"])
 def output():
     if request.method == "POST":
-        pep_seq = request.form["pep_seq"]
-        mod_pos = request.form["mod_pos"]
-        mod_type = request.form["mod_type"]
-        mhc_name = request.form["mhc_name"]
-        errors = validate.validate(
-            pep_seq=pep_seq, mod_pos=mod_pos, mod_type=mod_type, mhc_name=mhc_name
-        )
-        success = not errors
-        return render_template(
-            "base.html",
-            pep_seq=pep_seq,
-            mod_pos=mod_pos,
-            mod_type=mod_type,
-            mhc_name=mhc_name,
-            errors=errors,
-            PTM_display=validate.PTM_display,
-            success=success,
-        )
+        input = request.form.to_dict(flat=True)
+        print(input)
+        num_multimers = len(input["mhc_name"])
+        errors = {}
+        success = {}
+        if num_multimers > 1:
+            for multimer in range(num_multimers):
+                print(multimer)
+                errors[multimer] = validate.validate(
+                    pep_seq=input["pep_seq"][multimer], mod_pos=input["mod_pos"][multimer], mod_type=input["mod_type"][multimer], mhc_name=input["mhc_name"][multimer]
+                )
+
+                success[multimer] = not errors[multimer]
+            render_template("base.html", errors = errors, success=success)
+        else:
+            errors = validate.validate(pep_seq=input["pep_seq"], mod_pos=input["mod_pos"], mod_type=input["mod_type"], mhc_name=input["mhc_name"])
+            success = False
+            return render_template(
+                "base.html", errors=errors, success=success
+            )
 
 
 @app.route("/README.html", methods=["GET"])
