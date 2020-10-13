@@ -220,9 +220,9 @@ def validate_mod_pos_syntax(pep_seq, positions):
     reversed_pattern = re.compile(
         r"\d+[A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE
     )
-    just_digits = "FormatErrorJustDigits"
-    reversed = "FormatErrorReverseAminoAcid"
-    general = "FormatErrorGeneralModPos"
+    just_digits = "SyntaxErrorJustDigits"
+    reversed = "SyntaxErrorReverseAminoAcid"
+    general = "SyntaxErrorGeneralModPos"
     for pos in positions:
         if re.fullmatch(main_pattern, pos) is None:
             formatted_string = (
@@ -298,7 +298,7 @@ def validate_modification(pep_seq, mod_pos, mod_type):
     errors = []
     positions, mod_types = format_mod_info(mod_pos, mod_type)
 
-    trailing_rule_name = "FormatErrorTrailingCharacters"
+    trailing_rule_name = "SyntaxErrorTrailingCharacters"
     trailing_characters = re.findall(
         r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y\d]+$", positions
     )
@@ -323,6 +323,7 @@ def validate_modification(pep_seq, mod_pos, mod_type):
     num_mod_types = len(mod_types)
     num_mod_pos = len(positions)
     mod_num_mismatch = "MismatchErrorNumModPosType"
+    num_mistmatch_str = f"There are {num_mod_pos} modification positions entered, but {num_mod_types} modification types""Number of modification positions is less than number of modification types. "
     if num_mod_pos < num_mod_types:
         errors.append(
             {
@@ -330,10 +331,7 @@ def validate_modification(pep_seq, mod_pos, mod_type):
                 "rule": mod_num_mismatch,
                 "value": mod_pos,
                 "field": "mod_pos",
-                "message": f"There are {num_mod_pos} modification positions entered, but {num_mod_types}"
-                "Number of modification positions is less than number of modification types. "
-                " Decrease number of modification types"
-                " or increase number of modification positions.",
+                "message": num_mistmatch_str + " Decrease number of modification types"" or increase number of modification positions.",
                 "suggestion": None,
             }
         )
@@ -344,11 +342,7 @@ def validate_modification(pep_seq, mod_pos, mod_type):
                 "rule": mod_num_mismatch,
                 "value": mod_type,
                 "field": "mod_type",
-                "message": f"There are {num_mod_pos} modification positions entered,"
-                + f" but {num_mod_types} modification types. "
-                "Number of modification types is less than number of modification positions. "
-                "Decrease number of modification positions"
-                " or increase number of modification types.",
+                "message": num_mistmatch_str + " Decrease number of modification positions"" or increase number of modification types.",
                 "suggestion": None,
             }
         )
@@ -356,11 +350,11 @@ def validate_modification(pep_seq, mod_pos, mod_type):
     if errors:
         for error in errors:
             if (
-                error["rule"] == "FormatErrorJustDigits"
-                or error["rule"] == "FormatErrorReverseAminoAcid"
+                error["rule"] == "SyntaxErrorJustDigits"
+                or error["rule"] == "SyntaxErrorReverseAminoAcid"
             ):
                 positions.remove(error["value"])
-            if error["rule"] == "FormatErrorGeneralModPos":
+            if error["rule"] == "SyntaxErrorGeneralModPos":
                 return errors
 
     errors.extend(validate_mod_pos(pep_seq, positions))
@@ -370,7 +364,7 @@ def validate_modification(pep_seq, mod_pos, mod_type):
 def validate_mhc_name(mhc_name):
     """Check if given MHC name match up to MRO name"""
     errors = []
-    invalid_MHC_rule = "UndefinedMHCMol"
+    invalid_MHC_rule = "UndefinedArgMHCMol"
     if mhc_name not in molecules:
         errors.append(
             {
