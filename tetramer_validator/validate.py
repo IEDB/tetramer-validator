@@ -35,6 +35,7 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
 
 def properNumArguments(args):
     """Checks for proper number and combination of arguments for validate function"""
+
     errors = []
     incorrect_num_str = "IncorrectNumArgs"
 
@@ -323,7 +324,10 @@ def validate_modification(pep_seq, mod_pos, mod_type):
     num_mod_types = len(mod_types)
     num_mod_pos = len(positions)
     mod_num_mismatch = "MismatchErrorNumModPosType"
-    num_mistmatch_str = f"There are {num_mod_pos} modification positions entered, but {num_mod_types} modification types."" Number of modification positions is less than number of modification types. "
+    num_mistmatch_str = (
+        f"There are {num_mod_pos} modification positions entered, but {num_mod_types} modification types."
+        " Number of modification positions is less than number of modification types. "
+    )
     if num_mod_pos < num_mod_types:
         errors.append(
             {
@@ -331,7 +335,8 @@ def validate_modification(pep_seq, mod_pos, mod_type):
                 "rule": mod_num_mismatch,
                 "value": mod_pos,
                 "field": "mod_pos",
-                "message": num_mistmatch_str + " Decrease number of modification types"" or increase number of modification positions.",
+                "message": num_mistmatch_str + " Decrease number of modification types"
+                " or increase number of modification positions.",
                 "suggestion": None,
             }
         )
@@ -342,7 +347,9 @@ def validate_modification(pep_seq, mod_pos, mod_type):
                 "rule": mod_num_mismatch,
                 "value": mod_type,
                 "field": "mod_type",
-                "message": num_mistmatch_str + " Decrease number of modification positions"" or increase number of modification types.",
+                "message": num_mistmatch_str
+                + " Decrease number of modification positions"
+                " or increase number of modification types.",
                 "suggestion": None,
             }
         )
