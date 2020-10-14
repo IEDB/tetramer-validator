@@ -17,7 +17,7 @@ var MHC_engine = new Bloodhound({
 MHC_engine.initialize();
 
 // instantiate the typeahead UI
-$('#mhc_name').typeahead({
+$('.mhc_name').typeahead({
 
   hint: true,
   highlight: true,
