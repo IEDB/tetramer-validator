@@ -4,6 +4,7 @@ import csv
 from openpyxl.styles import Color, PatternFill
 from openpyxl.comments import Comment
 
+
 def parse_excel_file(filename):
     wb = load_workbook(filename)
     ws = wb.active
@@ -60,6 +61,7 @@ def parse_csv_tsv(filename, delimiter):
                 pep_seq = entry["Peptide Sequence"]
                 messages.append(f"Peptide sequence {pep_seq} is valid")
     return (messages, any_errors)
+
 
 def generate_formatted_data(data_path, problems):
     wb = load_workbook(data_path)
