@@ -335,7 +335,7 @@ def validate_modification(pep_seq, mod_pos, mod_type):
                 "value": mod_pos,
                 "field": "mod_pos",
                 "message": num_mistmatch_str +" Decrease number of modification types"
-                " or increase number of modification positions.",,
+                " or increase number of modification positions.",
                 "suggestion": None,
             }
         )
