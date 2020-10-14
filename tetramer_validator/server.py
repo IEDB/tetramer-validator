@@ -15,9 +15,8 @@ def output():
     if request.method == "POST":
         input = request.form.to_dict(flat=False)
         errors = {}
-        print("FODO")
         if isinstance(input["mhc_name"], list):
-            print("food")
+            print(input)
             num_multimers = len(input["mhc_name"])
             for multimer in range(num_multimers):
                 print(input["pep_seq"][multimer])
@@ -28,7 +27,7 @@ def output():
         else:
             print(type(input["mhc_name"]))
             errors = validate.validate(pep_seq=input["pep_seq"], mod_pos=input["mod_pos"], mod_type=input["mod_type"], mhc_name=input["mhc_name"])
-            success = False
+
             return render_template(
                 "base.html", errors=errors, input=input, list=False
             )

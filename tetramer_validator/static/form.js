@@ -7,8 +7,7 @@ $(document).ready(function() {
   newPTMTypeahead("#".concat(num_rows.toString()));
 });
 
-
-$("#Add").click(function(event) {
+function addButton() {
   var string = "#0";
   console.log("x");
   $(".mhc_name input").typeahead('destroy');
@@ -27,7 +26,11 @@ $("#Add").click(function(event) {
   newPTMTypeahead("#0");
   console.log(tokens_zero);
   $("#0 .mod_type input").tokenfield('setTokens', tokens_zero);
-  //event.preventDefault();
+}
+
+$("#Add").click(function(event) {
+  addButton();
+  event.stopPropagation();
 });
 
 $("#Clear").click(function(event) {

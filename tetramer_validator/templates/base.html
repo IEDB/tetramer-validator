@@ -30,8 +30,9 @@
               </svg>
             </span>
           </label>
+          <div class="special">
           <input name="mhc_name" type="text" class="twitter-typeahead form-control mhc_name" placeholder="Example: HLA-A*02:01" autocomplete="off" required>
-
+        </div>
         </div>
         <div class="col pep_seq">
           <label for="Peptide Sequence">Peptide Sequence
@@ -91,26 +92,24 @@
     <p> <a href="?mhc_name=HLA-DRB1*04%3A06&pep_seq=MIVIL&mod_type=formylated+residue&mod_pos=M1"> Example with modification </a> </p>
   </div>
 </div>
-<script type="text/javascript" src="{{url_for('static', filename='form.js')}}" > </script>
-<script type="text/javascript" src="{{url_for('static', filename='MHC_display.js')}}"> </script>
-<script type="text/javascript" src="{{url_for('static', filename='PTM_display.js')}}"> </script>
 
 {% set fish=input["mhc_name"]|length %}
 {% if list %}
 {% for inp in range(fish - 1) %}
  <script type="text/javascript">
- $("#Add").trigger("click");
+ addButton();
 </script>
 {% endfor %}
 
 {% for inp in range(fish) %}
+<p> {{input["mod_type"]}} </p>
 <script type="text/javascript">
 
-$("#".concat("{{inp}}", " .mhc_name input")).val("{{input["mhc_name"][inp]}}");
-$("#".concat("{{inp}}", " .pep_seq input")).val("{{input["pep_seq"][inp]}}");
-var select = "#{{inp}} .mod_type input"
-$(select).val("{{input["mod_type"][inp]}}");
-$(select).tokenfield('setTokens', $(select).val() );
+$("#{{inp}} .mhc_name input").val("{{input["mhc_name"][inp]}}");
+$("#{{inp}} .pep_seq input").val("{{input["pep_seq"][inp]}}");
+//var select = "#{{inp}} .mod_type input"
+//$(select).val("{{input["mod_type"][inp]}}");
+$("#{{inp}} .mod_type input").tokenfield('setTokens', "{{input['mod_type'][inp]}}" );
 $("#".concat("{{inp}}", " .mod_pos input")).val("{{input["mod_pos"][inp]}}");
 if(!($(".post-action").hasClass("{{inp}}"))) {
   $("div .post-action".concat(" .{{inp}}")).insertAfter($("div .post-action").last());
@@ -118,10 +117,8 @@ if(!($(".post-action").hasClass("{{inp}}"))) {
 </script>
 {% if errors[inp] %}
 <script>
-console.log($(".{{inp}}"));
+
 $(".{{inp}}").append("<ul class='{{inp}}'> <p> Errors </p> </ul>");
-console.log($(".post-action .{{inp}}"));
-console.log($(".{{inp}} ul"));
  $(".{{inp}} ul").addClass('alert');
   $(".{{inp}} ul").addClass('alert-danger');
   $(".{{inp}} ul").attr("role",'alert');
@@ -139,27 +136,23 @@ removePlaceholders("#{{inp}}");
   </script>
 
 {% else %}
-<p class="alert alert-success" role="alert"> Success! Input is valid </p>
 <script>
-  console.log($("#{{inp}} input"));
+  console.log($("input"));
+  $(".{{inp}}").append("<p class='alert alert-success' role='alert'> Success! Input is valid </p>");
   field_success_highlight("#{{inp}}");
 </script>
 {% endif %}
 {% endfor %}
 <script type="text/javascript"> </script>
-<!--script type="text/javascript">
-$(".mhc_name input").typeahead('destroy');
-var tokens_zero = $("#".concat(num_rows, " .mod_type input")).tokenfield('getTokens');
-$("#".concat(num_rows, " .mod_type input")).tokenfield('destroy');
-newPTMTypeahead("#".concat(num_rows));
-$("#Add").trigger("click");
-</script-->
 
 
 {% else %}
 <p> Food </p>
 {% endif %}
 </div>
+<script type="text/javascript" src="{{url_for('static', filename='form.js')}}" > </script>
+<script type="text/javascript" src="{{url_for('static', filename='MHC_display.js')}}"> </script>
+<script type="text/javascript" src="{{url_for('static', filename='PTM_display.js')}}"> </script>
 </body>
 
 </html>
