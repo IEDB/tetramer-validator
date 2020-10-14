@@ -1,7 +1,8 @@
 from tetramer_validator.validate import validate
 from openpyxl import load_workbook
 import csv
-
+from openpyxl.styles import Color, PatternFill
+from openpyxl.comments import Comment
 
 def parse_excel_file(filename):
     wb = load_workbook(filename)
@@ -59,3 +60,26 @@ def parse_csv_tsv(filename, delimiter):
                 pep_seq = entry["Peptide Sequence"]
                 messages.append(f"Peptide sequence {pep_seq} is valid")
     return (messages, any_errors)
+
+def generate_formatted_data(data_path, problems):
+    wb = load_workbook(data_path)
+    ws = wb.active
+    for problem in problems:
+        cell = ws[problem["cell"]]
+        if problem["level"] == "error":
+            cell.fill = PatternFill(
+                patternType="lightUp", fgColor=Color(indexed=10), fill_type="solid"
+            )
+        else:
+            cell.fill = PatternFill(
+                patternType="lightUp", fgColor=Color(indexed=52), fill_type="solid"
+            )
+        if cell.comment:
+            comment = Comment(
+                cell.comment.text + "\n" + problem["message"],
+                author="tetramer_validator",
+            )
+            cell.comment = comment
+        else:
+            cell.comment = Comment(problem["message"], author="tetramer-validator")
+    wb.save(data_path)

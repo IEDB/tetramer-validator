@@ -1,9 +1,10 @@
-from flask import Flask
-from flask import render_template, request, send_from_directory, redirect, url_for, send_file
+from flask import Flask, render_template, request, send_from_directory, redirect, url_for, send_file, Response
 from tetramer_validator import validate
 from openpyxl import Workbook, load_workbook
 from tempfile import NamedTemporaryFile
 from tetramer_validator.parse_tables import generate_formatted_data
+import itertools
+import os
 
 app = Flask(__name__)
 
@@ -29,7 +30,8 @@ def output():
                     mhc_name=input["mhc_name"][multimer],
                 )
             filename = generate_file(input, errors)
-            return render_template("base.html", errors=errors, input=input, list=True, )
+            print(filename)
+            return render_template("base.html", errors=errors, input=input, list=True, input_filepath = filename)
     else:
         return redirect(url_for("start"))
 
@@ -45,9 +47,8 @@ def generate_file(input, errors):
         for input_num in errors.keys():
             errorlist = errors[input_num]
             list(map(lambda error: error.update({"cell": header_dict[error["field"]] + str(input_num + 1)}), errorlist))
-        print(errors)
-        generate_formatted_data(input_obj.name, errors)
-
+        generate_formatted_data(input_obj.name, list(itertools.chain.from_iterable(errors.values())))
+        return os.path.split(input_obj.name)[1]
 @app.route("/README.html", methods=["GET"])
 def readme():
     return render_template("README.html")
@@ -57,6 +58,7 @@ def readme():
 def send_data(filename):
     return send_from_directory("data", filename=filename)
 
-@app.route("/downloads/<path:filename>")
+@app.route("/downloads/<path:filename>", methods=["GET"])
 def download_input(filename):
-    return send_file('static', filename=filename)
+    path = os.path.join('static',filename)
+    return send_file(filename_or_fp = 'static/' +str(filename), mimetype = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', as_attachment=True, attachment_filename="your_input.xlsx")
