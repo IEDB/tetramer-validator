@@ -12,8 +12,6 @@ function field_success_highlight(num_row) {
   $(selector).removeClass("is-invalid");
   var inputs = $(selector);
   for (input = 0; input < inputs.length; input++) {
-    console.log(inputs[input].name);
-    console.log(inputs[input].value);
     if (inputs[input].value != "") {
       $(inputs[input]).addClass("is-valid");
     }

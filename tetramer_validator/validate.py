@@ -403,7 +403,7 @@ def validate_mod_pos(pep_seq, positions):
                             "value": pos,
                             "field": "mod_pos",
                             "message": result
-                            + "Enter a amino acid letter and matching position from peptide sequence",
+                            + "Enter a amino acid letter and matching position from peptide sequence.",
                             "suggestion": None,
                         }
                     )

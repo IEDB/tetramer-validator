@@ -13,7 +13,6 @@
   <link rel="stylesheet" href="{{url_for('static', filename='typeaheadjs.css')}}" />
   <link rel="stylesheet" href="{{url_for('static', filename='bootstrap-tokenfield.min.css')}}" />
   <script type="text/javascript" src="{{url_for('static', filename='bootstrap-tokenfield.min.js')}}"> </script>
-
 </head>
 
 <body>
@@ -66,6 +65,9 @@
           <input name="mod_pos" type="text" class="form-control mod_pos" placeholder="Example: M5">
         </div>
       </div>
+      <div class="post-action 0">
+      <p> </p>
+      </div>
       <style>
         .form-actions {
           margin: 10px;
@@ -79,9 +81,6 @@
 
     </form>
 
-<div class="post-action 0">
-
-</div>
 </div>
 <button class="btn btn-secondary" id="Add"> Add tetramer/multimer </button>
 <button class="btn btn-secondary" id="Clear"> Clear </button>
@@ -92,28 +91,25 @@
     <p> <a href="?mhc_name=HLA-DRB1*04%3A06&pep_seq=MIVIL&mod_type=formylated+residue&mod_pos=M1"> Example with modification </a> </p>
   </div>
 </div>
-
+<script type="text/javascript" src="{{url_for('static', filename='form.js')}}" > </script>
+<script type="text/javascript" src="{{url_for('static', filename='MHC_display.js')}}"> </script>
+<script type="text/javascript" src="{{url_for('static', filename='PTM_display.js')}}"> </script>
 {% set fish=input["mhc_name"]|length %}
 {% if list %}
-{% for inp in range(fish - 1) %}
- <script type="text/javascript">
- addButton();
+{% for inp in range(fish -1) %}
+ <script>
+ $("#Add").trigger("click");
 </script>
 {% endfor %}
 
 {% for inp in range(fish) %}
-<p> {{input["mod_type"]}} </p>
 <script type="text/javascript">
 
 $("#{{inp}} .mhc_name input").val("{{input["mhc_name"][inp]}}");
 $("#{{inp}} .pep_seq input").val("{{input["pep_seq"][inp]}}");
-//var select = "#{{inp}} .mod_type input"
-//$(select).val("{{input["mod_type"][inp]}}");
-$("#{{inp}} .mod_type input").tokenfield('setTokens', "{{input['mod_type'][inp]}}" );
+var select = "#{{inp}} .mod_type input";
+$("#".concat("{{inp}}", " .mod_type input")).tokenfield('setTokens', "{{input["mod_type"][inp]}}");
 $("#".concat("{{inp}}", " .mod_pos input")).val("{{input["mod_pos"][inp]}}");
-if(!($(".post-action").hasClass("{{inp}}"))) {
-  $("div .post-action".concat(" .{{inp}}")).insertAfter($("div .post-action").last());
-}
 </script>
 {% if errors[inp] %}
 <script>
@@ -137,22 +133,23 @@ removePlaceholders("#{{inp}}");
 
 {% else %}
 <script>
-  console.log($("input"));
   $(".{{inp}}").append("<p class='alert alert-success' role='alert'> Success! Input is valid </p>");
   field_success_highlight("#{{inp}}");
 </script>
 {% endif %}
 {% endfor %}
-<script type="text/javascript"> </script>
+<script type="text/javascript">
+var tokens_zero = $("#0 .mod_type input").tokenfield('getTokens');
+$("#0 .mod_type input").tokenfield('destroy');
+newPTMTypeahead("#0");
+$("#0 .mod_type input").tokenfield('setTokens', tokens_zero);
+</script>
 
 
 {% else %}
-<p> Food </p>
 {% endif %}
 </div>
-<script type="text/javascript" src="{{url_for('static', filename='form.js')}}" > </script>
-<script type="text/javascript" src="{{url_for('static', filename='MHC_display.js')}}"> </script>
-<script type="text/javascript" src="{{url_for('static', filename='PTM_display.js')}}"> </script>
+
 </body>
 
 </html>

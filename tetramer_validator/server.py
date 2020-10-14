@@ -16,23 +16,13 @@ def output():
         input = request.form.to_dict(flat=False)
         errors = {}
         if isinstance(input["mhc_name"], list):
-            print(input)
             num_multimers = len(input["mhc_name"])
             for multimer in range(num_multimers):
-                print(input["pep_seq"][multimer])
                 errors[multimer] = validate.validate(
                     pep_seq=input["pep_seq"][multimer], mod_pos=input["mod_pos"][multimer], mod_type=input["mod_type"][multimer], mhc_name=input["mhc_name"][multimer]
                 )
             return render_template("base.html", errors = errors, input=input, list=True)
-        else:
-            print(type(input["mhc_name"]))
-            errors = validate.validate(pep_seq=input["pep_seq"], mod_pos=input["mod_pos"], mod_type=input["mod_type"], mhc_name=input["mhc_name"])
-
-            return render_template(
-                "base.html", errors=errors, input=input, list=False
-            )
     else:
-        print("LALA")
         return redirect(url_for('start'))
 
 @app.route("/README.html", methods=["GET"])
@@ -43,3 +33,5 @@ def readme():
 @app.route("/data/<path:filename>")
 def send_js(filename):
     return send_from_directory("data", filename=filename)
+
+@app.route("/")

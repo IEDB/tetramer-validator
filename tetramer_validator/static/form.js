@@ -4,33 +4,33 @@ $(document).ready(function() {
     html: true
   });
   newMHCTypeahead();
-  newPTMTypeahead("#".concat(num_rows.toString()));
+  newPTMTypeahead("#0");
 });
-
-function addButton() {
+$("#Add").click(function(event) {
   var string = "#0";
-  console.log("x");
   $(".mhc_name input").typeahead('destroy');
   var tokens_zero = $("#0 .mod_type input").tokenfield('getTokens');
   $("#0 .mod_type input").tokenfield('destroy');
   var x = $(string).clone(true, true);
   x.find("input").val('')
   num_rows = num_rows + 1;
+  $(x).find("input").removeClass('is-invalid');
+  $(x).find("input").removeClass('is-valid');
   //x.removeAttr("id");
   $(x).attr("id", num_rows.toString());
   num_rows = num_rows-1;
-  $(x).insertAfter("#".concat(num_rows.toString()));
+  $(x).insertAfter(".".concat(num_rows.toString()));
   num_rows += 1;
+  if(!($(".post-action").hasClass(num_rows.toString()))) {
+     $("<div class = 'post-action ".concat(num_rows.toString(), "' </div>")).insertAfter($(".form-row").last());
+  }
   newMHCTypeahead();
   newPTMTypeahead("#".concat(num_rows.toString()));
   newPTMTypeahead("#0");
-  console.log(tokens_zero);
   $("#0 .mod_type input").tokenfield('setTokens', tokens_zero);
-}
-
-$("#Add").click(function(event) {
-  addButton();
-  event.stopPropagation();
+  event.preventDefault();
+  //event.stopPropagation();
+  //return false;
 });
 
 $("#Clear").click(function(event) {
