@@ -33,7 +33,7 @@
               </svg>
             </span>
           </label>
-          <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}" placeholder="HLA-A*02:01" autocomplete="off" required>
+          <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}" placeholder="Example: HLA-A*02:01" autocomplete="off" required>
           <script src="static/MHC_display.js"> </script>
         </div>
         <div class="col">
@@ -44,7 +44,7 @@
               </svg>
             </span>
           </label>
-          <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{pep_seq}}" placeholder="NLVPMVATV" required>
+          <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{pep_seq}}" placeholder="Example: NLVPMVATV" required>
 
         </div>
         <div class="col" id="PTM_display">
@@ -55,7 +55,7 @@
               </svg>
             </span>
           </label>
-          <input name="mod_type" type="text" class="twitter-typeahead form-control" id="mod_type" autocomplete="off" spellcheck="false" value="{{mod_type}}" placeholder="oxidized residue">
+          <input name="mod_type" type="text" class="twitter-typeahead form-control" id="mod_type" autocomplete="off" spellcheck="false" value="{{mod_type}}" placeholder="Example: oxidized residue">
           <script src="/static/PTM_display.js"> </script>
         </div>
         <div class="col">
@@ -66,7 +66,7 @@
               </svg>
             </span>
           </label>
-          <input name="mod_pos" type="text" class="form-control" id="mod_pos" value="{{mod_pos}}" placeholder="M5">
+          <input name="mod_pos" type="text" class="form-control" id="mod_pos" value="{{mod_pos}}" placeholder="Example: M5">
         </div>
       </div>
       <style>
@@ -99,7 +99,7 @@
     <ul class="alert alert-danger" role="alert">
       {% for error in errors%}
       <li> {{error["message"]}}
-        {% if error["fix"] %}
+        {% if error["suggestion"] %}
         {{"Suggested fix is " + error["suggestion"] + "."}}
         {% endif %}
       </li>
