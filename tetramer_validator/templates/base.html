@@ -98,9 +98,9 @@
     {% if errors %}
     <ul class="alert alert-danger" role="alert">
       {% for error in errors%}
-      <li> {{error["instructions"]}}
+      <li> {{error["message"]}}
         {% if error["fix"] %}
-        {{"Suggested fix is " + error["fix"] + "."}}
+        {{"Suggested fix is " + error["suggestion"] + "."}}
         {% endif %}
       </li>
       <script>
