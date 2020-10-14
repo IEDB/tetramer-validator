@@ -34,7 +34,7 @@ jobs:
     - name: Install tetramer validator
       run: |
         python setup.py sdist bdist_wheel
-        pip install -e tetramer_validator
+        pip install  dist/*.whl
     - name: Test with pytest
       run: |
         pytest
