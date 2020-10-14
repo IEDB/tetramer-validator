@@ -96,7 +96,7 @@ def send_data(filename):
 @app.route("/downloads/<path:filename>", methods=["GET"])
 def download_input(filename):
     return send_file(
-        filename_or_fp="static/" + str(filename),
+        filename_or_fp="/static/" + str(filename),
         mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         as_attachment=True,
         attachment_filename="your_input.xlsx",

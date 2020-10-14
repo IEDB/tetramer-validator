@@ -229,7 +229,7 @@ def validate_mod_pos_syntax(pep_seq, positions):
             formatted_string = (
                 f"{pos} is not a valid modification position. "
                 "Modification Position field should be a comma separated list of amino acid "
-                "letter followed by position number (e.g. F1, S10, S300). "
+                "letters followed by position numbers (e.g. F1, S10, S300). "
             )
 
             if re.fullmatch(pattern=digits, string=pos):

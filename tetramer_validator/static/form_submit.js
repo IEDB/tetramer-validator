@@ -18,8 +18,3 @@ function field_success_highlight(num_row) {
   }
   removePlaceholders(selector);
 }
-
-$("form").submit(function(event) {
-  console.log($(this).serializeArray());
-  //event.preventDefault();
-});
