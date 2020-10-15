@@ -83,6 +83,7 @@
             $("input").val("");
             $("input").removeClass("is-valid");
             $("input").removeClass("is-invalid");
+            $("#mod_type").tokenfield('setTokens', [" "]);
             event.preventDefault();
           });
         </script>
@@ -104,8 +105,14 @@
         {% endif %}
       </li>
       <script>
+
         var field = "#{{error["field"]}}";
-        $(field).addClass("is-invalid");
+        if ("{{error["field"]}}" == 'mod_type') {
+          $(".tokenfield").addClass("is-invalid");
+        }
+        else {
+          $("#{{error["field"]}}").addClass("is-invalid");
+        }
       </script>
       {% endfor %}
     </ul>
@@ -120,13 +127,12 @@
       for(input = 0; input < inputs.length; input++) {
         if(inputs[input].value != "") {
           $(inputs[input]).addClass("is-valid");
+          if($(inputs[input]).is($('#mod_type'))) {
+            $(".tokenfield").addClass("is-valid");
+          }
         }
       }
       removePlaceholders();
-      // if($("input").val() != "") {
-      //   console.log($("input").val());
-      //   $("input").addClass("is-valid");
-      // }
     </script>
     {% endif %}
 
@@ -137,17 +143,6 @@
       <p> <a href="https://www.ebi.ac.uk/ols/ontologies/mro"> MHC Restriction Ontology (MRO) </a> </p>
       <p> <a href="https://www.ebi.ac.uk/ols/ontologies/mod"> PSI-MOD Ontology </a> </p>
     </div>
-    <!--script>
-    if ($("p").hasClass("alert-danger") || $("p").hasClass("alert-success")) {
-      var inputs = $("input");
-
-      for(i = 0; i <inputs.length; i++){
-      if(!( $(inputs[i]).hasClass("is-invalid") || inputs[i].value == "")) {
-        $(inputs[i]).addClass("is-valid");
-      }
-    }};
-
-  </script-->
   </div>
 
 
