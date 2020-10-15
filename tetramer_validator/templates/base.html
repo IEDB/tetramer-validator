@@ -77,15 +77,7 @@
       </style>
       <div class="form-actions">
         <button type="submit" class="btn btn-primary">Submit</button>
-        <button class="btn btn-secondary" id="Clear"> Clear </button>
-        <script>
-          $("#Clear").click(function(event) {
-            $("input").val("");
-            $("input").removeClass("is-valid");
-            $("input").removeClass("is-invalid");
-            event.preventDefault();
-          });
-        </script>
+        <a href="/" class="btn btn-secondary" id="Clear">Clear</a>
       </div>
 
     </form>
