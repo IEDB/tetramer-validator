@@ -13,14 +13,15 @@
   <script type="text/javascript" src="{{url_for('static', filename='bootstrap-tokenfield.min.js')}}"> </script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <style>
+    .form-actions {
+      margin: 10px;
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
-  <script>
-  $(document).ready(function(){
-    $('[data-toggle="popover"]').popover({html: true});
-  });
-</script>
   <div class="container-fluid">
     <h1> Tetramer Validator </h1>
     <form method="GET" class="form-horizontal" action="{{url_for('output')}}">
@@ -33,8 +34,6 @@
               </svg>
             </span>
           </label>
-          <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{mhc_name}}" placeholder="Example: HLA-A*02:01" autocomplete="off" required>
-          <script src="static/MHC_display.js"> </script>
         </div>
         <div class="col">
           <label for="Peptide Sequence">Peptide Sequence
@@ -44,10 +43,8 @@
               </svg>
             </span>
           </label>
-          <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{pep_seq}}" placeholder="Example: NLVPMVATV" required>
-
         </div>
-        <div class="col" id="PTM_display">
+        <div class="col">
           <label for="Modification Type">Modification Type
             <span>
               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-question" data-toggle="popover" data-trigger="focus" data-content="Please choose a post-translational type from the prepopulated list. Click <a href='{{(url_for('readme'))}}'> here </a> for documentation" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -55,8 +52,6 @@
               </svg>
             </span>
           </label>
-          <input name="mod_type" type="text" class="twitter-typeahead form-control" id="mod_type" autocomplete="off" spellcheck="false" value="{{mod_type}}" placeholder="Example: oxidized residue">
-          <script src="/static/PTM_display.js"> </script>
         </div>
         <div class="col">
           <label for="Modification Position">Modification Position
@@ -66,27 +61,36 @@
               </svg>
             </span>
           </label>
-          <input name="mod_pos" type="text" class="form-control" id="mod_pos" value="{{mod_pos}}" placeholder="Example: M5">
         </div>
       </div>
-      <style>
-        .form-actions {
-          margin: 10px;
-          text-align: center;
-        }
-      </style>
+      {% for row in rows %}
+      <div class="form-row mb-2">
+        <div class="col">
+          <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{row.mhc_name}}" placeholder="Example: HLA-A*02:01" autocomplete="off" required>
+        </div>
+        <div class="col">
+          <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{row.pep_seq}}" placeholder="Example: NLVPMVATV" required>
+        </div>
+        <div class="col" id="PTM_display">
+          <input name="mod_type" type="text" class="twitter-typeahead form-control" id="mod_type" autocomplete="off" spellcheck="false" value="{{row.mod_type}}" placeholder="Example: oxidized residue">
+        </div>
+        <div class="col">
+          <input name="mod_pos" type="text" class="form-control" id="mod_pos" value="{{row.mod_pos}}" placeholder="Example: M5">
+        </div>
+      </div>
+      {% endfor %}
       <div class="form-actions">
         <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" name="add" value="true">Add</button>
         <a href="/" class="btn btn-secondary" id="Clear">Clear</a>
       </div>
+      <hr>
+      ARGS: {{ args }}
+      <hr>
+      ROWS: {{ rows }}
 
     </form>
 
-    <script>
-      function removePlaceholders() {
-        $("input").removeAttr("placeholder");
-      }
-    </script>
     {% if errors %}
     <ul class="alert alert-danger" role="alert">
       {% for error in errors%}
@@ -95,31 +99,12 @@
         {{"Suggested fix is " + error["suggestion"] + "."}}
         {% endif %}
       </li>
-      <script>
-        var field = "#{{error["field"]}}";
-        $(field).addClass("is-invalid");
-      </script>
       {% endfor %}
     </ul>
-    <script> removePlaceholders(); </script>
     {% endif %}
 
     {% if success %}
     <p class="alert alert-success" role="alert"> Success! Input is valid </p>
-    <script>
-      $("input").removeClass("is-invalid");
-      var inputs = $("input[id]")
-      for(input = 0; input < inputs.length; input++) {
-        if(inputs[input].value != "") {
-          $(inputs[input]).addClass("is-valid");
-        }
-      }
-      removePlaceholders();
-      // if($("input").val() != "") {
-      //   console.log($("input").val());
-      //   $("input").addClass("is-valid");
-      // }
-    </script>
     {% endif %}
 
     <div class="alert alert-info" role="alert">
@@ -129,21 +114,36 @@
       <p> <a href="https://www.ebi.ac.uk/ols/ontologies/mro"> MHC Restriction Ontology (MRO) </a> </p>
       <p> <a href="https://www.ebi.ac.uk/ols/ontologies/mod"> PSI-MOD Ontology </a> </p>
     </div>
-    <!--script>
-    if ($("p").hasClass("alert-danger") || $("p").hasClass("alert-success")) {
-      var inputs = $("input");
-
-      for(i = 0; i <inputs.length; i++){
-      if(!( $(inputs[i]).hasClass("is-invalid") || inputs[i].value == "")) {
-        $(inputs[i]).addClass("is-valid");
-      }
-    }};
-
-  </script-->
   </div>
 
+  <script src="static/MHC_display.js"> </script>
+  <script src="/static/PTM_display.js"> </script>
+  <script>
+      $(document).ready(function(){
+        $('[data-toggle="popover"]').popover({html: true});
+      });
 
+      function removePlaceholders() {
+        $("input").removeAttr("placeholder");
+      }
 
+      $("input").removeClass("is-invalid");
+      var inputs = $("input[id]")
+      for(input = 0; input < inputs.length; input++) {
+        if(inputs[input].value != "") {
+          $(inputs[input]).addClass("is-valid");
+        }
+      }
+      removePlaceholders();
+
+      {#
+      // TODO: Fix this
+      //<script>
+      //  var field = "#{{error["field"]}}";
+      //  $(field).addClass("is-invalid");
+      //</script>
+      #}
+  </script>
 
 
 </body>

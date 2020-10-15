@@ -8,32 +8,47 @@ app = Flask(__name__)
 @app.route("/", methods=["GET"])
 def output():
     if request.args:
-        pep_seq = request.args["pep_seq"]
-        mod_pos = request.args["mod_pos"]
-        mod_type = request.args["mod_type"]
-        mhc_name = request.args["mhc_name"]
-        errors = validate.validate(
-            pep_seq=pep_seq, mod_pos=mod_pos, mod_type=mod_type, mhc_name=mhc_name
-        )
+        args = request.args.to_dict(flat=False)
+        rows = []
+
+        keys = ["mhc_name", "pep_seq", "mod_type", "mod_pos"]
+        max_rows = 0
+        for k in keys:
+            if k in args:
+                max_rows = max(max_rows, len(args[k]))
+        args["max"] = max_rows
+        for i in range(0, max_rows):
+            row = {}
+            for k in keys:
+                if k in args and len(args[k]) > i:
+                    row[k] = args[k][i]
+            rows.append(row)
+
+        if len(rows) == 0 or "add" in args:
+            rows.append({
+                "pep_seq": "",
+                "mod_pos": "",
+                "mod_type": "",
+                "mhc_name": "",
+            })
+        errors = "" # validate.validate(**rows[0])
         success = not errors
         return render_template(
             "base.html",
-            pep_seq=pep_seq,
-            mod_pos=mod_pos,
-            mod_type=mod_type,
-            mhc_name=mhc_name,
+            args=args,
+            rows=rows,
             errors=errors,
-            PTM_display=validate.PTM_display,
             success=success,
         )
     else:
         return render_template(
             "base.html",
-            pep_seq="",
-            mod_pos="",
-            mod_type="",
-            mhc_name="",
-            PTM_display=validate.PTM_display,
+            rows=[{
+                "pep_seq": "",
+                "mod_pos": "",
+                "mod_type": "",
+                "mhc_name": "",
+            }],
             errors="",
             success=False,
         )
