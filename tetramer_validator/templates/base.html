@@ -64,48 +64,49 @@
         </div>
       </div>
       {% for row in rows %}
+      <div class="entry">
       <div class="form-row mb-2">
         <div class="col">
-          <input name="mhc_name" type="text" class="twitter-typeahead form-control" id="mhc_name" value="{{row.mhc_name}}" placeholder="Example: HLA-A*02:01" autocomplete="off" required>
+          <input name="mhc_name" type="text" class="twitter-typeahead form-control mhc_name" value="{{row.mhc_name}}" placeholder="Example: HLA-A*02:01" autocomplete="off" required>
         </div>
         <div class="col">
-          <input name="pep_seq" type="text" class="form-control" id="pep_seq" value="{{row.pep_seq}}" placeholder="Example: NLVPMVATV" required>
+          <input name="pep_seq" type="text" class="form-control pep_seq" value="{{row.pep_seq}}" placeholder="Example: NLVPMVATV" required>
         </div>
         <div class="col" id="PTM_display">
-          <input name="mod_type" type="text" class="twitter-typeahead form-control" id="mod_type" autocomplete="off" spellcheck="false" value="{{row.mod_type}}" placeholder="Example: oxidized residue">
+          <input name="mod_type" type="text" class="twitter-typeahead form-control mod_type" autocomplete="off" spellcheck="false" value="{{row.mod_type}}" placeholder="Example: oxidized residue">
         </div>
         <div class="col">
-          <input name="mod_pos" type="text" class="form-control" id="mod_pos" value="{{row.mod_pos}}" placeholder="Example: M5">
+          <input name="mod_pos" type="text" class="form-control mod_pos" value="{{row.mod_pos}}" placeholder="Example: M5">
         </div>
       </div>
+      <div class="results">
+      {% if row["errors"] %}
+      <ul class="alert alert-danger" role="alert">
+        {% for error in row["errors"] %}
+        <li> {{error["message"]}}
+          {% if error["suggestion"] %}
+          {{"Suggested fix is " + error["suggestion"] + "."}}
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      {% if row["success"]  %}
+      <p class="alert alert-success" role="alert"> Success! Input is valid </p>
+      {% endif %}
+    </div>
       {% endfor %}
+    </div>
       <div class="form-actions">
         <button type="submit" class="btn btn-primary">Submit</button>
         <button type="submit" class="btn btn-primary" name="add" value="true">Add</button>
         <a href="/" class="btn btn-secondary" id="Clear">Clear</a>
       </div>
-      <hr>
-      ARGS: {{ args }}
-      <hr>
-      ROWS: {{ rows }}
 
     </form>
 
-    {% if errors %}
-    <ul class="alert alert-danger" role="alert">
-      {% for error in errors%}
-      <li> {{error["message"]}}
-        {% if error["suggestion"] %}
-        {{"Suggested fix is " + error["suggestion"] + "."}}
-        {% endif %}
-      </li>
-      {% endfor %}
-    </ul>
-    {% endif %}
 
-    {% if success %}
-    <p class="alert alert-success" role="alert"> Success! Input is valid </p>
-    {% endif %}
 
     <div class="alert alert-info" role="alert">
       <p> <a href="{{url_for('readme')}}"> Documentation </a> </p>
@@ -119,33 +120,16 @@
   <script src="static/MHC_display.js"> </script>
   <script src="/static/PTM_display.js"> </script>
   <script>
-      $(document).ready(function(){
-        $('[data-toggle="popover"]').popover({html: true});
-      });
-
-      function removePlaceholders() {
-        $("input").removeAttr("placeholder");
-      }
-
-      $("input").removeClass("is-invalid");
-      var inputs = $("input[id]")
-      for(input = 0; input < inputs.length; input++) {
-        if(inputs[input].value != "") {
-          $(inputs[input]).addClass("is-valid");
-        }
-      }
-      removePlaceholders();
-
-      {#
-      // TODO: Fix this
-      //<script>
-      //  var field = "#{{error["field"]}}";
-      //  $(field).addClass("is-invalid");
-      //</script>
-      #}
+  //   entries = $(".entry");
+  //   $(entries).each(function() {
+  //     var results = $(this).filter("div.results");
+  //     console.log($(results).children());
+  //     //console.log(results.filter("p"));
+  //     if($(results).hasClass("alert-success")) {
+  //     $(this).filter("form-row input").addClass("is-valid");
+  //   }
+  // });
   </script>
-
-
 </body>
 
 </html>

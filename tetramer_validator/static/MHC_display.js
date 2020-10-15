@@ -17,7 +17,8 @@ var MHC_engine = new Bloodhound({
 MHC_engine.initialize();
 
 // instantiate the typeahead UI
-$('#mhc_name').typeahead({
+$('.mhc_name').each(function() {
+  $(this).typeahead({
 
   hint: true,
   highlight: true,
@@ -30,4 +31,5 @@ $('#mhc_name').typeahead({
   },
   limit: 10,
   source: MHC_engine.ttAdapter()
+});
 });

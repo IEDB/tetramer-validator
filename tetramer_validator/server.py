@@ -23,22 +23,23 @@ def output():
                 if k in args and len(args[k]) > i:
                     row[k] = args[k][i]
             rows.append(row)
-
+            print(row)
+            row["errors"] = validate.validate(**row)
+            row["success"] = not row["errors"]
         if len(rows) == 0 or "add" in args:
             rows.append({
                 "pep_seq": "",
                 "mod_pos": "",
                 "mod_type": "",
                 "mhc_name": "",
+                "errors": [],
+                "success": False
             })
-        errors = "" # validate.validate(**rows[0])
-        success = not errors
+
         return render_template(
             "base.html",
             args=args,
             rows=rows,
-            errors=errors,
-            success=success,
         )
     else:
         return render_template(
