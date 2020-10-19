@@ -29,6 +29,49 @@ ALLOWED_EXTENSIONS = {"csv", "tsv", "xlsx"}
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
 
 
+@app.route("/", methods=["GET"])
+def output():
+    if request.args:
+        pep_seq = request.args["pep_seq"]
+        mod_pos = request.args["mod_pos"]
+        mod_type = request.args["mod_type"]
+        mhc_name = request.args["mhc_name"]
+        errors = validate.validate(
+            pep_seq=pep_seq, mod_pos=mod_pos, mod_type=mod_type, mhc_name=mhc_name
+        )
+        success = not errors
+        return render_template(
+            "base.html",
+            pep_seq=pep_seq,
+            mod_pos=mod_pos,
+            mod_type=mod_type,
+            mhc_name=mhc_name,
+            errors=errors,
+            PTM_display=validate.PTM_display,
+            success=success,
+        )
+    else:
+        return render_template(
+            "base.html",
+            pep_seq="",
+            mod_pos="",
+            mod_type="",
+            mhc_name="",
+            PTM_display=validate.PTM_display,
+            errors="",
+            success=False,
+        )
+
+
+@app.route("/README.html", methods=["GET"])
+def readme():
+    return render_template("README.html")
+
+
+@app.route("/data/<path:filename>")
+def send_js(filename):
+    return send_from_directory("data", filename=filename)
+
 @app.route("/upload", methods=["POST"])
 def upload():
     if request.method == "POST":
@@ -76,52 +119,8 @@ def results(path):
     output.write(filename=path, arcname=os.path.split(path)[1])
     output.write(filename=errors_obj.name, arcname=os.path.split(errors_obj.name)[1])
     output.close()
-    return send_file(zipped.name)
+    return send_file(filename_or_fp = zipped.name, mimetype='application/zip', as_attachment=True, attachment_filename = 'output.zip')
 
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-@app.route("/", methods=["GET"])
-def output():
-    if request.args:
-        pep_seq = request.args["pep_seq"]
-        mod_pos = request.args["mod_pos"]
-        mod_type = request.args["mod_type"]
-        mhc_name = request.args["mhc_name"]
-        errors = validate.validate(
-            pep_seq=pep_seq, mod_pos=mod_pos, mod_type=mod_type, mhc_name=mhc_name
-        )
-        success = not errors
-        return render_template(
-            "base.html",
-            pep_seq=pep_seq,
-            mod_pos=mod_pos,
-            mod_type=mod_type,
-            mhc_name=mhc_name,
-            errors=errors,
-            PTM_display=validate.PTM_display,
-            success=success,
-        )
-    else:
-        return render_template(
-            "base.html",
-            pep_seq="",
-            mod_pos="",
-            mod_type="",
-            mhc_name="",
-            PTM_display=validate.PTM_display,
-            errors="",
-            success=False,
-        )
-
-
-@app.route("/README.html", methods=["GET"])
-def readme():
-    return render_template("README.html")
-
-
-@app.route("/data/<path:filename>")
-def send_js(filename):
-    return send_from_directory("data", filename=filename)
