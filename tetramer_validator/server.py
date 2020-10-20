@@ -43,8 +43,15 @@ def output():
 
             errors = validate.validate(**row)
             row["success"] = not errors
-            errors = [(error["field"], error["message"]) for error in errors]
-
+            errors = [
+                (error["field"], error["message"])
+                if error["suggestion"] is None
+                else (
+                    error["field"],
+                    error["message"] + " Suggested fix is " + error["suggestion"] +".",
+                )
+                for error in errors
+            ]
             errors = MultiDict(errors)
             row["errors"] = errors.to_dict(False)
 
