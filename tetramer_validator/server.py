@@ -78,10 +78,6 @@ def output():
                 }
             ],
 
-    else:
-        return redirect(url_for("start"))
-
-
 def generate_file(input, errors):
     with NamedTemporaryFile(
         prefix="your_input_", suffix=".xlsx", dir="static", delete=False
