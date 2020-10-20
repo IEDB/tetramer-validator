@@ -20,7 +20,6 @@
       text-align: center;
     }
   </style>
-
 </head>
 
 <body>
@@ -120,18 +119,9 @@
     </div>
   </div>
 
-  <script src="static/MHC_display.js"> </script>
-  <script src="/static/PTM_display.js"> </script>
-  <script>
-  $(function () {
-    $('[data-toggle="popover"]').popover({html: true});
-  });
-  $(document).ready(function(){
-    $(".mod_type.is-invalid").parent().addClass("is-invalid");
-    $(".mod_type.is-valid").parent().addClass("is-valid");
-
-  });
-  </script>
+  <script src="{{url_for('static', filename = 'MHC_display.js')}}"> </script>
+  <script src="{{url_for('static', filename ='PTM_display.js')}}"> </script>
+  <script src="{{url_for('static', filename = 'form_misc.js')}}"> </script>
 
 </body>
 
