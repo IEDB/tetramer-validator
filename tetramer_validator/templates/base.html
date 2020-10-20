@@ -1,3 +1,4 @@
+{% from "form_template.html" import form_template with context %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,6 +20,7 @@
       text-align: center;
     }
   </style>
+
 </head>
 
 <body>
@@ -26,7 +28,7 @@
     <h1> Tetramer Validator </h1>
     <form method="GET" class="form-horizontal" action="{{url_for('output')}}">
       <div class="form-row center-block">
-        <div class="col" id="MHC_display">
+        <div class="col">
           <label for="MHC Molecule">MHC Molecule
             <span>
               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-question" data-toggle="popover" data-trigger="focus" data-content="Enter MHC molecule from prepopulated list. Click <a href='{{(url_for('readme'))}}'> here </a> for documentation" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -67,48 +69,49 @@
       <div class="entry">
       <div class="form-row mb-2">
         <div class="col">
-          <input name="mhc_name" type="text" class="twitter-typeahead form-control mhc_name" value="{{row.mhc_name}}" placeholder="Example: HLA-A*02:01" autocomplete="off" required>
+          <input name="mhc_name" type="text" class="form-control mhc_name {{'is-invalid' if row['errors']['mhc_name']}}{{'is-valid' if row["success"]}}" value="{{row.mhc_name}}" placeholder="Example: HLA-A*02:01" autocomplete="off" required aria-describedby="mhc_name_{{loop.index}}">
+          {% if row["errors"]["mhc_name"] %}
+          <div id="mhc_name_{{loop.index}}" class="invalid-feedback d-block"> {{form_template(row["errors"]["mhc_name"])}} </div>
+          {% elif row["mhc_name"] %}
+          <div id="mhc_name_{{loop.index}}" class="valid-feedback d-block"> Looks good </div>
+          {% endif %}
         </div>
         <div class="col">
-          <input name="pep_seq" type="text" class="form-control pep_seq" value="{{row.pep_seq}}" placeholder="Example: NLVPMVATV" required>
-        </div>
-        <div class="col" id="PTM_display">
-          <input name="mod_type" type="text" class="twitter-typeahead form-control mod_type" autocomplete="off" spellcheck="false" value="{{row.mod_type}}" placeholder="Example: oxidized residue">
+          <input name="pep_seq" type="text" class="form-control pep_seq {{'is-invalid' if row['errors']['pep_seq']}}{{'is-valid' if row["success"]}}" value="{{row.pep_seq}}" placeholder="Example: NLVPMVATV" aria-describedby="pep_seq_{{loop.index}}" required>
+          {% if row["errors"]["pep_seq"] %}
+          <div id="pep_seq_{{loop.index}}" class="invalid-feedback d-block"> {{form_template(row["errors"]["pep_seq"])}} </div>
+          {%elif row["pep_seq"] %}
+          <div id="pep_seq_{{loop.index}}" class="valid-feedback d-block"> Looks good </div>
+          {% endif %}
         </div>
         <div class="col">
-          <input name="mod_pos" type="text" class="form-control mod_pos" value="{{row.mod_pos}}" placeholder="Example: M5">
+          <input name="mod_type" type="text" class="form-control mod_type {{'is-invalid' if row['errors']['mod_type']}}{{'is-valid' if row["success"]}}" autocomplete="off" spellcheck="false" value="{{row.mod_type}}" placeholder="Example: oxidized residue" aria-describedby="mod_type_{{loop.index}}">
+          {% if row["errors"]["mod_type"] %}
+          <div id="mod_type_{{loop.index}}" class="invalid-feedback d-block"> {{form_template(row["errors"]["mod_type"])}} </div>
+          {%elif row["mod_type"] %}
+          <div id="mod_type_{{loop.index}}" class="valid-feedback d-block"> Looks good </div>
+          {% endif %}
+        </div>
+        <div class="col">
+          <input name="mod_pos" type="text" class="form-control mod_pos {{'is-invalid' if row['errors']['mod_pos']}}{{'is-valid' if row["success"]}}" value="{{row.mod_pos}}" placeholder="Example: M5" aria-describedby="mod_pos_{{loop.index}}">
+          {% if row["errors"]["mod_pos"] %}
+          <div id="mod_pos_{{loop.index}}" class="invalid-feedback d-block"> {{form_template(row["errors"]["mod_pos"])}} </div>
+          {% elif row["mod_pos"] %}
+          <div id="mod_pos_{{loop.index}}" class="valid-feedback d-block"> Looks good </div>
+          {% endif %}
         </div>
       </div>
-      <div class="results">
-      {% if row["errors"] %}
-      <ul class="alert alert-danger" role="alert">
-        {% for error in row["errors"] %}
-        <li> {{error["message"]}}
-          {% if error["suggestion"] %}
-          {{"Suggested fix is " + error["suggestion"] + "."}}
-          {% endif %}
-        </li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-
-      {% if row["success"]  %}
-      <p class="alert alert-success" role="alert"> Success! Input is valid </p>
-      {% endif %}
-    </div>
-      {% endfor %}
-    </div>
       <div class="form-actions">
         <button type="submit" class="btn btn-primary">Submit</button>
         <button type="submit" class="btn btn-primary" name="add" value="true">Add</button>
         <a href="/" class="btn btn-secondary" id="Clear">Clear</a>
       </div>
-
+      {% endfor %}
     </form>
-
-
-
     <div class="alert alert-info" role="alert">
+      <style>
+      p {margin: 0};
+      </style>
       <p> <a href="{{url_for('readme')}}"> Documentation </a> </p>
       <p> <a href="?mhc_name=HLA-B*07%3A04&pep_seq=AARPATSTL&mod_type=&mod_pos="> Example without modification </a> </p>
       <p> <a href="?mhc_name=HLA-DRB1*04%3A06&pep_seq=MIVIL&mod_type=formylated+residue&mod_pos=M1"> Example with modification </a> </p>
@@ -120,16 +123,16 @@
   <script src="static/MHC_display.js"> </script>
   <script src="/static/PTM_display.js"> </script>
   <script>
-  //   entries = $(".entry");
-  //   $(entries).each(function() {
-  //     var results = $(this).filter("div.results");
-  //     console.log($(results).children());
-  //     //console.log(results.filter("p"));
-  //     if($(results).hasClass("alert-success")) {
-  //     $(this).filter("form-row input").addClass("is-valid");
-  //   }
-  // });
+  $(function () {
+    $('[data-toggle="popover"]').popover({html: true});
+  });
+  $(document).ready(function(){
+    $(".mod_type.is-invalid").parent().addClass("is-invalid");
+    $(".mod_type.is-valid").parent().addClass("is-valid");
+
+  });
   </script>
+
 </body>
 
 </html>

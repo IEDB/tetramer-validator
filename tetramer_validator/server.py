@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template, request, send_from_directory
 from tetramer_validator import validate
+from werkzeug.datastructures import MultiDict
 
 app = Flask(__name__)
 
@@ -23,18 +24,23 @@ def output():
                 if k in args and len(args[k]) > i:
                     row[k] = args[k][i]
             rows.append(row)
-            row["errors"] = validate.validate(**row)
-            row["success"] = not row["errors"]
+
+            errors = validate.validate(**row)
+            row["success"] = not errors
+            errors = [(error["field"], error["message"]) for error in errors]
+
+            errors = MultiDict(errors)
+            row["errors"] = errors.to_dict(False)
+
         if len(rows) == 0 or "add" in args:
             rows.append({
                 "pep_seq": "",
                 "mod_pos": "",
                 "mod_type": "",
                 "mhc_name": "",
-                "errors": [],
+                "errors": {},
                 "success": False
             })
-
         return render_template(
             "base.html",
             args=args,
@@ -48,8 +54,10 @@ def output():
                 "mod_pos": "",
                 "mod_type": "",
                 "mhc_name": "",
+                "errors": {},
+                "success": False
             }],
-            errors="",
+            errors={},
             success=False,
         )
 
