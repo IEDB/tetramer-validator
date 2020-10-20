@@ -18,8 +18,8 @@ var MHC_engine = new Bloodhound({
 MHC_engine.initialize();
 
 // instantiate the typeahead UI
-function newMHCTypeahead() {
-$(".mhc_name input").typeahead({
+$('.mhc_name').each(function() {
+  $(this).typeahead({
 
   hint: true,
   highlight: true,
@@ -28,9 +28,9 @@ $(".mhc_name input").typeahead({
 }, {
   name: 'MHC_name',
   displayKey: function(mhc) {
-    return mhc["IEDB Label"]
+    return mhc["IEDB Label"];
   },
   limit: 10,
   source: MHC_engine.ttAdapter()
 });
-}
+});

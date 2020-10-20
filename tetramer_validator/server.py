@@ -8,6 +8,7 @@ from flask import (
     send_file,
 )
 from tetramer_validator import validate
+from werkzeug.datastructures import MultiDict
 from openpyxl import Workbook
 from tempfile import NamedTemporaryFile
 from tetramer_validator.parse_tables import generate_formatted_data
@@ -21,30 +22,62 @@ def start():
     return render_template("base.html", input=[], list=False)
 
 
-@app.route("/output", methods=["POST"])
+@app.route("/output", methods=["GET"])
 def output():
-    if request.method == "POST":
-        input = request.form.to_dict(flat=False)
-        errors = {}
-        print(input)
-        if isinstance(input["mhc_name"], list):
-            num_multimers = len(input["mhc_name"])
-            for multimer in range(num_multimers):
-                errors[multimer] = validate.validate(
-                    pep_seq=input["pep_seq"][multimer],
-                    mod_pos=input["mod_pos"][multimer],
-                    mod_type=input["mod_type"][multimer],
-                    mhc_name=input["mhc_name"][multimer],
-                )
-            filename = generate_file(input, errors)
-            print(filename)
-            return render_template(
-                "base.html",
-                errors=errors,
-                input=input,
-                list=True,
-                input_filepath=filename,
+    if request.args:
+        args = request.args.to_dict(flat=False)
+        rows = []
+
+        keys = ["mhc_name", "pep_seq", "mod_type", "mod_pos"]
+        max_rows = 0
+        for k in keys:
+            if k in args:
+                max_rows = max(max_rows, len(args[k]))
+        args["max"] = max_rows
+        for i in range(0, max_rows):
+            row = {}
+            for k in keys:
+                if k in args and len(args[k]) > i:
+                    row[k] = args[k][i]
+            rows.append(row)
+
+            errors = validate.validate(**row)
+            row["success"] = not errors
+            errors = [(error["field"], error["message"]) for error in errors]
+
+            errors = MultiDict(errors)
+            row["errors"] = errors.to_dict(False)
+
+        if len(rows) == 0 or "add" in args:
+            rows.append(
+                {
+                    "pep_seq": "",
+                    "mod_pos": "",
+                    "mod_type": "",
+                    "mhc_name": "",
+                    "errors": {},
+                    "success": False,
+                }
             )
+        return render_template(
+            "base.html",
+            args=args,
+            rows=rows,
+        )
+    else:
+        return render_template(
+            "base.html",
+            rows=[
+                {
+                    "pep_seq": "",
+                    "mod_pos": "",
+                    "mod_type": "",
+                    "mhc_name": "",
+                    "errors": {},
+                    "success": False,
+                }
+            ],
+
     else:
         return redirect(url_for("start"))
 

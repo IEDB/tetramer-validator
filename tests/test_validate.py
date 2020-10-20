@@ -88,7 +88,7 @@ def test_validate_mod_pos_two():
             "rule": "MismatchErrorAminoAcidPos",
             "value": "K5",
             "message": "This peptide sequence does not contain K at position 5."
-            " Enter a amino acid letter and matching position from peptide sequence",
+            " Enter a amino acid letter and matching position from peptide sequence.",
             "field": "mod_pos",
             "suggestion": None,
         }
@@ -103,7 +103,7 @@ def test_validate_mod_pos_three():
             "rule": "MismatchErrorAminoAcidPos",
             "value": "M5",
             "message": "This peptide sequence does not contain M at position 5."
-            " Enter a amino acid letter and matching position from peptide sequence",
+            " Enter a amino acid letter and matching position from peptide sequence.",
             "field": "mod_pos",
             "suggestion": None,
         }
@@ -134,7 +134,7 @@ def test_validate_mod_pos_five():
             "rule": "MismatchErrorAminoAcidPos",
             "value": "S10",
             "message": "This peptide sequence does not contain S at position 10."
-            " Enter a amino acid letter and matching position from peptide sequence",
+            " Enter a amino acid letter and matching position from peptide sequence.",
             "field": "mod_pos",
             "suggestion": None,
         }
@@ -254,8 +254,8 @@ def test_validate_peptide_two():
             "rule": "MismatchErrorNumModPosType",
             "value": "amidated residue",
             "message": "There are 2 modification positions entered, but 1 modification types. "
-            "Number of modification types is less than number of modification positions."
-            " Decrease number of modification positions or increase number of "
+            "Number of modification positions is less than number of modification types.  "
+            "Decrease number of modification positions or increase number of "
             "modification types.",
             "field": "mod_type",
             "suggestion": None,

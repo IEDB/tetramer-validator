@@ -325,8 +325,8 @@ def validate_modification(pep_seq, mod_pos, mod_type):
     num_mod_pos = len(positions)
     mod_num_mismatch = "MismatchErrorNumModPosType"
     num_mistmatch_str = (
-        f"There are {num_mod_pos} modification positions entered, but {num_mod_types} modification types."
-        " Number of modification positions is less than number of modification types. "
+        f"There are {num_mod_pos} modification positions entered, but {num_mod_types} modification"
+        " types. Number of modification positions is less than number of modification types. "
     )
     if num_mod_pos < num_mod_types:
         errors.append(
@@ -410,7 +410,8 @@ def validate_mod_pos(pep_seq, positions):
                             "value": pos,
                             "field": "mod_pos",
                             "message": result
-                            + "Enter a amino acid letter and matching position from peptide sequence.",
+                            + "Enter a amino acid letter and matching position from peptide"
+                            " sequence.",
                             "suggestion": None,
                         }
                     )
