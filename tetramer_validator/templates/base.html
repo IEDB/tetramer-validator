@@ -38,8 +38,7 @@
             </span>
           </label>
         </div>
-        </div>
-        <div class="col pep_seq">
+        <div class="col">
           <label for="Peptide Sequence">Peptide Sequence
             <span>
               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-question" data-toggle="popover" data-trigger="focus" data-content="Enter valid amino acid sequence. Click <a href='{{(url_for('readme'))}}'> here </a> for documentation" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -57,7 +56,7 @@
             </span>
           </label>
         </div>
-        <div class="col mod_pos">
+        <div class="col">
           <label for="Modification Position">Modification Position
             <span>
               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-question" data-toggle="popover" data-trigger="focus" data-content="Enter a amino acid letter and matching position from peptide sequence. Modification Position field should be a comma separated list of amino acid letter followed by position number (e.g. F1, S10, S300). Click <a href='{{(url_for('readme'))}}'> here </a> for documentation" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -108,9 +107,11 @@
         <button type="submit" class="btn btn-primary">Submit</button>
         <button type="submit" class="btn btn-primary" name="add" value="true">Add</button>
         <a href="/" class="btn btn-secondary" id="Clear">Clear</a>
+        <button type="submit" class="btn btn-secondary" id="Export" formaction="{{url_for('download_input')}}"> Export multimers </button>
       </div>
 
     </form>
+    {{rows}}
     <div class="alert alert-info" role="alert">
       <style>
       p {margin: 0};
@@ -123,7 +124,7 @@
     </div>
   </div>
 </div>
-<script type="text/javascript" src="{{url_for('static', filename='form.js')}}" > </script>
+<script type="text/javascript" src="{{url_for('static', filename='form_misc.js')}}" > </script>
 <script type="text/javascript" src="{{url_for('static', filename='MHC_display.js')}}"> </script>
 <script type="text/javascript" src="{{url_for('static', filename='PTM_display.js')}}"> </script>
 
