@@ -33,14 +33,16 @@ def output():
             row["errors"] = errors.to_dict(False)
 
         if len(rows) == 0 or "add" in args:
-            rows.append({
-                "pep_seq": "",
-                "mod_pos": "",
-                "mod_type": "",
-                "mhc_name": "",
-                "errors": {},
-                "success": False
-            })
+            rows.append(
+                {
+                    "pep_seq": "",
+                    "mod_pos": "",
+                    "mod_type": "",
+                    "mhc_name": "",
+                    "errors": {},
+                    "success": False,
+                }
+            )
         return render_template(
             "base.html",
             args=args,
@@ -49,14 +51,16 @@ def output():
     else:
         return render_template(
             "base.html",
-            rows=[{
-                "pep_seq": "",
-                "mod_pos": "",
-                "mod_type": "",
-                "mhc_name": "",
-                "errors": {},
-                "success": False
-            }],
+            rows=[
+                {
+                    "pep_seq": "",
+                    "mod_pos": "",
+                    "mod_type": "",
+                    "mhc_name": "",
+                    "errors": {},
+                    "success": False,
+                }
+            ],
         )
 
 
