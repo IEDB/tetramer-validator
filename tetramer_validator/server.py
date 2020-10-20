@@ -56,9 +56,7 @@ def output():
                 "mhc_name": "",
                 "errors": {},
                 "success": False
-            }],
-            errors={},
-            success=False,
+            }],,
         )
 
 
