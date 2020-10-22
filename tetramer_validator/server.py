@@ -3,8 +3,6 @@ from flask import (
     render_template,
     request,
     send_from_directory,
-    redirect,
-    url_for,
     send_file,
 )
 from tetramer_validator import validate
@@ -17,17 +15,12 @@ import os
 
 app = Flask(__name__)
 
-@app.route("/")
-def start():
-    return render_template("base.html", input=[], list=False)
 
-
-@app.route("/output", methods=["GET"])
+@app.route("/", methods=["GET"])
 def output():
     if request.args:
         args = request.args.to_dict(flat=False)
         rows = []
-
         keys = ["mhc_name", "pep_seq", "mod_type", "mod_pos"]
         max_rows = 0
         for k in keys:
@@ -40,7 +33,6 @@ def output():
                 if k in args and len(args[k]) > i:
                     row[k] = args[k][i]
             rows.append(row)
-
             errors = validate.validate(**row)
             row["success"] = not errors
             errors = [
@@ -48,7 +40,7 @@ def output():
                 if error["suggestion"] is None
                 else (
                     error["field"],
-                    error["message"] + " Suggested fix is " + error["suggestion"] +".",
+                    error["message"] + " Suggested fix is " + error["suggestion"] + ".",
                 )
                 for error in errors
             ]
@@ -84,6 +76,8 @@ def output():
                     "success": False,
                 }
             ],
+        )
+
 
 def generate_file(input, errors):
     with NamedTemporaryFile(
@@ -95,20 +89,20 @@ def generate_file(input, errors):
             (
                 "MHC Molecule",
                 "Peptide Sequence",
-                "Modification Position",
                 "Modification Type",
+                "Modification Position",
             )
         )
-        for row in zip(*(input.values())):
-            ws.append(row)
+        for entry in input:
+            ws.append(entry)
         input_data.save(input_obj.name)
-        header_dict = {"mhc_name": "A", "pep_seq": "B", "mod_pos": "C", "mod_type": "D"}
+        header_dict = {"mhc_name": "A", "pep_seq": "B", "mod_type": "C", "mod_pos": "D"}
         for input_num in errors.keys():
             errorlist = errors[input_num]
             list(
                 map(
                     lambda error: error.update(
-                        {"cell": header_dict[error["field"]] + str(input_num + 1)}
+                        {"cell": header_dict[error["field"]] + str(input_num + 2)}
                     ),
                     errorlist,
                 )
@@ -129,10 +123,16 @@ def send_data(filename):
     return send_from_directory("data", filename=filename)
 
 
-@app.route("/downloads/<path:filename>", methods=["GET"])
-def download_input(filename):
+@app.route("/downloads", methods=["GET"])
+def download_input():
+    input = request.args.to_dict(flat=False)
+    errors = dict(
+        enumerate(itertools.starmap(validate.validate, zip(*(input.values()))))
+    )
+    to_input = list(map(list, zip(*(input.values()))))
+    filename = generate_file(to_input, errors)
     return send_file(
-        filename_or_fp="/static/" + str(filename),
+        filename_or_fp="static/" + str(filename),
         mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         as_attachment=True,
         attachment_filename="your_input.xlsx",

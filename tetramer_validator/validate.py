@@ -16,7 +16,7 @@ with open(PTM_file) as fh_1:
     PTM_display = [name["display_name"] for name in reader]
 
 
-def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
+def validate(mhc_name, pep_seq, mod_type=None, mod_pos=None):
     """Main validate function."""
     args = locals()
     errors = []
@@ -27,7 +27,9 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
         return errors
 
     if pep_seq:
-        errors.extend(validate_peptide(pep_seq, mod_type=mod_type, mod_pos=mod_pos))
+        errors.extend(
+            validate_peptide(pep_seq=pep_seq, mod_type=mod_type, mod_pos=mod_pos)
+        )
 
     errors.extend(validate_mhc_name(mhc_name))
     return errors
