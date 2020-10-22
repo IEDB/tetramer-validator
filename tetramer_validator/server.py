@@ -47,7 +47,6 @@ def output():
             errors = MultiDict(errors)
             row["errors"] = errors.to_dict(False)
             row["success"] = list(set(keys) - set(errors.keys()))
-            print(row["success"])
         if len(rows) == 0 or "add" in args:
             rows.append(
                 {
@@ -56,7 +55,7 @@ def output():
                     "mod_type": "",
                     "mhc_name": "",
                     "errors": {},
-                    "success": False,
+                    "success": [],
                 }
             )
         return render_template(
@@ -74,7 +73,7 @@ def output():
                     "mod_type": "",
                     "mhc_name": "",
                     "errors": {},
-                    "success": False,
+                    "success": [],
                 }
             ],
         )
