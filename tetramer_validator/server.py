@@ -110,7 +110,7 @@ def generate_file(input, errors):
         generate_formatted_data(
             input_obj.name, list(itertools.chain.from_iterable(errors.values()))
         )
-        return os.path.split(input_obj.name)[1]
+        return input_obj
 
 
 @app.route("/README.html", methods=["GET"])
@@ -130,9 +130,9 @@ def download_input():
         enumerate(itertools.starmap(validate.validate, zip(*(input.values()))))
     )
     to_input = list(map(list, zip(*(input.values()))))
-    filename = generate_file(to_input, errors)
+    file_obj = generate_file(to_input, errors)
     return send_file(
-        filename_or_fp="static/" + str(filename),
+        filename_or_fp=file_obj,
         mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         as_attachment=True,
         attachment_filename="your_input.xlsx",
