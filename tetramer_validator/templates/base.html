@@ -21,6 +21,18 @@
       margin: 10px;
       text-align: center;
     }
+    ul {
+      padding-left: 5%;
+      position:relative;
+
+    }
+    li {
+      position: relative;
+    }
+    p {
+      margin: 0px;
+      padding: 0px;
+    }
   </style>
 </head>
 
@@ -70,35 +82,27 @@
       <div class="entry">
       <div class="form-row mb-2">
         <div class="col">
-          <input name="mhc_name" type="text" class="form-control mhc_name {{'is-invalid' if row['errors']['mhc_name']}}{{'is-valid' if row["success"]}}" value="{{row.mhc_name}}" placeholder="Example: HLA-A*02:01" autocomplete="off" required aria-describedby="mhc_name_{{loop.index}}">
+          <input name="mhc_name" type="text" class="form-control mhc_name {{'is-invalid' if row['errors']['mhc_name']}}{{'is-valid' if 'mhc_name' in row['success']}}" value="{{row.mhc_name}}" placeholder="Example: HLA-A*02:01" autocomplete="off" required aria-describedby="mhc_name_{{loop.index}}">
           {% if row["errors"]["mhc_name"] %}
           <div id="mhc_name_{{loop.index}}" class="invalid-feedback d-block"> {{form_template(row["errors"]["mhc_name"])}} </div>
-          {% elif row["mhc_name"] %}
-          <div id="mhc_name_{{loop.index}}" class="valid-feedback d-block"> Looks good </div>
           {% endif %}
         </div>
         <div class="col">
-          <input name="pep_seq" type="text" class="form-control pep_seq {{'is-invalid' if row['errors']['pep_seq']}}{{'is-valid' if row["success"]}}" value="{{row.pep_seq}}" placeholder="Example: NLVPMVATV" aria-describedby="pep_seq_{{loop.index}}" required>
+          <input name="pep_seq" type="text" class="form-control pep_seq {{'is-invalid' if row['errors']['pep_seq']}}{{'is-valid' if 'pep_seq' in row['success']}}" value="{{row.pep_seq}}" placeholder="Example: NLVPMVATV" aria-describedby="pep_seq_{{loop.index}}" required>
           {% if row["errors"]["pep_seq"] %}
           <div id="pep_seq_{{loop.index}}" class="invalid-feedback d-block"> {{form_template(row["errors"]["pep_seq"])}} </div>
-          {%elif row["pep_seq"] %}
-          <div id="pep_seq_{{loop.index}}" class="valid-feedback d-block"> Looks good </div>
           {% endif %}
         </div>
         <div class="col">
-          <input name="mod_type" type="text" class="form-control mod_type {{'is-invalid' if row['errors']['mod_type']}}{{'is-valid' if row["success"]}}" autocomplete="off" spellcheck="false" value="{{row.mod_type}}" placeholder="Example: oxidized residue" aria-describedby="mod_type_{{loop.index}}">
+          <input name="mod_type" type="text" class="form-control mod_type {{'is-invalid' if row['errors']['mod_type']}}{{'is-valid' if 'mod_type' in row['success']}}" autocomplete="off" spellcheck="false" value="{{row.mod_type}}" placeholder="Example: oxidized residue" aria-describedby="mod_type_{{loop.index}}">
           {% if row["errors"]["mod_type"] %}
           <div id="mod_type_{{loop.index}}" class="invalid-feedback d-block"> {{form_template(row["errors"]["mod_type"])}} </div>
-          {%elif row["mod_type"] %}
-          <div id="mod_type_{{loop.index}}" class="valid-feedback d-block"> Looks good </div>
           {% endif %}
         </div>
         <div class="col">
-          <input name="mod_pos" type="text" class="form-control mod_pos {{'is-invalid' if row['errors']['mod_pos']}}{{'is-valid' if row["success"]}}" value="{{row.mod_pos}}" placeholder="Example: M5" aria-describedby="mod_pos_{{loop.index}}">
+          <input name="mod_pos" type="text" class="form-control mod_pos {{'is-invalid' if row['errors']['mod_pos']}}{{'is-valid' if 'mod_pos' in row['success']}}" value="{{row.mod_pos}}" placeholder="Example: M5" aria-describedby="mod_pos_{{loop.index}}">
           {% if row["errors"]["mod_pos"] %}
           <div id="mod_pos_{{loop.index}}" class="invalid-feedback d-block"> {{form_template(row["errors"]["mod_pos"])}} </div>
-          {% elif row["mod_pos"] %}
-          <div id="mod_pos_{{loop.index}}" class="valid-feedback d-block"> Looks good </div>
           {% endif %}
         </div>
       </div>
@@ -111,9 +115,6 @@
       </div>
     </form>
     <div class="alert alert-info" role="alert">
-      <style>
-      p {margin: 0};
-      </style>
       <p> <a href="{{url_for('readme')}}"> Documentation </a> </p>
       <p> <a href="?mhc_name=HLA-B*07%3A04&pep_seq=AARPATSTL&mod_type=&mod_pos="> Example without modification </a> </p>
       <p> <a href="?mhc_name=HLA-DRB1*04%3A06&pep_seq=MIVIL&mod_type=formylated+residue&mod_pos=M1"> Example with modification </a> </p>
@@ -125,8 +126,6 @@
 <script type="text/javascript" src="{{url_for('static', filename='form_misc.js')}}" > </script>
 <script type="text/javascript" src="{{url_for('static', filename='MHC_display.js')}}"> </script>
 <script type="text/javascript" src="{{url_for('static', filename='PTM_display.js')}}"> </script>
-
-
 </body>
 
 </html>
