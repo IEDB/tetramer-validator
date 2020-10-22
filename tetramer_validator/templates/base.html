@@ -79,7 +79,6 @@
         </div>
       </div>
       {% for row in rows %}
-      <div class="entry">
       <div class="form-row mb-2">
         <div class="col">
           <input name="mhc_name" type="text" class="form-control mhc_name {{'is-invalid' if row['errors']['mhc_name']}}{{'is-valid' if 'mhc_name' in row['success']}}" value="{{row.mhc_name}}" placeholder="Example: HLA-A*02:01" autocomplete="off" required aria-describedby="mhc_name_{{loop.index}}">
@@ -121,7 +120,6 @@
       <p> <a href="https://www.ebi.ac.uk/ols/ontologies/mro"> MHC Restriction Ontology (MRO) </a> </p>
       <p> <a href="https://www.ebi.ac.uk/ols/ontologies/mod"> PSI-MOD Ontology </a> </p>
     </div>
-  </div>
 </div>
 <script type="text/javascript" src="{{url_for('static', filename='form_misc.js')}}" > </script>
 <script type="text/javascript" src="{{url_for('static', filename='MHC_display.js')}}"> </script>
