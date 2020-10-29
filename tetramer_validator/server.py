@@ -81,7 +81,7 @@ def output():
 
 def generate_file(input, errors):
     with NamedTemporaryFile(
-        prefix="your_input_", suffix=".xlsx", dir="static", delete=False
+        prefix="your_input_", suffix=".xlsx", dir=".", delete=False
     ) as input_obj:
         input_data = Workbook()
         ws = input_data.active
@@ -110,7 +110,7 @@ def generate_file(input, errors):
         generate_formatted_data(
             input_obj.name, list(itertools.chain.from_iterable(errors.values()))
         )
-        return input_obj
+        return input_obj.name
 
 
 @app.route("/README.html", methods=["GET"])
@@ -130,9 +130,9 @@ def download_input():
         enumerate(itertools.starmap(validate.validate, zip(*(input.values()))))
     )
     to_input = list(map(list, zip(*(input.values()))))
-    file_obj = generate_file(to_input, errors)
+    filename = generate_file(to_input, errors)
     return send_file(
-        filename_or_fp=file_obj,
+        filename_or_fp=filename,
         mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         as_attachment=True,
         attachment_filename="your_input.xlsx",
