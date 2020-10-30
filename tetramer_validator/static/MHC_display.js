@@ -8,7 +8,8 @@ var MHC_engine = new Bloodhound({
     filter: function(response) {
       return response.data;
     },
-    cache: true
+    cache: true,
+    thumbprint: true
   },
   matchAnyQueryToken: true
 });

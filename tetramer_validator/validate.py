@@ -16,7 +16,7 @@ with open(PTM_file) as fh_1:
     PTM_display = [name["display_name"] for name in reader]
 
 
-def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
+def validate(mhc_name, pep_seq, mod_type=None, mod_pos=None):
     """Main validate function."""
     args = locals()
     errors = []
@@ -27,7 +27,9 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
         return errors
 
     if pep_seq:
-        errors.extend(validate_peptide(pep_seq, mod_type=mod_type, mod_pos=mod_pos))
+        errors.extend(
+            validate_peptide(pep_seq=pep_seq, mod_type=mod_type, mod_pos=mod_pos)
+        )
 
     errors.extend(validate_mhc_name(mhc_name))
     return errors
@@ -35,6 +37,7 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
 
 def properNumArguments(args):
     """Checks for proper number and combination of arguments for validate function"""
+
     errors = []
     incorrect_num_str = "IncorrectNumArgs"
 
@@ -220,15 +223,15 @@ def validate_mod_pos_syntax(pep_seq, positions):
     reversed_pattern = re.compile(
         r"\d+[A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE
     )
-    just_digits = "FormatErrorJustDigits"
-    reversed = "FormatErrorReverseAminoAcid"
-    general = "FormatErrorGeneralModPos"
+    just_digits = "SyntaxErrorJustDigits"
+    reversed = "SyntaxErrorReverseAminoAcid"
+    general = "SyntaxErrorGeneralModPos"
     for pos in positions:
         if re.fullmatch(main_pattern, pos) is None:
             formatted_string = (
                 f"{pos} is not a valid modification position. "
                 "Modification Position field should be a comma separated list of amino acid "
-                "letter followed by position number (e.g. F1, S10, S300). "
+                "letters followed by position numbers (e.g. F1, S10, S300). "
             )
 
             if re.fullmatch(pattern=digits, string=pos):
@@ -298,7 +301,7 @@ def validate_modification(pep_seq, mod_pos, mod_type):
     errors = []
     positions, mod_types = format_mod_info(mod_pos, mod_type)
 
-    trailing_rule_name = "FormatErrorTrailingCharacters"
+    trailing_rule_name = "SyntaxErrorTrailingCharacters"
     trailing_characters = re.findall(
         r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y\d]+$", positions
     )
@@ -356,11 +359,11 @@ def validate_modification(pep_seq, mod_pos, mod_type):
     if errors:
         for error in errors:
             if (
-                error["rule"] == "FormatErrorJustDigits"
-                or error["rule"] == "FormatErrorReverseAminoAcid"
+                error["rule"] == "SyntaxErrorJustDigits"
+                or error["rule"] == "SyntaxErrorReverseAminoAcid"
             ):
                 positions.remove(error["value"])
-            if error["rule"] == "FormatErrorGeneralModPos":
+            if error["rule"] == "SyntaxErrorGeneralModPos":
                 return errors
 
     errors.extend(validate_mod_pos(pep_seq, positions))
@@ -370,7 +373,7 @@ def validate_modification(pep_seq, mod_pos, mod_type):
 def validate_mhc_name(mhc_name):
     """Check if given MHC name match up to MRO name"""
     errors = []
-    invalid_MHC_rule = "UndefinedMHCMol"
+    invalid_MHC_rule = "UndefinedArgMHCMol"
     if mhc_name not in molecules:
         errors.append(
             {

@@ -51,6 +51,7 @@ $('.mod_type').each(function() {
         }
       },
     limit: 10
-  }]
+  }],
+  createTokensOnBlur: true
 });
 });
