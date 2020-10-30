@@ -15,7 +15,9 @@ import os
 
 app = Flask(__name__)
 
-
+if not os.path.isdir("./downloads"):
+    os.mkdir("./downloads")
+    
 @app.route("/", methods=["GET"])
 def output():
     if request.args:
@@ -81,7 +83,7 @@ def output():
 
 def generate_file(input, errors):
     with NamedTemporaryFile(
-        prefix="your_input_", suffix=".xlsx", dir=".", delete=False
+        prefix="your_input_", suffix=".xlsx", dir="./downloads", delete=False
     ) as input_obj:
         input_data = Workbook()
         ws = input_data.active
