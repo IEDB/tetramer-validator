@@ -2,7 +2,15 @@ $(document).ready(function(){
   $(".mod_type.is-invalid").parent().addClass("is-invalid");
   $(".mod_type.is-valid").parent().addClass("is-valid");
 });
-$('svg').focus(function(event) {
+$('.bi-question').focus(function(event) {
   $('[data-toggle="popover"]').popover({html: true});
-  event.preventDefault();
+});
+$('.bi-trash-fill').click(function(event) {
+  if ($(".entries").length == 1) {
+    window.location.href = "/";
+  }
+  else {
+    $(this).closest('.entries').remove();
+    event.preventDefault();
+  }
 });
