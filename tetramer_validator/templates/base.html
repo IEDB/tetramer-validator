@@ -79,7 +79,7 @@
         </div>
       </div>
       {% for row in rows %}
-      <div class="form-row mb-2 entries">
+      <div class="form-row mb-2 entry">
         <div class="col">
           <input name="mhc_name" type="text" class="form-control mhc_name {{'is-invalid' if row['errors']['mhc_name']}}{{'is-valid' if 'mhc_name' in row['success']}}" value="{{row.mhc_name}}" placeholder="Example: HLA-A*02:01" autocomplete="off" required aria-describedby="mhc_name_{{loop.index}}">
           {% if row["errors"]["mhc_name"] %}

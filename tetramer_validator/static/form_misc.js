@@ -6,11 +6,11 @@ $('.bi-question').focus(function(event) {
   $('[data-toggle="popover"]').popover({html: true});
 });
 $('.bi-trash-fill').click(function(event) {
-  if ($(".entries").length == 1) {
+  if ($(".entry").length == 1) {
     window.location.href = "/";
   }
   else {
-    $(this).closest('.entries').remove();
+    $(this).closest('.entry').remove();
     event.preventDefault();
   }
 });
