@@ -1,22 +1,25 @@
 var MHC_engine = new Bloodhound({
-  datumTokenizer: Bloodhound.tokenizers.obj.whitespace([
+  datumTokenizer: Bloodhound.tokenizers.obj.ngram([
     "Label", "IEDB Label", "synonyms"
   ]),
-  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  queryTokenizer: Bloodhound.tokenizers.ngram,
   prefetch: {
     url: "/data/molecule.json",
     filter: function(response) {
       return response.data;
     },
-    cache: true
-  }
+    cache: true,
+    thumbprint: true
+  },
+  matchAnyQueryToken: true
 });
 
 // initialize the bloodhound suggestion engine
 MHC_engine.initialize();
 
 // instantiate the typeahead UI
-$('#MHC_display .form-control').typeahead({
+$('.mhc_name').each(function() {
+  $(this).typeahead({
 
   hint: true,
   highlight: true,
@@ -25,8 +28,9 @@ $('#MHC_display .form-control').typeahead({
 }, {
   name: 'MHC_name',
   displayKey: function(mhc) {
-    return mhc["IEDB Label"]
+    return mhc["IEDB Label"];
   },
   limit: 10,
   source: MHC_engine.ttAdapter()
+});
 });

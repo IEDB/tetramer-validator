@@ -3,6 +3,8 @@ from openpyxl import load_workbook
 from openpyxl.styles import Color, PatternFill
 from openpyxl.comments import Comment
 import csv
+from openpyxl.styles import Color, PatternFill
+from openpyxl.comments import Comment
 
 var_names = {
     "pep_seq": "Peptide Sequence",
@@ -152,12 +154,12 @@ def generate_formatted_data(data_path, problems):
             )
         if cell.comment:
             comment = Comment(
-                cell.comment.text + "\n" + problem["instructions"],
+                cell.comment.text + "\n" + problem["message"],
                 author="tetramer_validator",
             )
             cell.comment = comment
         else:
-            cell.comment = Comment(problem["instructions"], author="tetramer-validator")
+            cell.comment = Comment(problem["message"], author="tetramer-validator")
     wb.save(data_path)
 
 
@@ -169,8 +171,8 @@ def generate_messages_txt(messages, file_obj):
             "rule name",
             "value",
             "field",
-            "instructions",
-            "fix",
+            "message",
+            "suggestion",
             "cell",
         ],
     )

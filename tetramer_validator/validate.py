@@ -30,7 +30,7 @@ with open(PTM_file) as fh_1:
     del PTM_synonyms[None]
 
 
-def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
+def validate(mhc_name, pep_seq, mod_type=None, mod_pos=None):
     """Main validate function."""
     args = locals()
     errors = []
@@ -41,7 +41,9 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
         return errors
 
     if pep_seq:
-        errors.extend(validate_peptide(pep_seq, mod_type=mod_type, mod_pos=mod_pos))
+        errors.extend(
+            validate_peptide(pep_seq=pep_seq, mod_type=mod_type, mod_pos=mod_pos)
+        )
 
     errors.extend(validate_mhc_name(mhc_name))
     return errors
@@ -49,6 +51,7 @@ def validate(pep_seq, mhc_name, mod_type=None, mod_pos=None):
 
 def properNumArguments(args):
     """Checks for proper number and combination of arguments for validate function"""
+
     errors = []
     incorrect_num_str = "IncorrectNumArgs"
 
@@ -56,11 +59,11 @@ def properNumArguments(args):
         errors.append(
             {
                 "level": "error",
-                "rule name": incorrect_num_str + "PepSeq",
+                "rule": incorrect_num_str + "PepSeq",
                 "value": args["pep_seq"],
                 "field": "pep_seq",
-                "instructions": "Enter peptide sequence.",
-                "fix": None,
+                "message": "Peptide sequence missing. Enter peptide sequence.",
+                "suggestion": None,
             }
         )
 
@@ -68,11 +71,11 @@ def properNumArguments(args):
         errors.append(
             {
                 "level": "error",
-                "rule name": incorrect_num_str + "MHCMol",
+                "rule": incorrect_num_str + "MHCMol",
                 "value": args["mhc_name"],
                 "field": "mhc_name",
-                "instructions": "Enter MHC molecule.",
-                "fix": None,
+                "message": "MHC molecule missing. Enter MHC molecule.",
+                "suggestion": None,
             }
         )
 
@@ -80,11 +83,12 @@ def properNumArguments(args):
         errors.append(
             {
                 "level": "error",
-                "rule name": incorrect_num_str + "ModType",
+                "rule": incorrect_num_str + "ModType",
                 "value": args["mod_type"],
                 "field": "mod_type",
-                "instructions": "Provide modificiation type(s).",
-                "fix": None,
+                "message": "Modification position is filled, but modification type is not."
+                " Provide modificiation type(s).",
+                "suggestion": None,
             }
         )
 
@@ -92,11 +96,12 @@ def properNumArguments(args):
         errors.append(
             {
                 "level": "error",
-                "rule name": incorrect_num_str + "ModPos",
+                "rule": incorrect_num_str + "ModPos",
                 "value": args["mod_pos"],
                 "field": "mod_pos",
-                "instructions": "Provide modificiation position(s).",
-                "fix": None,
+                "message": "Modification type is filled, but modification position is not."
+                " Provide modificiation position(s).",
+                "suggestion": None,
             }
         )
     return errors
@@ -130,36 +135,36 @@ def null_input_check(args):
                 errors.append(
                     {
                         "level": "error",
-                        "rule name": null_rule_name,
+                        "rule": null_rule_name,
                         "value": value,
                         "field": "pep_seq",
-                        "instructions": "Please do not enter any null string."
+                        "message": "Please do not enter any null string."
                         " Peptide sequence is required",
-                        "fix": None,
+                        "suggestion": None,
                     }
                 )
             elif param == "mhc_name":
                 errors.append(
                     {
                         "level": "error",
-                        "rule name": null_rule_name,
+                        "rule": null_rule_name,
                         "value": value,
                         "field": "mhc_name",
-                        "instructions": "Please do not enter any null string."
+                        "message": "Please do not enter any null string."
                         " MHC molecule is required",
-                        "fix": None,
+                        "suggestion": None,
                     }
                 )
             else:
                 errors.append(
                     {
                         "level": "error",
-                        "rule name": null_rule_name,
+                        "rule": null_rule_name,
                         "value": value,
                         "field": param,
-                        "instructions": "Please do not enter any null string."
+                        "message": "Please do not enter any null string."
                         " Leave blank if needed",
-                        "fix": None,
+                        "suggestion": None,
                     }
                 )
     return errors
@@ -177,12 +182,12 @@ def validate_amino_acids(pep_seq):
         errors.append(
             {
                 "level": "error",
-                "rule name": aa_rule_name,
+                "rule": aa_rule_name,
                 "value": pep_seq,
                 "field": "pep_seq",
-                "instructions": f"The peptide sequence has characters {has_amino_acids}"
-                " that are not amino acids.",
-                "fix": None,
+                "message": f"The peptide sequence has characters {has_amino_acids}"
+                " that are not amino acids. Please remove them.",
+                "suggestion": None,
             }
         )
     return errors
@@ -211,11 +216,12 @@ def validate_PTM_names(mod_types):
             errors.append(
                 {
                     "level": "error",
-                    "rule name": invalid_PTM_rule,
+                    "rule": invalid_PTM_rule,
                     "value": type,
                     "field": "mod_type",
-                    "instructions": "Please choose a post-translational type from the prepopulated list.",
-                    "fix": None,
+                    "message": "Invalid entry for post-translational modification type."
+                    " Please use post-translational modification type as cataloged in PSI-MOD.",
+                    "suggestion": None,
                 }
             )
     return errors
@@ -233,15 +239,15 @@ def validate_mod_pos_syntax(pep_seq, positions):
     reversed_pattern = re.compile(
         r"\d+[A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE
     )
-    just_digits = "FormatErrorJustDigits"
-    reversed = "FormatErrorReverseAminoAcid"
-    general = "FormatErrorGeneralModPos"
+    just_digits = "SyntaxErrorJustDigits"
+    reversed = "SyntaxErrorReverseAminoAcid"
+    general = "SyntaxErrorGeneralModPos"
     for pos in positions:
         if re.fullmatch(main_pattern, pos) is None:
             formatted_string = (
                 f"{pos} is not a valid modification position. "
                 "Modification Position field should be a comma separated list of amino acid "
-                "letter followed by position number (e.g. F1, S10, S300). "
+                "letters followed by position numbers (e.g. F1, S10, S300). "
             )
 
             if re.fullmatch(pattern=digits, string=pos):
@@ -249,24 +255,23 @@ def validate_mod_pos_syntax(pep_seq, positions):
                     errors.append(
                         {
                             "level": "error",
-                            "rule name": just_digits,
+                            "rule": just_digits,
                             "value": pos,
                             "field": "mod_pos",
-                            "instructions": formatted_string
-                            + "This input is just digit(s)."
+                            "message": formatted_string + "This input is just digit(s)."
                             " Digit is bigger than length of peptide sequence",
-                            "fix": None,
+                            "suggestion": None,
                         }
                     )
                 else:
                     errors.append(
                         {
                             "level": "error",
-                            "rule name": just_digits,
-                            "fix": str(pep_seq[int(pos) - 1] + pos),
+                            "rule": just_digits,
+                            "suggestion": str(pep_seq[int(pos) - 1] + pos),
                             "value": pos,
                             "field": "mod_pos",
-                            "instructions": formatted_string
+                            "message": formatted_string
                             + "Enter amino acid before digit(s). ",
                         }
                     )
@@ -275,11 +280,11 @@ def validate_mod_pos_syntax(pep_seq, positions):
                 errors.append(
                     {
                         "level": "error",
-                        "rule name": reversed,
-                        "fix": f"{pos[-1]}{pos[:-1]}",
+                        "rule": reversed,
+                        "suggestion": f"{pos[-1]}{pos[:-1]}",
                         "value": pos,
                         "field": "mod_pos",
-                        "instructions": formatted_string
+                        "message": formatted_string
                         + "Enter amino acid followed by position.",
                     }
                 )
@@ -288,11 +293,11 @@ def validate_mod_pos_syntax(pep_seq, positions):
                 errors.append(
                     {
                         "level": "error",
-                        "rule name": general,
+                        "rule": general,
                         "value": pos,
                         "field": "mod_pos",
-                        "instructions": formatted_string,
-                        "fix": None,
+                        "message": formatted_string,
+                        "suggestion": None,
                     }
                 )
     return errors
@@ -312,7 +317,7 @@ def validate_modification(pep_seq, mod_pos, mod_type):
     errors = []
     positions, mod_types = format_mod_info(mod_pos, mod_type)
 
-    trailing_rule_name = "FormatErrorTrailingCharacters"
+    trailing_rule_name = "SyntaxErrorTrailingCharacters"
     trailing_characters = re.findall(
         r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y\d]+$", positions
     )
@@ -320,11 +325,12 @@ def validate_modification(pep_seq, mod_pos, mod_type):
         errors.append(
             {
                 "level": "error",
-                "rule name": trailing_rule_name,
+                "rule": trailing_rule_name,
                 "value": mod_pos,
                 "field": "mod_pos",
-                "instructions": f"Remove {trailing_characters} from modification position.",
-                "fix": None,
+                "message": "Syntax error in Modification Position field."
+                + f" Remove {trailing_characters} from Modification Position.",
+                "suggestion": None,
             }
         )
         return errors
@@ -336,39 +342,44 @@ def validate_modification(pep_seq, mod_pos, mod_type):
     num_mod_types = len(mod_types)
     num_mod_pos = len(positions)
     mod_num_mismatch = "MismatchErrorNumModPosType"
+    num_mistmatch_str = (
+        f"There are {num_mod_pos} modification positions entered, but {num_mod_types} modification"
+        " types. Number of modification positions is less than number of modification types. "
+    )
     if num_mod_pos < num_mod_types:
         errors.append(
             {
                 "level": "warn",
-                "rule name": mod_num_mismatch,
+                "rule": mod_num_mismatch,
                 "value": mod_pos,
                 "field": "mod_pos",
-                "instructions": "Decrease number of modification types"
-                " or increase number of modification positions",
-                "fix": None,
+                "message": num_mistmatch_str + " Decrease number of modification types"
+                " or increase number of modification positions.",
+                "suggestion": None,
             }
         )
     if num_mod_types < num_mod_pos:
         errors.append(
             {
                 "level": "warn",
-                "rule name": mod_num_mismatch,
+                "rule": mod_num_mismatch,
                 "value": mod_type,
                 "field": "mod_type",
-                "instructions": "Decrease number of modification positions"
-                " or increase number of modification types",
-                "fix": None,
+                "message": num_mistmatch_str
+                + " Decrease number of modification positions"
+                " or increase number of modification types.",
+                "suggestion": None,
             }
         )
 
     if errors:
         for error in errors:
             if (
-                error["rule name"] == "FormatErrorJustDigits"
-                or error["rule name"] == "FormatErrorReverseAminoAcid"
+                error["rule"] == "SyntaxErrorJustDigits"
+                or error["rule"] == "SyntaxErrorReverseAminoAcid"
             ):
                 positions.remove(error["value"])
-            if error["rule name"] == "FormatErrorGeneralModPos":
+            if error["rule"] == "SyntaxErrorGeneralModPos":
                 return errors
 
     errors.extend(validate_mod_pos(pep_seq, positions))
@@ -378,16 +389,17 @@ def validate_modification(pep_seq, mod_pos, mod_type):
 def validate_mhc_name(mhc_name):
     """Check if given MHC name match up to MRO name"""
     errors = []
-    invalid_MHC_rule = "UndefinedMHCMol"
+    invalid_MHC_rule = "UndefinedArgMHCMol"
     if mhc_name not in molecules:
         errors.append(
             {
                 "level": "error",
-                "rule name": invalid_MHC_rule,
+                "rule": invalid_MHC_rule,
                 "value": mhc_name,
                 "field": "mhc_name",
-                "instructions": "Enter MHC molecule from prepopulated list",
-                "fix": None,
+                "message": "Invalid entry in MHC molecule field."
+                " Please use MHC molecule names as cataloged in MRO.",
+                "suggestion": None,
             }
         )
     return errors
@@ -412,12 +424,13 @@ def validate_mod_pos(pep_seq, positions):
                     errors.append(
                         {
                             "level": "error",
-                            "rule name": pos_pep_seq_rule,
+                            "rule": pos_pep_seq_rule,
                             "value": pos,
                             "field": "mod_pos",
-                            "instructions": result
-                            + "Enter a amino acid letter and matching position from peptide sequence",
-                            "fix": None,
+                            "message": result
+                            + "Enter a amino acid letter and matching position from peptide"
+                            " sequence.",
+                            "suggestion": None,
                         }
                     )
 
@@ -430,12 +443,12 @@ def validate_mod_pos(pep_seq, positions):
         errors.append(
             {
                 "level": "error",
-                "rule name": index_rule,
+                "rule": index_rule,
                 "value": int(pos[1:]),
                 "field": "mod_pos",
-                "instructions": formatted_string
+                "message": formatted_string
                 + "Enter position that is less than length of peptide sequence and more than 0.",
-                "fix": None,
+                "suggestion": None,
             }
         )
     return errors
