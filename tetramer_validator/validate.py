@@ -206,8 +206,8 @@ def validate_PTM_names(mod_types):
 
             errors.append(
                 {
-                    "level": "warn",
-                    "rule": "ModTypeSynonymWarning",
+                    "level": "error",
+                    "rule": "ModTypeSynonymError",
                     "value": type,
                     "field": "mod_type",
                     "message": f"{type} is a synonym for {PTM_synonyms[type]}. Please use {PTM_synonyms[type]}"

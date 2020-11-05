@@ -201,7 +201,7 @@ def results(path):
     )
     output = zip.ZipFile(file=zipped, mode="x", compression=zip.ZIP_DEFLATED)
     output.write(filename=path, arcname=os.path.split(path)[1])
-    output.write(filename=errors_obj.name, arcname=os.path.split(errors_obj.name)[1])
+    output.write(filename=errors_obj.name, arcname="errors.csv")
     output.close()
     return send_file(filename_or_fp = zipped.name, mimetype='application/zip', as_attachment=True, attachment_filename = 'output.zip')
 

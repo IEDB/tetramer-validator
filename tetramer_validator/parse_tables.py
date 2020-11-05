@@ -81,7 +81,7 @@ def parse_csv_tsv(filename, delimiter):
             message = validate(
                 pep_seq=entry["Peptide Sequence"],
                 mhc_name=entry["MHC Molecule"],
-                mod_type=after,
+                mod_type=entry["Modification Type"],
                 mod_pos=entry["Modification Position"],
             )
             if message:
