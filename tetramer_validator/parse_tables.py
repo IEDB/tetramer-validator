@@ -1,4 +1,4 @@
-from tetramer_validator.validate import validate, PTM_synonyms, PTM_display
+from tetramer_validator.validate import validate
 from openpyxl import load_workbook
 from openpyxl.styles import Color, PatternFill
 from openpyxl.comments import Comment
@@ -29,13 +29,12 @@ def parse_excel_file(filename):
             header[entry.value] = entry.column - 1
 
     incorrect_header_string = "IncorrectHeader"
-
     for (key, value) in header.items():
         if value == -1:
             messages.append(
                 {
                     "level": "error",
-                    "rule name": incorrect_header_string + key,
+                    "rule": incorrect_header_string + key,
                     "value": value,
                     "field": key,
                     "instructions": f"{key} field is missing. Please add {key} column in header.",
@@ -50,24 +49,9 @@ def parse_excel_file(filename):
     num_errors = 0
 
     for row in rows:
-        before = row[header["Modification Type"]].value
-        after = preprocess(row[header["Modification Type"]].value)
-        if after != before:
-            messages.append(
-                {
-                    "level": "warn",
-                    "rule name": "ModTypeSynonymWarning",
-                    "value": before,
-                    "field": "mod_type",
-                    "instructions": f"{before} is a synonym for {after}. Please use {after}"
-                    " to confirm to PSI-MOD terminology.",
-                    "fix": after,
-                    "cell": row[header["Modification Type"]].coordinate,
-                }
-            )
         message = validate(
             pep_seq=row[header["Peptide Sequence"]].value,
-            mod_type=after,
+            mod_type=row[header["Modification Type"]].value,
             mod_pos=row[header["Modification Position"]].value,
             mhc_name=row[header["MHC Molecule"]].value,
         )
@@ -94,21 +78,6 @@ def parse_csv_tsv(filename, delimiter):
         messages = []
         entry_num = 1
         for entry in reader:
-            before = entry["Modification Type"]
-            after = preprocess(entry["Modification Type"])
-            if after != before:
-                messages.append(
-                    {
-                        "level": "warn",
-                        "rule name": "ModTypeSynonymWarning",
-                        "value": before,
-                        "field": "mod_type",
-                        "instructions": f"{before} is a synonym for {after}. Please use {after}"
-                        " to conform to PSI-MOD terminology.",
-                        "fix": after,
-                        "cell": entry_num,
-                    }
-                )
             message = validate(
                 pep_seq=entry["Peptide Sequence"],
                 mhc_name=entry["MHC Molecule"],
@@ -122,22 +91,6 @@ def parse_csv_tsv(filename, delimiter):
                 num_errors += 1
             entry_num += 1
     return (messages, any_errors)
-
-
-def preprocess(mod_type):
-    if mod_type:
-        mod_types = "".join(mod_type.split())
-        mod_types = mod_types.split(sep="|")
-        for type in mod_types:
-            try:
-                return PTM_display[PTM_synonyms[type]]
-            except KeyError:
-                try:
-                    return PTM_display[PTM_synonyms[type.lower()]]
-                except KeyError:
-                    continue
-        return mod_type
-
 
 def generate_formatted_data(data_path, problems):
     wb = load_workbook(data_path)
@@ -160,6 +113,7 @@ def generate_formatted_data(data_path, problems):
             cell.comment = comment
         else:
             cell.comment = Comment(problem["message"], author="tetramer-validator")
+
     wb.save(data_path)
 
 
@@ -168,7 +122,7 @@ def generate_messages_txt(messages, file_obj):
         f=file_obj,
         fieldnames=[
             "level",
-            "rule name",
+            "rule",
             "value",
             "field",
             "message",
