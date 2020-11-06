@@ -34,7 +34,6 @@ app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
 if not os.path.isdir("./downloads"):
     os.mkdir("./downloads")
 
-
 @app.route("/", methods=["GET"])
 def output():
     if request.args:
@@ -215,3 +214,5 @@ def results(path):
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+#if __name__ == '__main__':
+#    app.run(host='0.0.0.0', debug=True)
