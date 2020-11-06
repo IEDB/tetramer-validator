@@ -34,16 +34,21 @@
       margin: 0px;
       padding: 0px;
     }
-    #upload {
-      text-align: center;
+    .upload {
+      display: inline-block;
+    }
+    form.upload {
+      padding-left: 5%;
     }
   </style>
 </head>
 
 <body>
-  <h1> Tetramer Validator </h1>
+  <div class="page-header text-center">
+    <h1> Tetramer Validator </h1>
+  </div>
   <div class="container-fluid">
-    <h2> Enter entries using the web form </h2>
+    <h2> Enter entries using the web form or... </h2>
     <form method="GET" class="form-horizontal" action="{{url_for('output')}}">
       <div class="form-row center-block">
         <div class="col">
@@ -124,13 +129,13 @@
       </span>
     </form>
   </div>
-  <div class="container-fluid">
-    <h2> Or if you already have data in a spreadsheet, upload here </h2>
-    <form id="upload" method="POST" enctype=multipart/form-data action="{{url_for("upload")}}">
+  <span class="container-fluid">
+    <h2 class="upload"> if you already have data in a spreadsheet, upload it here </h2>
+    <form class="upload" method="POST" enctype=multipart/form-data action="{{url_for("upload")}}">
       <input type="file" id="file" name="file">  </input>
       <button type="submit" class="btn btn-primary"> Submit file </button>
     </form>
-  </div>
+  </span>
   <div class="alert alert-info" role="alert">
     <p> <a href="{{url_for('readme')}}"> Documentation </a> </p>
     <p> <a href="?mhc_name=HLA-B*07%3A04&pep_seq=AARPATSTL&mod_type=&mod_pos="> Example without modification </a> </p>
