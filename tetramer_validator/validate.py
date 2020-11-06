@@ -1,7 +1,6 @@
 import csv
 import re
 from os import path
-import itertools
 
 here = path.abspath(path.dirname(__file__))
 molecule_file = "data/molecule.tsv"
@@ -17,7 +16,13 @@ PTM_file = path.join(here, PTM_file)
 with open(PTM_file) as fh_1:
     reader = csv.DictReader(fh_1, delimiter="\t")
     # PTM_temp = [name for name in reader]
-    PTM_synonyms = {synonym: name["display_name"] for name in reader for synonym in name.values()}
+    PTM_synonyms = {
+        synonym: name["display_name"]
+        for name in reader
+        for synonym in name.values()
+        if synonym is not None
+    }
+
 
 def validate(mhc_name, pep_seq, mod_type=None, mod_pos=None):
     """Main validate function."""
@@ -203,14 +208,14 @@ def validate_PTM_names(mod_types):
     for type in mod_types:
         in_synonyms = type in PTM_synonyms.keys()
         if in_synonyms and not PTM_synonyms[type] == type:
-
             errors.append(
                 {
                     "level": "error",
                     "rule": "ModTypeSynonymError",
                     "value": type,
                     "field": "mod_type",
-                    "message": f"{type} is a synonym for {PTM_synonyms[type]}. Please use {PTM_synonyms[type]}"
+                    "message": f"{type} is a synonym for {PTM_synonyms[type]}."
+                    f" Please use {PTM_synonyms[type]}"
                     " to conform to PSI-MOD terminology.",
                     "suggestion": PTM_synonyms[type],
                 }

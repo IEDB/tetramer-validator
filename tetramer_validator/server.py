@@ -4,9 +4,8 @@ from flask import (
     request,
     send_from_directory,
     redirect,
-    flash,
     send_file,
-    url_for
+    url_for,
 )
 from tetramer_validator import validate
 from werkzeug.datastructures import MultiDict
@@ -34,6 +33,7 @@ app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
 
 if not os.path.isdir("./downloads"):
     os.mkdir("./downloads")
+
 
 @app.route("/", methods=["GET"])
 def output():
@@ -156,17 +156,19 @@ def download_input():
         as_attachment=True,
         attachment_filename="your_input.xlsx",
     )
+
+
 @app.route("/upload", methods=["POST"])
 def upload():
     if request.method == "POST":
         if "file" not in request.files:
-            #flash("No file part")
+            # flash("No file part")
             return redirect(url_for("output"))
         file = request.files["file"]
         # if user does not select file, browser also
         # submit an empty part without filename
         if file.filename == "":
-            #flash("No selected file")
+            # flash("No selected file")
             return redirect(url_for("output"))
         if file and allowed_file(file.filename):
             temp_dir = TemporaryDirectory(prefix="upload", suffix="")
@@ -203,7 +205,12 @@ def results(path):
     output.write(filename=path, arcname=os.path.split(path)[1])
     output.write(filename=errors_obj.name, arcname="errors.csv")
     output.close()
-    return send_file(filename_or_fp = zipped.name, mimetype='application/zip', as_attachment=True, attachment_filename = 'output.zip')
+    return send_file(
+        filename_or_fp=zipped.name,
+        mimetype="application/zip",
+        as_attachment=True,
+        attachment_filename="output.zip",
+    )
 
 
 def allowed_file(filename):

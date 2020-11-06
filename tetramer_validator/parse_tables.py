@@ -3,8 +3,6 @@ from openpyxl import load_workbook
 from openpyxl.styles import Color, PatternFill
 from openpyxl.comments import Comment
 import csv
-from openpyxl.styles import Color, PatternFill
-from openpyxl.comments import Comment
 
 var_names = {
     "pep_seq": "Peptide Sequence",
@@ -46,7 +44,6 @@ def parse_excel_file(filename):
         return (messages, True)
     rows = ws.iter_rows(min_row=2)
     any_errors = False
-    num_errors = 0
 
     for row in rows:
         message = validate(
@@ -56,7 +53,6 @@ def parse_excel_file(filename):
             mhc_name=row[header["MHC Molecule"]].value,
         )
         if message:
-            num_errors += 1
             list(
                 map(
                     lambda error: error.update(
@@ -73,7 +69,6 @@ def parse_excel_file(filename):
 def parse_csv_tsv(filename, delimiter):
     any_errors = False
     with open(filename, "r", encoding="utf-8-sig") as file_obj:
-        num_errors = 0
         reader = csv.DictReader(file_obj, delimiter=delimiter)
         messages = []
         entry_num = 1
@@ -88,9 +83,9 @@ def parse_csv_tsv(filename, delimiter):
                 list(map(lambda error: error.update({"cell": entry_num}), message))
                 messages.extend(message)
                 any_errors = True
-                num_errors += 1
             entry_num += 1
     return (messages, any_errors)
+
 
 def generate_formatted_data(data_path, problems):
     wb = load_workbook(data_path)
