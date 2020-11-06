@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 if not os.path.isdir("./downloads"):
     os.mkdir("./downloads")
-    
+
 @app.route("/", methods=["GET"])
 def output():
     if request.args:
@@ -139,3 +139,5 @@ def download_input():
         as_attachment=True,
         attachment_filename="your_input.xlsx",
     )
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True)
