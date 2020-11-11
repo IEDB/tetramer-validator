@@ -124,11 +124,12 @@
   <div class="section">
     <h2>2. Upload</h2>
     <div>
-      <form method="POST" enctype=multipart/form-data action="{{url_for("upload")}}">
+      <form method="POST" enctype=multipart/form-data action="{{url_for('upload')}}">
         <input type="file" id="file" name="file"/>
         <button type="submit" class="btn btn-primary">Submit File</button>
-        Example:
-        <a href="">TODO.xlsx</a>
+        Examples:
+        <a href="{{url_for('static',filename='sample.xlsx')}}">sample.xlsx</a>
+        <a href="{{url_for('static',filename='sample_2.xlsx')}}"> sample_2.xlsx </a>
       </form>
     </p>
   </div>
