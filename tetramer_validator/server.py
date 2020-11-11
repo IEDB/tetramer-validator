@@ -21,7 +21,7 @@ from tetramer_validator.parse_tables import (
 import os
 from tempfile import NamedTemporaryFile, TemporaryDirectory
 import itertools
-import zipfile as zip
+import zipfile
 
 app = Flask(__name__)
 
@@ -200,7 +200,7 @@ def results(path):
     zipped = NamedTemporaryFile(
         prefix="output", suffix=".zip", dir=app.config["UPLOAD_FOLDER"], delete=False
     )
-    output = zip.ZipFile(file=zipped, mode="x", compression=zip.ZIP_DEFLATED)
+    output = zipfile.ZipFile(file=zipped, mode="x", compression=zipfile.ZIP_DEFLATED)
     output.write(filename=path, arcname=os.path.split(path)[1])
     output.write(filename=errors_obj.name, arcname="errors.csv")
     output.close()
