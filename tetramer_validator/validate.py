@@ -8,12 +8,20 @@ molecule_file = path.join(here, molecule_file)
 with open(molecule_file) as fh:
     reader = csv.DictReader(fh, delimiter="\t")
     molecules = [molecule["IEDB Label"] for molecule in reader]
+
+PTM_synonyms = {}
+
 PTM_file = "data/PTM_list.tsv"
 PTM_file = path.join(here, PTM_file)
-
 with open(PTM_file) as fh_1:
     reader = csv.DictReader(fh_1, delimiter="\t")
-    PTM_display = [name["display_name"] for name in reader]
+    # PTM_temp = [name for name in reader]
+    PTM_synonyms = {
+        synonym: name["display_name"]
+        for name in reader
+        for synonym in name.values()
+        if synonym is not None
+    }
 
 
 def validate(mhc_name, pep_seq, mod_type=None, mod_pos=None):
@@ -188,6 +196,8 @@ def format_mod_info(mod_pos, mod_type):
     positions = re.sub(pattern, ",", mod_pos)
     mod_types = mod_type
     mod_types = re.sub(pattern, ",", mod_types)
+    mod_types = mod_types.strip()
+    positions = positions.strip()
     return positions, mod_types
 
 
@@ -196,7 +206,21 @@ def validate_PTM_names(mod_types):
     errors = []
     invalid_PTM_rule = "UndefinedArgPTMtype"
     for type in mod_types:
-        if type not in PTM_display:
+        in_synonyms = type in PTM_synonyms.keys()
+        if in_synonyms and not PTM_synonyms[type] == type:
+            errors.append(
+                {
+                    "level": "error",
+                    "rule": "ModTypeSynonymError",
+                    "value": type,
+                    "field": "mod_type",
+                    "message": f"{type} is a synonym for {PTM_synonyms[type]}."
+                    f" Please use {PTM_synonyms[type]}"
+                    " to conform to PSI-MOD terminology.",
+                    "suggestion": PTM_synonyms[type],
+                }
+            )
+        elif not in_synonyms:
             errors.append(
                 {
                     "level": "error",

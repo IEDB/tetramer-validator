@@ -17,28 +17,27 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   <style>
-    .form-actions {
-      margin: 10px;
-      text-align: center;
-    }
     ul {
       padding-left: 5%;
       position:relative;
-
     }
     li {
       position: relative;
     }
-    p {
-      margin: 0px;
-      padding: 0px;
+    .section {
+      margin-top: 2em;
     }
   </style>
 </head>
 
 <body>
-  <div class="container-fluid">
-    <h1> Tetramer Validator </h1>
+<div class="container">
+  <div class="page-header">
+    <h1>Tetramer Validator</h1>
+    <p>Please enter tetramers using the form or upload a spreadsheet. <a href="{{url_for('readme')}}">Learn more</a>.</p>
+  </div>
+  <div class="section">
+    <h2>1. Form</h2>
     <form method="GET" class="form-horizontal" action="{{url_for('output')}}">
       <div class="form-row center-block">
         <div class="col">
@@ -111,21 +110,30 @@
         <span>
       </div>
       {% endfor %}
-      <div class="form-actions">
+      <div>
         <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="submit" class="btn btn-primary" name="add" value="true">Add</button>
-        <a href="/" class="btn btn-secondary" id="Clear">Clear</a>
-        <button type="submit" class="btn btn-secondary" id="Export" formaction="{{url_for('download_input')}}"> Export multimers </button>
+        <button type="submit" class="btn btn-primary" name="add" value="true">Add Row</button>
+        <a href="/" class="btn btn-danger" id="Clear">Clear All</a>
+        <button type="submit" class="btn btn-secondary" id="Export" formaction="{{url_for('download_input')}}">Export Multimers</button>
+        Examples:
+        <a href="?mhc_name=HLA-DRB1*04%3A06&pep_seq=MIVIL&mod_type=formylated+residue&mod_pos=M1">with modification</a>,
+        <a href="?mhc_name=HLA-B*07%3A04&pep_seq=AARPATSTL&mod_type=&mod_pos=">without modification</a>
       </div>
     </form>
-    <div class="alert alert-info" role="alert">
-      <p> <a href="{{url_for('readme')}}"> Documentation </a> </p>
-      <p> <a href="?mhc_name=HLA-B*07%3A04&pep_seq=AARPATSTL&mod_type=&mod_pos="> Example without modification </a> </p>
-      <p> <a href="?mhc_name=HLA-DRB1*04%3A06&pep_seq=MIVIL&mod_type=formylated+residue&mod_pos=M1"> Example with modification </a> </p>
-      <p> <a href="https://www.ebi.ac.uk/ols/ontologies/mro"> MHC Restriction Ontology (MRO) </a> </p>
-      <p> <a href="https://www.ebi.ac.uk/ols/ontologies/mod"> PSI-MOD Ontology </a> </p>
-    </div>
+  </div>
+  <div class="section">
+    <h2>2. Upload</h2>
+    <div>
+      <form method="POST" enctype=multipart/form-data action="{{url_for('upload')}}">
+        <input type="file" id="file" name="file"/>
+        <button type="submit" class="btn btn-primary">Submit File</button>
+        Examples:
+        <a href="{{url_for('static',filename='sample.xlsx')}}">sample.xlsx</a>,
+        <a href="{{url_for('static',filename='sample_2.xlsx')}}"> sample_2.xlsx </a>
+      </form>
+  </div>
 </div>
+
 <script type="text/javascript" src="{{url_for('static', filename='form_misc.js')}}" > </script>
 <script type="text/javascript" src="{{url_for('static', filename='MHC_display.js')}}"> </script>
 <script type="text/javascript" src="{{url_for('static', filename='PTM_display.js')}}"> </script>

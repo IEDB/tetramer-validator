@@ -1,8 +1,15 @@
 from tetramer_validator.validate import validate
 from openpyxl import load_workbook
-import csv
 from openpyxl.styles import Color, PatternFill
 from openpyxl.comments import Comment
+import csv
+
+var_names = {
+    "pep_seq": "Peptide Sequence",
+    "mhc_name": "MHC Molecule",
+    "mod_type": "Modification Type",
+    "mod_pos": "Modification Position",
+}
 
 
 def parse_excel_file(filename):
@@ -13,32 +20,49 @@ def parse_excel_file(filename):
         "Peptide Sequence": -1,
         "Modification Type": -1,
         "Modification Position": -1,
-        "MHC Name": -1,
+        "MHC Molecule": -1,
     }
     for entry in ws[1]:
         if entry.value in header.keys():
             header[entry.value] = entry.column - 1
 
-    if -1 in header.values():
-        messages.append(
-            "Need to have 4 columns in first row: Peptide Sequence, "
-            "Modification Type, Modification Position, and MHC Name"
-        )
-        return messages
+    incorrect_header_string = "IncorrectHeader"
+    for (key, value) in header.items():
+        if value == -1:
+            messages.append(
+                {
+                    "level": "error",
+                    "rule": incorrect_header_string + key,
+                    "value": value,
+                    "field": key,
+                    "instructions": f"{key} field is missing. Please add {key} column in header.",
+                    "fix": None,
+                    "cell": "A1",
+                }
+            )
+    if messages:
+        return (messages, True)
     rows = ws.iter_rows(min_row=2)
     any_errors = False
+
     for row in rows:
         message = validate(
             pep_seq=row[header["Peptide Sequence"]].value,
             mod_type=row[header["Modification Type"]].value,
             mod_pos=row[header["Modification Position"]].value,
-            mhc_name=row[header["MHC Name"]].value,
+            mhc_name=row[header["MHC Molecule"]].value,
         )
         if message:
-            messages.append(message)
+            list(
+                map(
+                    lambda error: error.update(
+                        {"cell": row[header[var_names[error["field"]]]].coordinate}
+                    ),
+                    message,
+                )
+            )
+            messages.extend(message)
             any_errors = True
-        else:
-            messages.append(f"Peptide sequence {row[0].value} is valid")
     return (messages, any_errors)
 
 
@@ -47,19 +71,19 @@ def parse_csv_tsv(filename, delimiter):
     with open(filename, "r", encoding="utf-8-sig") as file_obj:
         reader = csv.DictReader(file_obj, delimiter=delimiter)
         messages = []
+        entry_num = 1
         for entry in reader:
             message = validate(
                 pep_seq=entry["Peptide Sequence"],
-                mhc_name=entry["MHC Name"],
+                mhc_name=entry["MHC Molecule"],
                 mod_type=entry["Modification Type"],
                 mod_pos=entry["Modification Position"],
             )
             if message:
-                messages.append(message)
+                list(map(lambda error: error.update({"cell": entry_num}), message))
+                messages.extend(message)
                 any_errors = True
-            else:
-                pep_seq = entry["Peptide Sequence"]
-                messages.append(f"Peptide sequence {pep_seq} is valid")
+            entry_num += 1
     return (messages, any_errors)
 
 
@@ -84,4 +108,23 @@ def generate_formatted_data(data_path, problems):
             cell.comment = comment
         else:
             cell.comment = Comment(problem["message"], author="tetramer-validator")
+
     wb.save(data_path)
+
+
+def generate_messages_txt(messages, file_obj):
+    writer = csv.DictWriter(
+        f=file_obj,
+        fieldnames=[
+            "level",
+            "rule",
+            "value",
+            "field",
+            "message",
+            "suggestion",
+            "cell",
+        ],
+    )
+    writer.writeheader()
+    writer.writerows(messages)
+    file_obj.close()
