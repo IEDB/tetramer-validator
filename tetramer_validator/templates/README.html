@@ -321,7 +321,7 @@ kbd {
 		word-wrap: break-word;
 	}
   body {
-    padding: 2cm;
+    padding: 2cm; 
   }
 }
 </style>
@@ -333,39 +333,39 @@ kbd {
 
 <h1 id="toc_0">Documentation</h1>
 
-<h2 id="toc_1">Instructions for Web form</h2>
+<h2 id="toc_1">General Instructions</h2>
 
-<p>Please enter a peptide sequence, modification type, modification position, and/or the name of MHC molecule.</p>
+<ol>
+<li>Please enter MHC molecule and peptide sequence. Both of these fields are required. Optionally, one can enter modification information.</li>
+<li>MHC molecule name should be chosen to conform to <a href="https://www.ebi.ac.uk/ols/ontologies/mro">MHC Restriction ontology</a>.</li>
+<li>Modification Position field should be a comma separated list of amino acid letter followed by position number (e.g. F1, S10, S300). Each modification position should be of the format <code>&lt;amino acid&gt;&lt;position&gt;</code></li>
+<li>Modification type should be chosen to conform to <a href="https://www.ebi.ac.uk/ols/ontologies/mod">PSI-MOD ontology</a>.<br></li>
+<li>Either modification position <strong>and</strong> modification type must be provided or no modification information should be entered.</li>
+<li>There should be equal number of modification positions and modification types.</li>
+<li>NULL is not an appropriate value for any field. Please leave empty if there is no appropriate value.</li>
+</ol>
 
-<p>Each modification position should be of the format <code>&lt;amino acid&gt;&lt;position&gt;</code></p>
+<h2 id="toc_2">Further Instructions for Web Form</h2>
 
-<p>Modification type should be chosen from autocomplete list.  If not chosen from the autocomplete list, validation will not be successful.</p>
+<p>In order to assist user, the MHC Molecule and Modification Type fields output suggestions that conform to MHC Restriction ontology and PSI-MOD ontology, respectively.  Please use the suggested names to ensure successful validation.</p>
 
-<p>MHC molecule name should be chosen from autocomplete list. If not chosen from the autocomplete list, validation will not be successful.</p>
-
-<p>Either modification position <strong>and</strong> modification type must be provided or no modification information should be entered.</p>
-
-<p>NULL is not an appropriate value for any field. Please leave empty if there is no appropriate value.</p>
-
-<h2 id="toc_2">Example of Valid Entry</h2>
+<h2 id="toc_3">Example of Valid Entry</h2>
 
 <p>See below for an example for entering the following entry.</p>
 
-<p>Peptide Sequence: NLVPMVATV</p>
+<ul>
+<li>MHC Molecule: HLA-A*02:01</li>
+<li>Peptide Sequence: NLVPMVATV</li>
+<li>Modification Type: Oxidation</li>
+<li>Modification Position: M5</li>
+</ul>
 
-<p>Modification Type: Oxidation</p>
+<p>[TODO: Add screenshot]</p>
 
-<p>Modification Position: M5</p>
-
-<p>MHC Name: HLA-A*02:01</p>
-
-<p><img src="/static/Example_1_1.png" alt="1"></p>
-
-<p><img src="/static/Example_1_2.png" alt="2"></p>
-
-<p>Notice that there is the display name of oxidized residue for Oxidation. Please choose from the display names or else validation will not be successful.  </p>
-
-<p>Also, notice that syntax of M5. The modification is at the position 5 and the amino acid is methionine.  </p>
+<ul>
+<li>Notice that there is the display name of oxidized residue for Oxidation. Please choose from the display names or else validation will not be successful. </li>
+<li>Notice that syntax of M5. The modification is at the position 5 and the amino acid is methionine.<br></li>
+</ul>
 
 
 
