@@ -188,8 +188,7 @@ def validate_amino_acids(pep_seq):
 
 
 def format_mod_info(mod_pos, mod_type):
-    """Simple helper function to turn strings that have modification position and modification
-    types into lists and remove whitespace"""
+    """Simple helper function to remove whitespace strings that have modification position and modification types"""
 
     mod_pos = str(mod_pos)
     pattern = re.compile(r",[\s]+")
@@ -240,6 +239,28 @@ def validate_mod_pos_syntax(pep_seq, positions):
     by position number (e.g. ['N1', 'N100'])"""
 
     errors = []
+    print(type(positions))
+    print(positions)
+    trailing_rule_name = "SyntaxErrorTrailingCharacters"
+    trailing_characters = re.findall(
+        r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y\d]+$", positions
+    )
+    if trailing_characters:
+        errors.append(
+            {
+                "level": "error",
+                "rule": trailing_rule_name,
+                "value": positions,
+                "field": "mod_pos",
+                "message": "Syntax error in Modification Position field."
+                + f" Remove {trailing_characters} from Modification Position.",
+                "suggestion": None,
+            }
+        )
+        return errors
+
+    positions = positions.split(",")
+
     main_pattern = re.compile(
         r"[A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]\d+", re.IGNORECASE
     )
@@ -324,26 +345,6 @@ def validate_peptide(pep_seq, mod_pos=None, mod_type=None):
 def validate_modification(pep_seq, mod_pos, mod_type):
     errors = []
     positions, mod_types = format_mod_info(mod_pos, mod_type)
-
-    trailing_rule_name = "SyntaxErrorTrailingCharacters"
-    trailing_characters = re.findall(
-        r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y\d]+$", positions
-    )
-    if trailing_characters:
-        errors.append(
-            {
-                "level": "error",
-                "rule": trailing_rule_name,
-                "value": mod_pos,
-                "field": "mod_pos",
-                "message": "Syntax error in Modification Position field."
-                + f" Remove {trailing_characters} from Modification Position.",
-                "suggestion": None,
-            }
-        )
-        return errors
-
-    positions = positions.split(",")
     mod_types = mod_types.split(",")
     errors.extend(validate_PTM_names(mod_types))
     errors.extend(validate_mod_pos_syntax(pep_seq, positions))

@@ -142,7 +142,7 @@ def test_validate_mod_pos_five():
 
 
 def test_validate_mod_pos_syntax_one():
-    assert validate_mod_pos_syntax(pep_seq="NLVPMVATV", positions=["5"]) == [
+    assert validate_mod_pos_syntax(pep_seq="NLVPMVATV", positions="5") == [
         {
             "level": "error",
             "rule": "SyntaxErrorJustDigits",
@@ -157,7 +157,7 @@ def test_validate_mod_pos_syntax_one():
 
 
 def test_validate_mod_pos_syntax_two():
-    assert validate_mod_pos_syntax(pep_seq="NLVPMVATV", positions=["5", "1"]) == [
+    assert validate_mod_pos_syntax(pep_seq="NLVPMVATV", positions="5,1") == [
         {
             "level": "error",
             "rule": "SyntaxErrorJustDigits",
@@ -182,7 +182,7 @@ def test_validate_mod_pos_syntax_two():
 
 
 def test_validate_mod_pos_syntax_three():
-    assert validate_mod_pos_syntax(pep_seq="NLVPMVATV", positions=["1N"]) == [
+    assert validate_mod_pos_syntax(pep_seq="NLVPMVATV", positions="1N") == [
         {
             "level": "error",
             "rule": "SyntaxErrorReverseAminoAcid",
@@ -197,7 +197,7 @@ def test_validate_mod_pos_syntax_three():
 
 
 def test_validate_mod_pos_syntax_four():
-    assert validate_mod_pos_syntax(pep_seq="NLVPMVATV", positions=["90"]) == [
+    assert validate_mod_pos_syntax(pep_seq="NLVPMVATV", positions="90") == [
         {
             "level": "error",
             "rule": "SyntaxErrorJustDigits",
@@ -213,7 +213,7 @@ def test_validate_mod_pos_syntax_four():
 
 
 def test_validate_mod_pos_syntax_five():
-    assert validate_mod_pos_syntax(pep_seq="NLVPMVATV", positions=["A1/A2"]) == [
+    assert validate_mod_pos_syntax(pep_seq="NLVPMVATV", positions="A1/A2") == [
         {
             "level": "error",
             "rule": "SyntaxErrorGeneralModPos",
