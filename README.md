@@ -1,7 +1,19 @@
 # MHC Multimer documentation
 
 ## Table of Contents
-[TOC]
+
+* [Description](#description)
+* [Installation](#installation)
+  * [Command Line](#command-line)
+  * [Local Web Server](#local-web-server)
+* [Usage and Instructions](#usage-and-instructions)
+  * [General Usage Instructions](#general-usage-instructions)
+  * [Command Line](#command-line-1)
+  * [Web Form](#web-form)
+* [Examples](#examples)
+  * [Valid Entry](#valid-entry)
+* [Contact Information](#contact-information)
+
 ## Description
 The [Multimer Validation Tool](http://tools.iedb.org/mhcmultimer) is...
 
@@ -9,7 +21,7 @@ The [Multimer Validation Tool](http://tools.iedb.org/mhcmultimer) is...
 
 ## Installation
 
-###Command Line 
+### Command Line 
 
 If you would like to run the validator tool on the command line, please clone this repository and install using `pip`
 
@@ -67,7 +79,9 @@ optional arguments:
 ### Web Form
 In order to assist user, the MHC Molecule and Modification Type fields output suggestions that conform to MHC Restriction ontology and PSI-MOD ontology, respectively.  Please use the suggested names to ensure successful validation.
 
-## Example of Valid Entry
+## Examples
+
+### Valid Entry
 
 See below for an example for entering the following entry.
 
