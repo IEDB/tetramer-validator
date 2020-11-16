@@ -4,7 +4,7 @@
 * [Description](#description)
 * [Setup for Command Line](#installation-for-command-line)
 * [Command Line Usage](#command-line-usage)
-* [Setup for Web Form] (#installation-for-web-form)
+* [Installation for local Web server] (#installation-for-local-web-server)
 * [General Usage Instructions](#general-usage-instructions)
 * [Further Instructions for Web Form](#further-instructions-for-web-form)
 * [Example of Valid Entry] (#example-of-valid-entry)
