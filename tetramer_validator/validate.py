@@ -239,8 +239,6 @@ def validate_mod_pos_syntax(pep_seq, positions):
     by position number (e.g. ['N1', 'N100'])"""
 
     errors = []
-    print(type(positions))
-    print(positions)
     trailing_rule_name = "SyntaxErrorTrailingCharacters"
     trailing_characters = re.findall(
         r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y\d]+$", positions
@@ -260,7 +258,6 @@ def validate_mod_pos_syntax(pep_seq, positions):
         return errors
 
     positions = positions.split(",")
-
     main_pattern = re.compile(
         r"[A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]\d+", re.IGNORECASE
     )
@@ -348,6 +345,9 @@ def validate_modification(pep_seq, mod_pos, mod_type):
     mod_types = mod_types.split(",")
     errors.extend(validate_PTM_names(mod_types))
     errors.extend(validate_mod_pos_syntax(pep_seq, positions))
+    if errors:
+        return errors
+    positions.split(",")
     num_mod_types = len(mod_types)
     num_mod_pos = len(positions)
     mod_num_mismatch = "MismatchErrorNumModPosType"

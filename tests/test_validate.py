@@ -236,7 +236,7 @@ def test_validate_peptide_one():
         {
             "level": "error",
             "rule": "SyntaxErrorTrailingCharacters",
-            "value": "N1, N2,uddssdagvfuad",
+            "value": "N1,N2,uddssdagvfuad",
             "field": "mod_pos",
             "message": "Syntax error in Modification Position field."
             " Remove [',uddssdagvfuad'] from Modification Position.",
