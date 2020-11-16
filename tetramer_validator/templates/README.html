@@ -333,7 +333,46 @@ kbd {
 
 <h1 id="toc_0">Documentation</h1>
 
-<h2 id="toc_1">General Instructions</h2>
+<h2 id="toc_1">Setup for Command Line</h2>
+
+<p>If you would like to run the validator tool on the command line, please clone this repository and install using <code>pip</code></p>
+
+<div><pre><code class="language-none">git clone https://github.com/IEDB/tetramer-validator.git
+cd tetramer-validator
+pip install .</code></pre></div>
+
+<p>To confirm installation run <code>tv -h</code></p>
+
+<h2 id="toc_2">Command Line Usage</h2>
+
+<div><pre><code class="language-none">usage: tv [-h] [-o OUTPUT] filename
+
+positional arguments:
+  filename              Please enter .tsv, .csv, or .xlsx filename and that
+                        the following is in the header row: Peptide Sequence,
+                        Modification Type, Modification Position, MHC Molecule
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT, --output OUTPUT
+                        Enter output file text name.</code></pre></div>
+
+<h2 id="toc_3">Setup for Web Form</h2>
+
+<p><strong>Flask is a prerequisite for running this validator on a local web server.</strong></p>
+
+<p>If you would like to run the validator on a local web server, please follow the instructions for setting up the command line usage.  </p>
+
+<p>Then install Flask by entering in the following command:</p>
+
+<div><pre><code class="language-none">pip install -r requirements.txt
+cd tetramer_validator
+export FLASK_APP=server.py
+flask run</code></pre></div>
+
+<p>By default, Flask will launch apps on <code>http://127.0.0.1:5000/</code>.  Enter this address in your browser.   </p>
+
+<h2 id="toc_4">General Instructions</h2>
 
 <ol>
 <li>Please enter MHC molecule and peptide sequence. Both of these fields are required. Optionally, one can enter modification information.</li>
@@ -345,11 +384,11 @@ kbd {
 <li>NULL is not an appropriate value for any field. Please leave empty if there is no appropriate value.</li>
 </ol>
 
-<h2 id="toc_2">Further Instructions for Web Form</h2>
+<h2 id="toc_5">Further Instructions for Web Form</h2>
 
 <p>In order to assist user, the MHC Molecule and Modification Type fields output suggestions that conform to MHC Restriction ontology and PSI-MOD ontology, respectively.  Please use the suggested names to ensure successful validation.</p>
 
-<h2 id="toc_3">Example of Valid Entry</h2>
+<h2 id="toc_6">Example of Valid Entry</h2>
 
 <p>See below for an example for entering the following entry.</p>
 
@@ -366,6 +405,11 @@ kbd {
 <li>Notice that there is the display name of oxidized residue for Oxidation. Please choose from the display names or else validation will not be successful. </li>
 <li>Notice that syntax of M5. The modification is at the position 5 and the amino acid is methionine.<br></li>
 </ul>
+
+<h2 id="toc_7">Contact Information</h2>
+
+<p><a href="https://github.com/IEDB/tetramer-validator/issues">Issue Tracker</a>
+If you have discovered any bugs or have any issues, please open a issue</p>
 
 
 

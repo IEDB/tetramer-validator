@@ -1,5 +1,47 @@
 # Documentation
 
+##Setup for Command Line
+
+If you would like to run the validator tool on the command line, please clone this repository and install using `pip`
+
+```
+git clone https://github.com/IEDB/tetramer-validator.git
+cd tetramer-validator
+pip install .
+```
+To confirm installation run `tv -h`
+
+##Command Line Usage
+```
+usage: tv [-h] [-o OUTPUT] filename
+
+positional arguments:
+  filename              Please enter .tsv, .csv, or .xlsx filename and that
+                        the following is in the header row: Peptide Sequence,
+                        Modification Type, Modification Position, MHC Molecule
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT, --output OUTPUT
+                        Enter output file text name.
+```
+
+##Setup for Web Form
+**Flask is a prerequisite for running this validator on a local web server.**
+
+If you would like to run the validator on a local web server, please follow the instructions for setting up the command line usage.  
+
+Then install Flask by entering in the following command:
+
+```
+pip install -r requirements.txt
+cd tetramer_validator
+export FLASK_APP=server.py
+flask run
+```
+
+By default, Flask will launch apps on `http://127.0.0.1:5000/`.  Enter this address in your browser.   
+
 ## General Instructions
 1. Please enter MHC molecule and peptide sequence. Both of these fields are required. Optionally, one can enter modification information.
 2. MHC molecule name should be chosen to conform to [MHC Restriction ontology](https://www.ebi.ac.uk/ols/ontologies/mro).
@@ -25,3 +67,7 @@ See below for an example for entering the following entry.
 
 * Notice that there is the display name of oxidized residue for Oxidation. Please choose from the display names or else validation will not be successful. 
 * Notice that syntax of M5. The modification is at the position 5 and the amino acid is methionine.  
+
+## Contact Information
+[Issue Tracker](https://github.com/IEDB/tetramer-validator/issues)
+If you have discovered any bugs or have any issues, please open a issue
