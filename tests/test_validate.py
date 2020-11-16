@@ -116,7 +116,8 @@ def test_valdate_mod_pos_four():
             "level": "error",
             "rule": "MismatchErrorPosGreaterPepLen",
             "value": 100,
-            "message": "IndexError. 100 is greater than number of amino acids in peptide sequence."
+            "message": "IndexError. 100 is greater than number of amino acids in"
+            " peptide sequence."
             " Enter position that is less than length of peptide sequence and more than 0.",
             "field": "mod_pos",
             "suggestion": None,
@@ -149,7 +150,8 @@ def test_validate_mod_pos_syntax_one():
             "value": "5",
             "message": "5 is not a valid modification position. "
             "Modification Position field should be a comma separated list of amino acid letters"
-            " followed by position numbers (e.g. F1, S10, S300). Enter amino acid before digit(s). ",
+            " followed by position numbers (e.g. F1, S10, S300). Enter amino acid before"
+            " digit(s). ",
             "field": "mod_pos",
             "suggestion": "M5",
         }
@@ -164,7 +166,8 @@ def test_validate_mod_pos_syntax_two():
             "value": "5",
             "message": "5 is not a valid modification position. "
             "Modification Position field should be a comma separated list of amino acid letters"
-            " followed by position numbers (e.g. F1, S10, S300). Enter amino acid before digit(s). ",
+            " followed by position numbers (e.g. F1, S10, S300). Enter amino acid before"
+            " digit(s). ",
             "field": "mod_pos",
             "suggestion": "M5",
         },
@@ -174,7 +177,8 @@ def test_validate_mod_pos_syntax_two():
             "value": "1",
             "message": "1 is not a valid modification position. "
             "Modification Position field should be a comma separated list of amino acid letters"
-            " followed by position numbers (e.g. F1, S10, S300). Enter amino acid before digit(s). ",
+            " followed by position numbers (e.g. F1, S10, S300). Enter amino acid before"
+            " digit(s). ",
             "field": "mod_pos",
             "suggestion": "N1",
         },
@@ -189,7 +193,8 @@ def test_validate_mod_pos_syntax_three():
             "value": "1N",
             "message": "1N is not a valid modification position. "
             "Modification Position field should be a comma separated list of amino acid letters"
-            " followed by position numbers (e.g. F1, S10, S300). Enter amino acid followed by position.",
+            " followed by position numbers (e.g. F1, S10, S300). Enter amino acid followed"
+            " by position.",
             "field": "mod_pos",
             "suggestion": "N1",
         }
@@ -204,7 +209,8 @@ def test_validate_mod_pos_syntax_four():
             "value": "90",
             "message": "90 is not a valid modification position. "
             "Modification Position field should be a comma separated list of amino acid letters"
-            " followed by position numbers (e.g. F1, S10, S300). This input is just digit(s). "
+            " followed by position numbers (e.g. F1, S10, S300). This input is just"
+            " digit(s). "
             "Digit is bigger than length of peptide sequence",
             "field": "mod_pos",
             "suggestion": None,
@@ -219,7 +225,8 @@ def test_validate_mod_pos_syntax_five():
             "rule": "SyntaxErrorGeneralModPos",
             "value": "A1/A2",
             "message": "A1/A2 is not a valid modification position. Modification Position "
-            "field should be a comma separated list of amino acid letters followed by position numbers "
+            "field should be a comma separated list of amino acid letters followed by position"
+            " numbers "
             "(e.g. F1, S10, S300). ",
             "field": "mod_pos",
             "suggestion": None,

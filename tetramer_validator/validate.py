@@ -188,7 +188,8 @@ def validate_amino_acids(pep_seq):
 
 
 def format_mod_info(mod_pos, mod_type):
-    """Simple helper function to remove whitespace strings that have modification position and modification types"""
+    """Simple helper function to remove whitespace strings that have modification
+    position and modification types"""
 
     mod_pos = str(mod_pos)
     pattern = re.compile(r",[\s]+")
