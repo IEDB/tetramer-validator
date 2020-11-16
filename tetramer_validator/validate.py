@@ -347,7 +347,7 @@ def validate_modification(pep_seq, mod_pos, mod_type):
     errors.extend(validate_mod_pos_syntax(pep_seq, positions))
     if errors:
         return errors
-    positions.split(",")
+    positions = positions.split(",")
     num_mod_types = len(mod_types)
     num_mod_pos = len(positions)
     mod_num_mismatch = "MismatchErrorNumModPosType"
