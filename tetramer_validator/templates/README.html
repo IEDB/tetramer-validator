@@ -335,16 +335,51 @@ kbd {
 
 <h2 id="toc_1">Table of Contents</h2>
 
+<ul class="toc">
+<li>
+<a href="#toc_0">MHC Multimer documentation</a>
 <ul>
-<li><a href="#description">Description</a></li>
-<li><a href="#installation-for-command-line">Setup for Command Line</a></li>
-<li><a href="#command-line-usage">Command Line Usage</a></li>
-<li><a href="#installation-for-local-web-server">Installation for local Web server</a></li>
-<li><a href="#general-usage-instructions">General Usage Instructions</a></li>
-<li><a href="#further-instructions-for-web-form">Further Instructions for Web Form</a></li>
-<li><a href="#example-of-valid-entry">Example of Valid Entry</a></li>
-<li><a href="#contact-information">Contact Information</a></li>
+<li>
+<a href="#toc_1">Table of Contents</a>
+</li>
+<li>
+<a href="#toc_2">Description</a>
+</li>
+<li>
+<a href="#toc_3">Installation</a>
+<ul>
+<li>
+<a href="#toc_4">Command Line</a>
+</li>
+<li>
+<a href="#toc_5">Local Web Server</a>
+</li>
 </ul>
+</li>
+<li>
+<a href="#toc_6">Usage and Instructions</a>
+<ul>
+<li>
+<a href="#toc_7">General Usage Instructions</a>
+</li>
+<li>
+<a href="#toc_8">Command Line</a>
+</li>
+<li>
+<a href="#toc_9">Web Form</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#toc_10">Example of Valid Entry</a>
+</li>
+<li>
+<a href="#toc_11">Contact Information</a>
+</li>
+</ul>
+</li>
+</ul>
+
 
 <h2 id="toc_2">Description</h2>
 
@@ -352,7 +387,9 @@ kbd {
 
 <p>[TODO: Add abstract/link to paper]</p>
 
-<h2 id="toc_3">Installation for Command Line</h2>
+<h2 id="toc_3">Installation</h2>
+
+<h3 id="toc_4">Command Line</h3>
 
 <p>If you would like to run the validator tool on the command line, please clone this repository and install using <code>pip</code></p>
 
@@ -362,7 +399,36 @@ pip install .</code></pre></div>
 
 <p>To confirm installation run <code>tv -h</code></p>
 
-<h2 id="toc_4">Command Line Usage</h2>
+<h3 id="toc_5">Local Web Server</h3>
+
+<p><strong>Flask is a prerequisite for running this validator on a local web server.</strong></p>
+
+<p>If you would like to run the validator on a local web server, please follow the instructions for setting up the command line usage.  </p>
+
+<p>Then install Flask by entering in the following command:</p>
+
+<div><pre><code class="language-none">pip install -r requirements.txt
+cd tetramer_validator
+export FLASK_APP=server.py
+flask run</code></pre></div>
+
+<p>By default, Flask will launch apps on <code>http://127.0.0.1:5000/</code>.  Enter this address in your browser.</p>
+
+<h2 id="toc_6">Usage and Instructions</h2>
+
+<h3 id="toc_7">General Usage Instructions</h3>
+
+<ol>
+<li>Please enter MHC molecule and peptide sequence. Both of these fields are required. Optionally, one can enter modification information.</li>
+<li>MHC molecule name should be chosen to conform to <a href="https://www.ebi.ac.uk/ols/ontologies/mro">MHC Restriction ontology</a>.</li>
+<li>Modification Position field should be a comma separated list of amino acid letter followed by position number (e.g. F1, S10, S300). Each modification position should be of the format <code>&lt;amino acid&gt;&lt;position&gt;</code></li>
+<li>Modification type should be chosen to conform to <a href="https://www.ebi.ac.uk/ols/ontologies/mod">PSI-MOD ontology</a>.<br></li>
+<li>Either modification position <strong>and</strong> modification type must be provided or no modification information should be entered.</li>
+<li>There should be equal number of modification positions and modification types.</li>
+<li>NULL is not an appropriate value for any field. Please leave empty if there is no appropriate value.</li>
+</ol>
+
+<h3 id="toc_8">Command Line</h3>
 
 <p>The tool allows you to run command line validation on a table of MHC Multimer entries that is saved as Excel Spreadsheet (<code>.xlsx</code>), a tab-separated file (<code>.tsv</code>), or a comma-separated file (<code>.csv</code>).  </p>
 
@@ -378,38 +444,11 @@ optional arguments:
   -o OUTPUT, --output OUTPUT
                         Enter output file text name.</code></pre></div>
 
-<h2 id="toc_5">Installation for local Web server</h2>
-
-<p><strong>Flask is a prerequisite for running this validator on a local web server.</strong></p>
-
-<p>If you would like to run the validator on a local web server, please follow the instructions for setting up the command line usage.  </p>
-
-<p>Then install Flask by entering in the following command:</p>
-
-<div><pre><code class="language-none">pip install -r requirements.txt
-cd tetramer_validator
-export FLASK_APP=server.py
-flask run</code></pre></div>
-
-<p>By default, Flask will launch apps on <code>http://127.0.0.1:5000/</code>.  Enter this address in your browser.    </p>
-
-<h2 id="toc_6">General Usage Instructions</h2>
-
-<ol>
-<li>Please enter MHC molecule and peptide sequence. Both of these fields are required. Optionally, one can enter modification information.</li>
-<li>MHC molecule name should be chosen to conform to <a href="https://www.ebi.ac.uk/ols/ontologies/mro">MHC Restriction ontology</a>.</li>
-<li>Modification Position field should be a comma separated list of amino acid letter followed by position number (e.g. F1, S10, S300). Each modification position should be of the format <code>&lt;amino acid&gt;&lt;position&gt;</code></li>
-<li>Modification type should be chosen to conform to <a href="https://www.ebi.ac.uk/ols/ontologies/mod">PSI-MOD ontology</a>.<br></li>
-<li>Either modification position <strong>and</strong> modification type must be provided or no modification information should be entered.</li>
-<li>There should be equal number of modification positions and modification types.</li>
-<li>NULL is not an appropriate value for any field. Please leave empty if there is no appropriate value.</li>
-</ol>
-
-<h2 id="toc_7">Further Instructions for Web Form</h2>
+<h3 id="toc_9">Web Form</h3>
 
 <p>In order to assist user, the MHC Molecule and Modification Type fields output suggestions that conform to MHC Restriction ontology and PSI-MOD ontology, respectively.  Please use the suggested names to ensure successful validation.</p>
 
-<h2 id="toc_8">Example of Valid Entry</h2>
+<h2 id="toc_10">Example of Valid Entry</h2>
 
 <p>See below for an example for entering the following entry.</p>
 
@@ -427,7 +466,7 @@ flask run</code></pre></div>
 <li>Notice that syntax of M5. The modification is at the position 5 and the amino acid is methionine.<br></li>
 </ul>
 
-<h2 id="toc_9">Contact Information</h2>
+<h2 id="toc_11">Contact Information</h2>
 
 <ul>
 <li><a href="https://github.com/IEDB/tetramer-validator/issues">Issue Tracker</a></li>
