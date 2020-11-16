@@ -331,9 +331,28 @@ kbd {
 
 <body>
 
-<h1 id="toc_0">Documentation</h1>
+<h1 id="toc_0">MHC Multimer documentation</h1>
 
-<h2 id="toc_1">Setup for Command Line</h2>
+<h2 id="toc_1">Table of Contents</h2>
+
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#installation-for-command-line">Setup for Command Line</a></li>
+<li><a href="#command-line-usage">Command Line Usage</a></li>
+<li><a href="#installation-for-web-form">Setup for Web Form</a></li>
+<li><a href="#general-usage-instructions">General Usage Instructions</a></li>
+<li><a href="#further-instructions-for-web-form">Further Instructions for Web Form</a></li>
+<li><a href="#example-of-valid-entry">Example of Valid Entry</a></li>
+<li><a href="#contact-information">Contact Information</a></li>
+</ul>
+
+<h2 id="toc_2">Description</h2>
+
+<p>The <a href="http://tools.iedb.org/mhcmultimer">Multimer Validation Tool</a> is...</p>
+
+<p>[TODO: Add abstract/link to paper]</p>
+
+<h2 id="toc_3">Installation for Command Line</h2>
 
 <p>If you would like to run the validator tool on the command line, please clone this repository and install using <code>pip</code></p>
 
@@ -343,7 +362,9 @@ pip install .</code></pre></div>
 
 <p>To confirm installation run <code>tv -h</code></p>
 
-<h2 id="toc_2">Command Line Usage</h2>
+<h2 id="toc_4">Command Line Usage</h2>
+
+<p>The tool allows you to run command line validation on a table of MHC Multimer entries that is saved as Excel Spreadsheet (<code>.xlsx</code>), a tab-separated file (<code>.tsv</code>), or a comma-separated file (<code>.csv</code>).  </p>
 
 <div><pre><code class="language-none">usage: tv [-h] [-o OUTPUT] filename
 
@@ -357,7 +378,7 @@ optional arguments:
   -o OUTPUT, --output OUTPUT
                         Enter output file text name.</code></pre></div>
 
-<h2 id="toc_3">Setup for Web Form</h2>
+<h2 id="toc_5">Installation for local Web server</h2>
 
 <p><strong>Flask is a prerequisite for running this validator on a local web server.</strong></p>
 
@@ -370,9 +391,9 @@ cd tetramer_validator
 export FLASK_APP=server.py
 flask run</code></pre></div>
 
-<p>By default, Flask will launch apps on <code>http://127.0.0.1:5000/</code>.  Enter this address in your browser.   </p>
+<p>By default, Flask will launch apps on <code>http://127.0.0.1:5000/</code>.  Enter this address in your browser.    </p>
 
-<h2 id="toc_4">General Instructions</h2>
+<h2 id="toc_6">General Usage Instructions</h2>
 
 <ol>
 <li>Please enter MHC molecule and peptide sequence. Both of these fields are required. Optionally, one can enter modification information.</li>
@@ -384,11 +405,11 @@ flask run</code></pre></div>
 <li>NULL is not an appropriate value for any field. Please leave empty if there is no appropriate value.</li>
 </ol>
 
-<h2 id="toc_5">Further Instructions for Web Form</h2>
+<h2 id="toc_7">Further Instructions for Web Form</h2>
 
 <p>In order to assist user, the MHC Molecule and Modification Type fields output suggestions that conform to MHC Restriction ontology and PSI-MOD ontology, respectively.  Please use the suggested names to ensure successful validation.</p>
 
-<h2 id="toc_6">Example of Valid Entry</h2>
+<h2 id="toc_8">Example of Valid Entry</h2>
 
 <p>See below for an example for entering the following entry.</p>
 
@@ -406,10 +427,12 @@ flask run</code></pre></div>
 <li>Notice that syntax of M5. The modification is at the position 5 and the amino acid is methionine.<br></li>
 </ul>
 
-<h2 id="toc_7">Contact Information</h2>
+<h2 id="toc_9">Contact Information</h2>
 
-<p><a href="https://github.com/IEDB/tetramer-validator/issues">Issue Tracker</a>
-If you have discovered any bugs or have any issues, please open a issue</p>
+<ul>
+<li><a href="https://github.com/IEDB/tetramer-validator/issues">Issue Tracker</a></li>
+<li><a href="mailto:help@iedb.org">Email</a></li>
+</ul>
 
 
 

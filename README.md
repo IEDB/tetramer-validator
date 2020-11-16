@@ -1,6 +1,21 @@
-# Documentation
+# MHC Multimer documentation
 
-##Setup for Command Line
+## Table of Contents
+* [Description](#description)
+* [Setup for Command Line](#installation-for-command-line)
+* [Command Line Usage](#command-line-usage)
+* [Setup for Web Form] (#installation-for-web-form)
+* [General Usage Instructions](#general-usage-instructions)
+* [Further Instructions for Web Form](#further-instructions-for-web-form)
+* [Example of Valid Entry] (#example-of-valid-entry)
+* [Contact Information] (#contact-information)
+
+## Description
+The [Multimer Validation Tool](http://tools.iedb.org/mhcmultimer) is...
+
+[TODO: Add abstract/link to paper]
+
+## Installation for Command Line
 
 If you would like to run the validator tool on the command line, please clone this repository and install using `pip`
 
@@ -11,7 +26,9 @@ pip install .
 ```
 To confirm installation run `tv -h`
 
-##Command Line Usage
+## Command Line Usage
+The tool allows you to run command line validation on a table of MHC Multimer entries that is saved as Excel Spreadsheet (`.xlsx`), a tab-separated file (`.tsv`), or a comma-separated file (`.csv`).  
+
 ```
 usage: tv [-h] [-o OUTPUT] filename
 
@@ -26,7 +43,7 @@ optional arguments:
                         Enter output file text name.
 ```
 
-##Setup for Web Form
+## Installation for local Web server
 **Flask is a prerequisite for running this validator on a local web server.**
 
 If you would like to run the validator on a local web server, please follow the instructions for setting up the command line usage.  
@@ -40,9 +57,9 @@ export FLASK_APP=server.py
 flask run
 ```
 
-By default, Flask will launch apps on `http://127.0.0.1:5000/`.  Enter this address in your browser.   
+By default, Flask will launch apps on `http://127.0.0.1:5000/`.  Enter this address in your browser.    
 
-## General Instructions
+## General Usage Instructions
 1. Please enter MHC molecule and peptide sequence. Both of these fields are required. Optionally, one can enter modification information.
 2. MHC molecule name should be chosen to conform to [MHC Restriction ontology](https://www.ebi.ac.uk/ols/ontologies/mro).
 3. Modification Position field should be a comma separated list of amino acid letter followed by position number (e.g. F1, S10, S300). Each modification position should be of the format `<amino acid><position>`
@@ -69,5 +86,5 @@ See below for an example for entering the following entry.
 * Notice that syntax of M5. The modification is at the position 5 and the amino acid is methionine.  
 
 ## Contact Information
-[Issue Tracker](https://github.com/IEDB/tetramer-validator/issues)
-If you have discovered any bugs or have any issues, please open a issue
+* [Issue Tracker](https://github.com/IEDB/tetramer-validator/issues)
+* [Email](mailto:help@iedb.org)
