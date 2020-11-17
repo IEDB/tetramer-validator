@@ -27,6 +27,8 @@ with open(PTM_file) as fh_1:
 def validate(mhc_name, pep_seq, mod_type=None, mod_pos=None):
     """Main validate function."""
     args = locals()
+    pep_seq = pep_seq.strip()
+    mhc_name = mhc_name.strip()
     errors = []
     errors.extend(properNumArguments(args))
     errors.extend(null_input_check(args))
