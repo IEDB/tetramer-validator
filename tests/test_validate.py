@@ -40,6 +40,34 @@ def test_validate_PTM_names_one():
 def test_validate_PTM_names_two():
     assert validate_PTM_names(["oxidized residue"]) == []
 
+def test_validate_PTM_names_three():
+    assert validate_PTM_names(["ox"]) == [
+        {
+            "level": "error",
+            "rule": "ModTypeSynonymError",
+            "value": "ox",
+            "message": f"ox is a lower case string for OX.",
+            "field": "mod_type",
+            "suggestion": "oxidized residue",
+
+        }
+
+    ]
+
+def test_validate_PTM_names_four():
+    assert validate_PTM_names(["OX"]) == [
+        {
+            "level": "error",
+            "rule": "ModTypeSynonymError",
+            "value": "OX",
+            "field": "mod_type",
+            "message": f"OX is a synonym for oxidized residue.",
+            "suggestion": "oxidized residue",
+        }
+
+
+    ]
+
 
 def test_validate_amino_acids_one():
     assert validate_amino_acids(pep_seq="NLBPMVATV") == [

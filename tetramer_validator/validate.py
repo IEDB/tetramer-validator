@@ -209,6 +209,10 @@ def validate_PTM_names(mod_types):
     invalid_PTM_rule = "UndefinedArgPTMtype"
     for type in mod_types:
         in_synonyms = type in PTM_synonyms.keys()
+        try:
+            lower_match = [synonym.lower() for synonym in PTM_synonyms.keys()].index(type.lower())
+        except:
+            lower_match = False
         if in_synonyms and not PTM_synonyms[type] == type:
             errors.append(
                 {
@@ -216,12 +220,24 @@ def validate_PTM_names(mod_types):
                     "rule": "ModTypeSynonymError",
                     "value": type,
                     "field": "mod_type",
-                    "message": f"{type} is a synonym for {PTM_synonyms[type]}."
-                    f" Please use {PTM_synonyms[type]}"
-                    " to conform to PSI-MOD terminology.",
+                    "message": f"{type} is a synonym for {PTM_synonyms[type]}.",
                     "suggestion": PTM_synonyms[type],
                 }
             )
+        elif not in_synonyms and lower_match:
+            real_synonym = list(PTM_synonyms.keys())[lower_match]
+            display_name = PTM_synonyms[real_synonym]
+            errors.append(
+                {
+                    "level": "error",
+                    "rule": "ModTypeSynonymError",
+                    "value": type,
+                    "field": "mod_type",
+                    "message": f"{type} is a lower case string for {real_synonym}.",
+                    "suggestion": display_name,
+                }
+            )
+
         elif not in_synonyms:
             errors.append(
                 {
