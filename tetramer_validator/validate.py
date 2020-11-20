@@ -172,7 +172,7 @@ def validate_amino_acids(pep_seq):
 
     errors = []
     aa_rule_name = "UndefinedArgAminoAcid"
-    pattern = re.compile(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE)
+    pattern = re.compile(r"[^ACDEFGHIKLMNPQRSTVWXY]", re.IGNORECASE)
     has_amino_acids = pattern.findall(pep_seq)
     if has_amino_acids:
         errors.append(
@@ -243,30 +243,31 @@ def validate_mod_pos_syntax(pep_seq, positions):
 
     errors = []
     trailing_rule_name = "SyntaxErrorTrailingCharacters"
-    trailing_characters = re.findall(
-        r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y\d]+$", positions
+    main_pattern = re.compile(
+        r"[ACDEFGHIKLMNPQRSTVWXY][\d+]", re.IGNORECASE
     )
-    if trailing_characters:
-        errors.append(
-            {
-                "level": "error",
-                "rule": trailing_rule_name,
-                "value": positions,
-                "field": "mod_pos",
-                "message": "Syntax error in Modification Position field."
-                + f" Remove {trailing_characters} from Modification Position.",
-                "suggestion": None,
-            }
-        )
-        return errors
+    last_position = [y.span() for y in re.finditer(main_pattern, positions)]
+    if last_position:
+        last_position = last_position[-1:][0][1]
+        trailing_characters = positions[last_position:]
+        if trailing_characters:
+            errors.append(
+                {
+                    "level": "error",
+                    "rule": trailing_rule_name,
+                    "value": positions,
+                    "field": "mod_pos",
+                    "message": "Syntax error in Modification Position field."
+                    + f" Remove '{trailing_characters}' from Modification Position.",
+                    "suggestion": None,
+                }
+            )
+            return errors
 
     positions = positions.split(",")
-    main_pattern = re.compile(
-        r"[A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]\d+", re.IGNORECASE
-    )
     digits = re.compile(r"\d+")
     reversed_pattern = re.compile(
-        r"\d+[A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE
+        r"[\d+][ACDEFGHIKLMNPQRSTVWXY]", re.IGNORECASE
     )
     just_digits = "SyntaxErrorJustDigits"
     reversed = "SyntaxErrorReverseAminoAcid"

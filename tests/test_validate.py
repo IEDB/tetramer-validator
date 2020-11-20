@@ -233,6 +233,19 @@ def test_validate_mod_pos_syntax_five():
         }
     ]
 
+def test_validate_mod_pos_syntax_six():
+    assert validate_mod_pos_syntax(pep_seq="fff", positions="mra") == [
+        {
+            "level": "error",
+            "rule": "SyntaxErrorGeneralModPos",
+            "value": "mra",
+            "field": "mod_pos",
+            "message": "mra is not a valid modification position. Modification Position "
+            "field should be a comma separated list of amino acid letters followed by position"
+            " numbers (e.g. F1, S10, S300). ",
+            "suggestion": None,
+        }
+    ]
 
 def test_validate_peptide_one():
     assert validate_peptide(
@@ -246,7 +259,7 @@ def test_validate_peptide_one():
             "value": "N1,N2,uddssdagvfuad",
             "field": "mod_pos",
             "message": "Syntax error in Modification Position field."
-            " Remove [',uddssdagvfuad'] from Modification Position.",
+            " Remove ',uddssdagvfuad' from Modification Position.",
             "suggestion": None,
         }
     ]
@@ -268,7 +281,6 @@ def test_validate_peptide_two():
             "suggestion": None,
         }
     ]
-
 
 def test_properNumArguments_one():
     assert properNumArguments(
