@@ -260,7 +260,7 @@ def validate_mod_pos_syntax(pep_seq, positions):
     errors = []
     trailing_rule_name = "SyntaxErrorTrailingCharacters"
     main_pattern = re.compile(
-        r"[ACDEFGHIKLMNPQRSTVWXY][\d+]", re.IGNORECASE
+        r"[ACDEFGHIKLMNPQRSTVWXY][\d]+", re.IGNORECASE
     )
     last_position = [y.span() for y in re.finditer(main_pattern, positions)]
     if last_position:
@@ -283,7 +283,7 @@ def validate_mod_pos_syntax(pep_seq, positions):
     positions = positions.split(",")
     digits = re.compile(r"\d+")
     reversed_pattern = re.compile(
-        r"[\d+][ACDEFGHIKLMNPQRSTVWXY]", re.IGNORECASE
+        r"[\d]+[ACDEFGHIKLMNPQRSTVWXY]", re.IGNORECASE
     )
     just_digits = "SyntaxErrorJustDigits"
     reversed = "SyntaxErrorReverseAminoAcid"
