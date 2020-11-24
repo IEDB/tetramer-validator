@@ -12,7 +12,7 @@ def main():
     # Parse the arguments
     parser = argparse.ArgumentParser()
     file_help_text = """Please enter .tsv, .csv, or .xlsx filename
-        and that header is in following order:
+        and that the following is in the header row:
         Peptide Sequence, Modification Type, Modification Position, MHC Molecule"""
     out_help_text = "Enter output file text name."
     parser.add_argument("filename", help=file_help_text)
