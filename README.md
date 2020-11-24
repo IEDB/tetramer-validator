@@ -6,6 +6,7 @@
 * [Installation](#installation)
   * [Command Line](#command-line)
   * [Local Web Server](#local-web-server)
+  * [Docker image] (#docker-image)
 * [Usage and Instructions](#usage-and-instructions)
   * [General Usage Instructions](#general-usage-instructions)
   * [Command Line](#command-line-1)
@@ -23,7 +24,7 @@ The [Multimer Validation Tool](http://tools.iedb.org/mhcmultimer) is...
 
 ### Command Line 
 
-If you would like to run the validator tool on the command line, please clone this repository and install using `pip`
+If you would like to run the validator tool on the command line, please clone the Git repository and install using `pip`
 
 ```
 git clone https://github.com/IEDB/tetramer-validator.git
@@ -47,8 +48,29 @@ export FLASK_APP=server.py
 flask run
 ```
 
-By default, Flask will launch apps on `http://127.0.0.1:5000/`.  Enter this address in your browser.
+By default, Flask will launch applications on `http://127.0.0.1:5000`
 
+Enter this address in your browser.
+
+### Docker image
+
+Please download the Git repo. 
+
+```
+git clone https://github.com/IEDB/tetramer-validator.git
+cd tetramer-validator/tetramer_validator
+
+```
+In `server.py`, uncomment lines `220-221`.
+
+Then build the Docker image.
+ 
+```
+cd tetramer-validator
+docker build -t mhcmultimer:latest .
+docker run -p 5000:5000 mhcmultimer:latest
+``` 
+Navigate to your web browser to load the Web form.
 ## Usage and Instructions
 ### General Usage Instructions
 1. Please enter MHC molecule and peptide sequence. Both of these fields are required. Optionally, one can enter modification information.
