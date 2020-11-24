@@ -5,7 +5,7 @@
 <li><a href="#installation">Installation</a><ul>
 <li><a href="#command-line">Command Line</a></li>
 <li><a href="#local-web-server">Local Web Server</a></li>
-<li>[Docker image] (#docker-image)</li>
+<li><a href="#docker-image">Docker image</a></li>
 </ul>
 </li>
 <li><a href="#usage-and-instructions">Usage and Instructions</a><ul>
@@ -38,18 +38,19 @@ pip install .
 cd tetramer_validator
 export FLASK_APP=server<span class="hljs-selector-class">.py</span>
 flask run
-</code></pre><p>By default, Flask will launch applications on <code>http://127.0.0.1:5000</code></p>
+</code></pre><p>By default, Flask will launch applications on <a href="http://127.0.0.1:5000">http://127.0.0.1:5000</a>.</p>
 <p>Enter this address in your browser.</p>
 <h3 id="docker-image">Docker image</h3>
+<p>If you wish to run the validator in a Docker container, please use the Dockerfile from the Git repo to build the image. </p>
 <p>Please download the Git repo. </p>
 <pre><code>git <span class="hljs-keyword">clone</span> <span class="hljs-title">https</span>://github.com/IEDB/tetramer-validator.git
 cd tetramer-validator/tetramer_validator
-</code></pre><p>In <code>server.py</code>, uncomment lines <code>220-221</code>.</p>
+</code></pre><p>In <code>server.py</code>, uncomment lines <code>220-221</code> to have the app run on <a href="http://0.0.0.0:5000">http://0.0.0.0:5000</a>.</p>
 <p>Then build the Docker image.</p>
 <pre><code><span class="hljs-selector-tag">cd</span> <span class="hljs-selector-tag">tetramer-validator</span>
 <span class="hljs-selector-tag">docker</span> <span class="hljs-selector-tag">build</span> <span class="hljs-selector-tag">-t</span> <span class="hljs-selector-tag">mhcmultimer</span><span class="hljs-selector-pseudo">:latest</span> .
 <span class="hljs-selector-tag">docker</span> <span class="hljs-selector-tag">run</span> <span class="hljs-selector-tag">-p</span> 5000<span class="hljs-selector-pseudo">:5000</span> <span class="hljs-selector-tag">mhcmultimer</span><span class="hljs-selector-pseudo">:latest</span>
-</code></pre><p>Navigate to your web browser to load the Web form.</p>
+</code></pre><p>Navigate to your web browser to load the Web form at <a href="http://0.0.0.0:5000">http://0.0.0.0:5000</a>.</p>
 <h2 id="usage-and-instructions">Usage and Instructions</h2>
 <h3 id="general-usage-instructions">General Usage Instructions</h3>
 <ol>
