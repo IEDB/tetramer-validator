@@ -1,0 +1,8 @@
+datatype,parent,match,level,description,instructions,replace
+pep_seq,trimmed_line,/^[ACDEFGHIKLMNPQRSTVWXY]*$/,ERROR,Invalid amino acid,Replace invalid amino acid,
+string,,,WARN,,,
+trimmed_line,line,/\w.*\w/,ERROR,a line with no leading or trailing whitespace,remove leading and trailing whitespace,s/\s+(.*)\s+/\1/
+line,string,/[^\n]/,ERROR,a single line of text (no line breaks),remove line breaks,s/\n/ /g
+mod_type,trimmed_line,,ERROR,,,
+mod_type_synonym,mod_type,,ERROR,You used a synonym,Please use a display name,
+mod_pos,trimmed_line,/^[ACDEFGHIKLMNPQRSTVWXY][0-9]*$/,ERROR,Incorrect Modification Position syntax,Please follow syntax of amino acid followed by position number,

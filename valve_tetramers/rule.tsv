@@ -1,0 +1,5 @@
+table	when column	when condition	then column	then condition	level	description
+sample	Modification Position	blank	Modification Type	blank	ERROR	If Modification Postion is blank, then Modification Type must be blank
+sample	Modification Type	blank	Modification Position	blank	ERROR	If Modification Type is blank, then Modification Position must be blank
+sample	Peptide Sequence	pep_seq	Modification Position	"list("", "", pep_seq_mod_pos_match(""Peptide Sequence""))"	ERROR	Position mismatch
+sample	Modification Position	"list("", "",mod_pos)"	Modification Type	"concat(list("", "", in(PTM_list.display_name)), len_compare(""Modification Position""))"	ERROR	Number of positions does not match number of number of modification types
