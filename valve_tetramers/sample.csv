@@ -1,0 +1,4 @@
+MHC Molecule,Peptide Sequence,Modification Type,Modification Position
+Anpl-UAA*01,PKYVKQNTLKLAT,OX,"M5, K2"
+Anpl-UAA*01,NLVPMVATV,oxidation,10M
+Anpl-UAA*01,NLVPMVATV,oxidized residue,N1
