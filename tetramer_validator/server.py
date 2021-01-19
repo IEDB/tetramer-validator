@@ -77,11 +77,15 @@ def output():
                     "success": [],
                 }
             )
-        return render_template(
-            "base.html",
-            args=args,
-            rows=rows,
-        )
+        inputs = list(map(list, zip(*(request.args.to_dict(flat=False).values()))))
+        str_list = [
+            f"Tet{x+1}: {inputs[x][0]}, {inputs[x][1]} + {inputs[x][2]} ({inputs[x][3]})"
+            if inputs[x][2]
+            else f"Tet{x+1}: {inputs[x][0]}, {inputs[x][1]}"
+            for x in range(len(inputs))
+        ]
+        free_text = "\n".join(str_list)
+        return render_template("base.html", args=args, rows=rows, free_text=free_text)
     else:
         return render_template(
             "base.html",
