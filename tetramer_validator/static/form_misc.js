@@ -14,3 +14,8 @@ $('.bi-trash-fill').click(function(event) {
     event.preventDefault();
   }
 });
+
+$("#Copy").click(function(){
+    $("#Output").select();
+    document.execCommand('copy');
+});
