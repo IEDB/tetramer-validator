@@ -1,9 +1,9 @@
 $(document).ready(function(){
   $(".mod_type.is-invalid").parent().addClass("is-invalid");
   $(".mod_type.is-valid").parent().addClass("is-valid");
-});
-$('.bi-question').focus(function(event) {
-  $('[data-toggle="popover"]').popover({html: true});
+  $(function () {
+    $('[data-toggle="popover"]').popover({trigger: "click", html: true})
+  });
 });
 $('.bi-trash-fill').click(function(event) {
   if ($(".entry").length == 1) {
