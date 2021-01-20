@@ -85,3 +85,25 @@ def test_build_valid_multimer_strings_three():
         build_valid_multimers_strings(args)
         == "Tet1: HLA-A*01:01, NLVATY + dehydrated residue (T5)\nTet2: H2-Db, NLMMY + acetylated residue (M4)"
     )
+
+# One empty entry and one valid entry
+
+def test_build_valid_multimer_strings_four():
+    args_1 = {
+        "mhc_name": "HLA-A*01:01",
+        "pep_seq": "NLVATY",
+        "mod_type": "dehydrated residue",
+        "mod_pos": "T5",
+    }
+    args = [create_input_list(args_1)]
+    args_2 = {
+        "mhc_name": "",
+        "pep_seq": "",
+        "mod_type": "",
+        "mod_pos": "",
+    }
+    args.append(create_input_list(args_2))
+    assert (
+        build_valid_multimers_strings(args)
+        == "Tet1: HLA-A*01:01, NLVATY + dehydrated residue (T5)"
+    )
