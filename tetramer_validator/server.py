@@ -100,7 +100,9 @@ def build_valid_multimers_strings(inputs):
     x = 0
     valid_multimers = []
     for input in inputs:
-        if not bool(input["errors"]):
+        # Check whether there is either mod_pos, mod_type, pep_seq, and mhc_name
+        # or pep_seq and mhc_name
+        if not bool(input["errors"]) and len(input["success"]) > 1:
             x = x + 1
             if input["mod_pos"] and input["mod_type"]:
                 valid_multimers.append(
