@@ -105,9 +105,13 @@ def build_valid_multimers_strings(inputs):
         if not bool(input["errors"]) and len(input["success"]) > 1:
             x = x + 1
             if input["mod_pos"] and input["mod_type"]:
+                types = input["mod_type"].strip().replace(", ", ",").split(",")
+                positions = input["mod_pos"].strip().replace(", ", ",").split(",")
+                type_pos = tuple(zip(types, positions))
+                type_pos = [f"{type} ({pos})" for type, pos in type_pos]
+                type_pos = ", ".join(type_pos)
                 valid_multimers.append(
-                    f"Tet{x}: {input['mhc_name']}, {input['pep_seq']}"
-                    f" + {input['mod_type']} ({input['mod_pos']})"
+                    f"Tet{x}: {input['mhc_name']}, {input['pep_seq']} + {type_pos}"
                 )
             else:
                 valid_multimers.append(
