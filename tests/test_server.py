@@ -42,7 +42,7 @@ def test_build_valid_multimer_strings_one():
     args.append(create_input_list(args_2))
     assert (
         build_valid_multimers_strings(args)
-        == "Tet1: HLA-A*01:01, NLVP + oxidized residue, amidated residue (N1, P4)"
+        == "Tet1: HLA-A*01:01, NLVP + oxidized residue (N1), amidated residue (P4)"
     )
 
 
@@ -86,7 +86,9 @@ def test_build_valid_multimer_strings_three():
         == "Tet1: HLA-A*01:01, NLVATY + dehydrated residue (T5)\nTet2: H2-Db, NLMMY + acetylated residue (M4)"
     )
 
+
 # One empty entry and one valid entry
+
 
 def test_build_valid_multimer_strings_four():
     args_1 = {
