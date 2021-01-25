@@ -1,0 +1,66 @@
+stages:
+  - build
+  - deploy
+
+# build and push container at tip of each branch - embed commit sha and other info into labels somewhere
+# this should happen on each commit (except: tags)
+
+# deploy to production
+# this should be manual and should pull from a tagged version
+
+# deploy to dev
+# this should be manual and should pull from one of the branches
+
+.build_container: &build_container
+  - REF_NAME=$(echo $CI_COMMIT_REF_NAME | tr '/' '_' | awk '{print tolower($0)}')
+  - docker build -t $CI_REGISTRY_IMAGE:$REF_NAME --label git_url=$CI_REPOSITORY_URL --label pipeline_url=$CI_PIPELINE_URL --label commit_sha=$CI_COMMIT_SHA .
+
+.push_container: &push_container
+  - docker push $CI_REGISTRY_IMAGE:$REF_NAME
+
+.rancher_login: &rancher_login
+  - rancher login -t "${RANCHER_API_TOKEN}" "${RANCHER_URL}" --context "${RANCHER_PROJECT_CONTEXT}"
+
+.rancher_rollout: &rancher_rollout
+  - rancher kubectl rollout restart deployment --namespace "${RANCHER_NAMESPACE}" "${RANCHER_WORKLOAD}"
+
+
+build_and_push:
+  stage: build
+  services:
+    - docker:dind
+  script:
+    - *build_container
+    - *push_container
+
+# tag the image as a production image, in preparation for deployment
+tag_production:
+  stage: build
+  services:
+    - docker:dind
+    - docker pull $CI_REGISTRY_IMAGE:$REF_NAME
+    - docker tag $CI_REGISTRY_IMAGE:$REF_NAME $CI_REGISTRY_IMAGE:production
+    - docker push $CI_REGISTRY_IMAGE:production
+  only:
+    - tags
+
+# deploy to production
+# ideally we could automate this and only have tags deployd
+# for now we set it to manual
+deploy_prod:
+  stage: deploy
+  image: gitlab.lji.org:4567/sysadminscorner/public/rancher-kubectl:master
+  when: manual
+  script:
+    - RANCHER_URL=https://rancher.lji.org/v3
+    - RANCHER_PROJECT_CONTEXT=c-qprnb:p-8vppd
+    - RANCHER_NAMESPACE=tetramer-validator
+    - RANCHER_WORKLOAD=tetramer-validator-prod
+    - *rancher_login
+    - *rancher_rollout
+
+# deploy to dev
+deploy_dev:
+  stage: deploy
+  image: gitlab.lji.org:4567/sysadminscorner/public/rancher-kubectl:master
+  when: manual
