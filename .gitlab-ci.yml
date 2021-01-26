@@ -12,6 +12,9 @@ stages:
 # deploy to dev
 # this should be manual and should pull from one of the branches
 
+.docker_login: &docker_login
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
 .build_container: &build_container
   - REF_NAME=$(echo $CI_COMMIT_REF_NAME | tr '/' '_' | awk '{print tolower($0)}')
   - docker build -t $CI_REGISTRY_IMAGE:$REF_NAME --label git_url=$CI_REPOSITORY_URL --label pipeline_url=$CI_PIPELINE_URL --label commit_sha=$CI_COMMIT_SHA .
@@ -32,6 +35,7 @@ build_and_push:
     - docker:dind
   script:
     - *build_container
+    - *docker_login
     - *push_container
 
 # tag the image as a production image, in preparation for deployment
@@ -42,6 +46,7 @@ tag_production:
   script:
     - docker pull $CI_REGISTRY_IMAGE:$REF_NAME
     - docker tag $CI_REGISTRY_IMAGE:$REF_NAME $CI_REGISTRY_IMAGE:production
+    - *docker_login
     - docker push $CI_REGISTRY_IMAGE:production
   only:
     - tags
