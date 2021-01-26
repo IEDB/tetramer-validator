@@ -38,6 +38,7 @@ tag_production:
   stage: build
   services:
     - docker:dind
+  script:
     - docker pull $CI_REGISTRY_IMAGE:$REF_NAME
     - docker tag $CI_REGISTRY_IMAGE:$REF_NAME $CI_REGISTRY_IMAGE:production
     - docker push $CI_REGISTRY_IMAGE:production
