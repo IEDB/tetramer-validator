@@ -1,6 +1,7 @@
 image: docker:19.03.11
 stages:
   - build
+  - tag
   - deploy
 
 # build and push container at tip of each branch - embed commit sha and other info into labels somewhere
@@ -40,7 +41,7 @@ build_and_push:
 
 # tag the image as a production image, in preparation for deployment
 tag_production:
-  stage: build
+  stage: tag
   services:
     - docker:dind
   script:
@@ -48,7 +49,6 @@ tag_production:
     - docker tag $CI_REGISTRY_IMAGE:$REF_NAME $CI_REGISTRY_IMAGE:production
     - *docker_login
     - docker push $CI_REGISTRY_IMAGE:production
-  needs: ['build_and_push']
   only:
     - tags
 
