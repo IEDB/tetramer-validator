@@ -30,6 +30,15 @@ stages:
 
 .rancher_rollout: &rancher_rollout
   - rancher kubectl rollout restart deployment --namespace "${RANCHER_NAMESPACE}" "${RANCHER_WORKLOAD}"
+  # annotate this deployment in kube with the commit sha. Note the - > in yaml causes the following linebreaks to treat this as one line (replace newline with space)
+  - >
+      rancher kubectl annotate deployment --namespace "${RANCHER_NAMESPACE}" "${RANCHER_WORKLOAD}"
+      kubernetes.io/change-cause="${CI_COMMIT_SHORT_SHA} - ${CI_COMMIT_TITLE} - ${CI_PIPELINE_URL}" --record=false --overwrite=true
+  # check and wait on deployment for successful deploy and set timeout after 120 seconds
+  - rancher kubectl rollout status deployment --namespace "${RANCHER_NAMESPACE}" "${RANCHER_WORKLOAD}" --timeout=120s
+  # show rollout history
+  - rancher kubectl rollout history deployment --namespace "${RANCHER_NAMESPACE}" "${RANCHER_WORKLOAD}"
+
 
 
 build_and_push:
