@@ -25,6 +25,13 @@ stages:
 .push_container: &push_container
   - docker push $CI_REGISTRY_IMAGE:$REF_NAME
 
+.tag_image: &tag_image
+  - *docker_login
+  - *get_ref_name
+  - docker pull $CI_REGISTRY_IMAGE:$REF_NAME
+  - docker tag $CI_REGISTRY_IMAGE:$REF_NAME $CI_REGISTRY_IMAGE:$TAG_NAME
+  - docker push $CI_REGISTRY_IMAGE:$TAG_NAME
+
 .rancher_login: &rancher_login
   - rancher login -t "${RANCHER_API_TOKEN}" "${RANCHER_URL}" --context "${RANCHER_PROJECT_CONTEXT}"
 
@@ -40,7 +47,6 @@ stages:
   - rancher kubectl rollout history deployment --namespace "${RANCHER_NAMESPACE}" "${RANCHER_WORKLOAD}"
 
 
-
 build_and_push:
   stage: build
   services:
@@ -51,36 +57,55 @@ build_and_push:
     - *docker_login
     - *push_container
 
+
 # tag the image as a production image, in preparation for deployment
 tag_production:
   stage: tag
   services:
     - docker:dind
   script:
-    - *docker_login
-    - *get_ref_name
-    - docker pull $CI_REGISTRY_IMAGE:$REF_NAME
-    - docker tag $CI_REGISTRY_IMAGE:$REF_NAME $CI_REGISTRY_IMAGE:production
-    - docker push $CI_REGISTRY_IMAGE:production
+    - TAG_NAME=production
+    - *tag_image
   when: manual
 
-# deploy to production
-# ideally we could automate this and only have tags deployd
-# for now we set it to manual
+# deploy to production - this requires the 'production' tag
+# the 'needs' tag allows the deployment step to run without waiting for
+# the building/tagging to work.  This is so that one can simply run deploy
+# on a pre-exisisting container;
 deploy_prod:
   stage: deploy
   image: gitlab.lji.org:4567/sysadminscorner/public/rancher-kubectl:master
   when: manual
+  needs: []
   script:
-    - RANCHER_URL=https://rancher.lji.org/v3
     - RANCHER_PROJECT_CONTEXT=c-qprnb:p-8vppd
+    - RANCHER_URL=https://rancher.lji.org/v3
     - RANCHER_NAMESPACE=tetramer-validator
     - RANCHER_WORKLOAD=tetramer-validator-prod
     - *rancher_login
     - *rancher_rollout
 
-# # deploy to dev
-# deploy_dev:
-#   stage: deploy
-#   image: gitlab.lji.org:4567/sysadminscorner/public/rancher-kubectl:master
-#   when: manual
+# tag the image as a dev image, in preparation for deployment
+tag_dev:
+  stage: tag
+  services:
+    - docker:dind
+  script:
+    - TAG_NAME=dev
+    - *tag_image
+  when: manual
+
+
+# deploy to dev - similar config to prod
+deploy_dev:
+  stage: deploy
+  image: gitlab.lji.org:4567/sysadminscorner/public/rancher-kubectl:master
+  when: manual
+  needs: []
+  script:
+    - RANCHER_PROJECT_CONTEXT=c-qprnb:p-8vppd
+    - RANCHER_URL=https://rancher.lji.org/v3
+    - RANCHER_NAMESPACE=tetramer-validator
+    - RANCHER_WORKLOAD=tetramer-validator-dev
+    - *rancher_login
+    - *rancher_rollout
