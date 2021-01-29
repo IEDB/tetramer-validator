@@ -26,8 +26,6 @@ stages:
   - docker push $CI_REGISTRY_IMAGE:$REF_NAME
 
 .tag_image: &tag_image
-  - *docker_login
-  - *get_ref_name
   - docker pull $CI_REGISTRY_IMAGE:$REF_NAME
   - docker tag $CI_REGISTRY_IMAGE:$REF_NAME $CI_REGISTRY_IMAGE:$TAG_NAME
   - docker push $CI_REGISTRY_IMAGE:$TAG_NAME
@@ -65,6 +63,8 @@ tag_production:
     - docker:dind
   script:
     - TAG_NAME=production
+    - *docker_login
+    - *get_ref_name
     - *tag_image
   when: manual
 
@@ -92,6 +92,8 @@ tag_dev:
     - docker:dind
   script:
     - TAG_NAME=dev
+    - *docker_login
+    - *get_ref_name
     - *tag_image
   when: manual
 
