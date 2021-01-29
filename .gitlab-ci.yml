@@ -3,8 +3,6 @@ stages:
   - build
   - tag
   - deploy
-variables:
-
 
 # build and push container at tip of each branch - embed commit sha and other info into labels somewhere
 # this should happen on each commit (except: tags)
@@ -19,7 +17,6 @@ variables:
   - REF_NAME=$(echo $CI_COMMIT_REF_NAME | tr '/' '_' | awk '{print tolower($0)}')
 
 .docker_login: &docker_login
-  - *get_ref_name
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
 .build_container: &build_container
@@ -40,6 +37,7 @@ build_and_push:
   services:
     - docker:dind
   script:
+    - *get_ref_name
     - *build_container
     - *docker_login
     - *push_container
