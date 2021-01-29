@@ -3,6 +3,8 @@ stages:
   - build
   - tag
   - deploy
+variables:
+
 
 # build and push container at tip of each branch - embed commit sha and other info into labels somewhere
 # this should happen on each commit (except: tags)
@@ -13,11 +15,14 @@ stages:
 # deploy to dev
 # this should be manual and should pull from one of the branches
 
+.get_ref_name: &get_ref_name
+  - REF_NAME=$(echo $CI_COMMIT_REF_NAME | tr '/' '_' | awk '{print tolower($0)}')
+
 .docker_login: &docker_login
+  - *get_ref_name
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
 .build_container: &build_container
-  - REF_NAME=$(echo $CI_COMMIT_REF_NAME | tr '/' '_' | awk '{print tolower($0)}')
   - docker build -t $CI_REGISTRY_IMAGE:$REF_NAME --label git_url=$CI_REPOSITORY_URL --label pipeline_url=$CI_PIPELINE_URL --label commit_sha=$CI_COMMIT_SHA .
 
 .push_container: &push_container
@@ -45,12 +50,12 @@ tag_production:
   services:
     - docker:dind
   script:
+    - *get_ref_name
     - docker pull $CI_REGISTRY_IMAGE:$REF_NAME
     - docker tag $CI_REGISTRY_IMAGE:$REF_NAME $CI_REGISTRY_IMAGE:production
     - *docker_login
     - docker push $CI_REGISTRY_IMAGE:production
-  only:
-    - tags
+  when: manual
 
 # deploy to production
 # ideally we could automate this and only have tags deployd
