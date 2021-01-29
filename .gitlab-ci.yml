@@ -48,6 +48,7 @@ tag_production:
     - docker tag $CI_REGISTRY_IMAGE:$REF_NAME $CI_REGISTRY_IMAGE:production
     - *docker_login
     - docker push $CI_REGISTRY_IMAGE:production
+  needs: ['build_and_push']
   only:
     - tags
 
