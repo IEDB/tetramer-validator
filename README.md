@@ -117,7 +117,7 @@ See below for an example on entering an entry into the web form.
 ![1](tetramer_validator/static/Example_1_1.png)
 
 
-* Notice that there is the display name of oxidized residue for Oxidation. Please choose from the display names or else validation will not be successful. 
+* Notice that the the display name of for Oxidation is oxidized residue for Oxidation. Please choose from the display names or else validation will not be successful. 
 * Notice that syntax of M5. The modification is at the position 5 and the amino acid is methionine.  
 
 ## Contact Information
