@@ -5,7 +5,7 @@ amidated residue	Amidation	AMID
 acetylated residue	Acetylation	ACET	AcRes	Acetyl
 biotinylated residue	Biotin	BIOT	BtnRes	Biotinylation
 cysteinylation (disulfide with free L-cysteine)	Cysteinylation	CYSTL	SCysCys
-deamidated and methyl esterified residue	Deamidation followed by a methylation	DEAME
+deamidated and methyl esterified residue	Deamidation followed by a methylation	DEAME		
 deamidated residue	Deamidation	DEAM	dNRes	Deamidated
 dehydrated residue	Dehydration	DEHY	Dehydrated
 formylated residue	Formylation	FORM	FoRes	Formyl
@@ -15,10 +15,10 @@ glycosylated residue	Glycosylation	GLYC	GlycoRes
 hydroxylated residue	Hydroxylation	HYL	HyRes
 L-2-aminobutanoic acid (Glu)	L-_-Aminobutyric acid	Abu	Abu
 L-citrylline	Citrullination	CITR	Cit	Deamidated
-methylated residue	Methylation	METH	MeRes
-myristoylated residue	Myristoylation	MYRI	MyrRes
+methylated residue	Methylation	METH	MeRes	
+myristoylated residue	Myristoylation	MYRI	MyrRes	
 N-acetylated residue	N-acetylation	NAc	NAcRes	N-Acetyl
-oxidized residue	Oxidation	OX	OxRes
+oxidized residue	Oxidation	OX	OxRes	
 palmitoylated residue	Palmitoylation|PALM	PALM	PamRes	Palmitoyl
 phosphorylated residue	Phosphorylation	PHOS	PhosRes	Phospho
 reduced residue	Reduction	RED	RedRes
