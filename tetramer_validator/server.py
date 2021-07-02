@@ -66,6 +66,7 @@ def output():
             errors = MultiDict(errors)
             row["errors"] = errors.to_dict(False)
             row["success"] = list(set(keys) - set(errors.keys()))
+            row["pep_seq"] = row["pep_seq"].upper()
         if len(rows) == 0 or "add" in args:
             rows.append(
                 {
@@ -77,11 +78,8 @@ def output():
                     "success": [],
                 }
             )
-        return render_template(
-            "base.html",
-            args=args,
-            rows=rows,
-        )
+        free_text = build_valid_multimers_strings(rows)
+        return render_template("base.html", args=args, rows=rows, free_text=free_text)
     else:
         return render_template(
             "base.html",
@@ -96,6 +94,31 @@ def output():
                 }
             ],
         )
+
+
+def build_valid_multimers_strings(inputs):
+    x = 0
+    valid_multimers = []
+    for input in inputs:
+        # Check whether there is either mod_pos, mod_type, pep_seq, and mhc_name
+        # or pep_seq and mhc_name
+        if not bool(input["errors"]) and len(input["success"]) > 1:
+            x = x + 1
+            if input["mod_pos"] and input["mod_type"]:
+                types = input["mod_type"].strip().replace(", ", ",").split(",")
+                positions = input["mod_pos"].strip().replace(", ", ",").split(",")
+                type_pos = tuple(zip(types, positions))
+                type_pos = [f"{type} ({pos})" for type, pos in type_pos]
+                type_pos = ", ".join(type_pos)
+                valid_multimers.append(
+                    f"Tet{x}: {input['mhc_name']}, {input['pep_seq']} + {type_pos}"
+                )
+            else:
+                valid_multimers.append(
+                    f"Tet{x}: {input['mhc_name']}, {input['pep_seq']}"
+                )
+
+    return "\n".join(valid_multimers)
 
 
 def generate_file(input, errors):
@@ -217,5 +240,5 @@ def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-# if __name__ == '__main__':
-#    app.run(host='0.0.0.0', debug=True)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True)

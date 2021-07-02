@@ -109,10 +109,13 @@ In order to assist user, the MHC Molecule and Modification Type fields output su
 
 See below for an example on entering an entry into the web form.
 
-* MHC Molecule: HLA-A*02:01
-* Peptide Sequence: NLVPMVATV
-* Modification Type: Oxidation
-* Modification Position: M5
+Peptide Sequence: NLVPMVATV
+
+Modification Type: Oxidation
+
+Modification Position: M5
+
+MHC Name: HLA-A*02:01
 
 ![1](tetramer_validator/static/Example_1_1.png)
 
