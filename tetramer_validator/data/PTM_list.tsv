@@ -17,7 +17,7 @@ L-2-aminobutanoic acid (Glu)	L-α-Aminobutyric acid	Abu	Abu
 L-citrulline	Citrullination	CITR	Cit	Deamidated
 methylated residue	Methylation	METH	MeRes	
 myristoylated residue	Myristoylation	MYRI	MyrRes	
-N-acetylated residue	N-acetylation	NAc	NAcRes	N-Acetyl
+mono N-acetylated residue	N-acetylation	NAc	NAcRes	N-Acetyl
 oxidized residue	Oxidation	OX	OxRes	
 palmitoylated residue	Palmitoylation|PALM	PALM	PamRes	Palmitoyl
 phosphorylated residue	Phosphorylation	PHOS	PhosRes	Phospho
