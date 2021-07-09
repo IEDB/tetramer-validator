@@ -13,7 +13,7 @@ galactosylated residue	Galactosylation	GAL	GalRes
 glucosylated residue	Glucosylation	GLUC	GlcRes	Glycation
 glycosylated residue	Glycosylation	GLYC	GlycoRes	
 hydroxylated residue	Hydroxylation	HYL	HyRes	
-L-2-aminobutanoic acid (Glu)	L-_-Aminobutyric acid	Abu	Abu	
+L-2-aminobutanoic acid (Glu)	L-α-Aminobutyric acid	Abu	Abu	
 L-citrulline	Citrullination	CITR	Cit	Deamidated
 methylated residue	Methylation	METH	MeRes	
 myristoylated residue	Myristoylation	MYRI	MyrRes	
