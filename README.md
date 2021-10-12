@@ -16,7 +16,7 @@
 * [Contact Information](#contact-information)
 
 ## Description
-The [Multimer Validation Tool](http://tools.iedb.org/mhcmultimer) is...
+The [Multimer Validation Tool](http://tools.iedb.org/mhcmultimer) is a tool designed to validate multimers according to the [MIAMM standard](http://miamm.lji.org).
 
 [TODO: Add abstract/link to paper]
 
@@ -122,4 +122,4 @@ See below for an example on entering an entry into the web form.
 
 ## Contact Information
 * [Issue Tracker](https://github.com/IEDB/tetramer-validator/issues)
-* [Email](mailto:help@iedb.org)
+* [Email](mailto:miamm@lji.org)
