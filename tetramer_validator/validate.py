@@ -8,17 +8,27 @@ molecule_file = path.join(here, molecule_file)
 with open(molecule_file) as fh:
     reader = csv.DictReader(fh, delimiter="\t")
     molecules = [molecule["IEDB Label"] for molecule in reader]
+
+PTM_synonyms = {}
+
 PTM_file = "data/PTM_list.tsv"
 PTM_file = path.join(here, PTM_file)
-
 with open(PTM_file) as fh_1:
     reader = csv.DictReader(fh_1, delimiter="\t")
-    PTM_display = [name["display_name"] for name in reader]
+    # PTM_temp = [name for name in reader]
+    PTM_synonyms = {
+        synonym: name["display_name"]
+        for name in reader
+        for synonym in name.values()
+        if synonym is not None
+    }
 
 
 def validate(mhc_name, pep_seq, mod_type=None, mod_pos=None):
     """Main validate function."""
     args = locals()
+    pep_seq = pep_seq.strip()
+    mhc_name = mhc_name.strip()
     errors = []
     errors.extend(properNumArguments(args))
     errors.extend(null_input_check(args))
@@ -162,7 +172,7 @@ def validate_amino_acids(pep_seq):
 
     errors = []
     aa_rule_name = "UndefinedArgAminoAcid"
-    pattern = re.compile(r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE)
+    pattern = re.compile(r"[^ACDEFGHIKLMNPQRSTVWXY]", re.IGNORECASE)
     has_amino_acids = pattern.findall(pep_seq)
     if has_amino_acids:
         errors.append(
@@ -180,14 +190,16 @@ def validate_amino_acids(pep_seq):
 
 
 def format_mod_info(mod_pos, mod_type):
-    """Simple helper function to turn strings that have modification position and modification
-    types into lists and remove whitespace"""
+    """Simple helper function to remove whitespace strings that have modification
+    position and modification types"""
 
     mod_pos = str(mod_pos)
     pattern = re.compile(r",[\s]+")
     positions = re.sub(pattern, ",", mod_pos)
     mod_types = mod_type
     mod_types = re.sub(pattern, ",", mod_types)
+    mod_types = mod_types.strip()
+    positions = positions.strip()
     return positions, mod_types
 
 
@@ -196,7 +208,37 @@ def validate_PTM_names(mod_types):
     errors = []
     invalid_PTM_rule = "UndefinedArgPTMtype"
     for type in mod_types:
-        if type not in PTM_display:
+        in_synonyms = type in PTM_synonyms.keys()
+        try:
+            lower_match = [synonym.lower() for synonym in PTM_synonyms.keys()].index(type.lower())
+        except:
+            lower_match = False
+        if in_synonyms and not PTM_synonyms[type] == type:
+            errors.append(
+                {
+                    "level": "error",
+                    "rule": "ModTypeSynonymError",
+                    "value": type,
+                    "field": "mod_type",
+                    "message": f"{type} is a synonym for {PTM_synonyms[type]}.",
+                    "suggestion": PTM_synonyms[type],
+                }
+            )
+        elif not in_synonyms and lower_match:
+            real_synonym = list(PTM_synonyms.keys())[lower_match]
+            display_name = PTM_synonyms[real_synonym]
+            errors.append(
+                {
+                    "level": "error",
+                    "rule": "ModTypeSynonymError",
+                    "value": type,
+                    "field": "mod_type",
+                    "message": f"{type} is a lower case string for {real_synonym}.",
+                    "suggestion": display_name,
+                }
+            )
+
+        elif not in_synonyms:
             errors.append(
                 {
                     "level": "error",
@@ -216,12 +258,32 @@ def validate_mod_pos_syntax(pep_seq, positions):
     by position number (e.g. ['N1', 'N100'])"""
 
     errors = []
+    trailing_rule_name = "SyntaxErrorTrailingCharacters"
     main_pattern = re.compile(
-        r"[A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]\d+", re.IGNORECASE
+        r"[ACDEFGHIKLMNPQRSTVWXY][\d]+", re.IGNORECASE
     )
+    last_position = [y.span() for y in re.finditer(main_pattern, positions)]
+    if last_position:
+        last_position = last_position[-1:][0][1]
+        trailing_characters = positions[last_position:]
+        if trailing_characters:
+            errors.append(
+                {
+                    "level": "error",
+                    "rule": trailing_rule_name,
+                    "value": positions,
+                    "field": "mod_pos",
+                    "message": "Syntax error in Modification Position field."
+                    + f" Remove '{trailing_characters}' from Modification Position.",
+                    "suggestion": None,
+                }
+            )
+            return errors
+
+    positions = positions.split(",")
     digits = re.compile(r"\d+")
     reversed_pattern = re.compile(
-        r"\d+[A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y]", re.IGNORECASE
+        r"[\d]+[ACDEFGHIKLMNPQRSTVWXY]", re.IGNORECASE
     )
     just_digits = "SyntaxErrorJustDigits"
     reversed = "SyntaxErrorReverseAminoAcid"
@@ -300,29 +362,12 @@ def validate_peptide(pep_seq, mod_pos=None, mod_type=None):
 def validate_modification(pep_seq, mod_pos, mod_type):
     errors = []
     positions, mod_types = format_mod_info(mod_pos, mod_type)
-
-    trailing_rule_name = "SyntaxErrorTrailingCharacters"
-    trailing_characters = re.findall(
-        r"[^A|C|D|E|F|G|H|I|K|L|M|N|P|Q|R|S|T|V|W|X|Y\d]+$", positions
-    )
-    if trailing_characters:
-        errors.append(
-            {
-                "level": "error",
-                "rule": trailing_rule_name,
-                "value": mod_pos,
-                "field": "mod_pos",
-                "message": "Syntax error in Modification Position field."
-                + f" Remove {trailing_characters} from Modification Position.",
-                "suggestion": None,
-            }
-        )
-        return errors
-
-    positions = positions.split(",")
     mod_types = mod_types.split(",")
     errors.extend(validate_PTM_names(mod_types))
     errors.extend(validate_mod_pos_syntax(pep_seq, positions))
+    if errors:
+        return errors
+    positions = positions.split(",")
     num_mod_types = len(mod_types)
     num_mod_pos = len(positions)
     mod_num_mismatch = "MismatchErrorNumModPosType"

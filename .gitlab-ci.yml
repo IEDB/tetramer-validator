@@ -1,0 +1,113 @@
+image: docker:19.03.11
+stages:
+  - build
+  - tag
+  - deploy
+
+# build and push container at tip of each branch - embed commit sha and other info into labels somewhere
+# this should happen on each commit (except: tags)
+
+# deploy to production
+# this should be manual and should pull from a tagged version
+
+# deploy to dev
+# this should be manual and should pull from one of the branches
+
+.get_ref_name: &get_ref_name
+  - REF_NAME=$(echo $CI_COMMIT_REF_NAME | tr '/' '_' | awk '{print tolower($0)}')
+
+.docker_login: &docker_login
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+.build_container: &build_container
+  - docker build -t $CI_REGISTRY_IMAGE:$REF_NAME --label git_url=$CI_REPOSITORY_URL --label pipeline_url=$CI_PIPELINE_URL --label commit_sha=$CI_COMMIT_SHA .
+
+.push_container: &push_container
+  - docker push $CI_REGISTRY_IMAGE:$REF_NAME
+
+.tag_image: &tag_image
+  - docker pull $CI_REGISTRY_IMAGE:$REF_NAME
+  - docker tag $CI_REGISTRY_IMAGE:$REF_NAME $CI_REGISTRY_IMAGE:$TAG_NAME
+  - docker push $CI_REGISTRY_IMAGE:$TAG_NAME
+
+.rancher_login: &rancher_login
+  - rancher login -t "${RANCHER_API_TOKEN}" "${RANCHER_URL}" --context "${RANCHER_PROJECT_CONTEXT}"
+
+.rancher_rollout: &rancher_rollout
+  - rancher kubectl rollout restart deployment --namespace "${RANCHER_NAMESPACE}" "${RANCHER_WORKLOAD}"
+  # annotate this deployment in kube with the commit sha. Note the - > in yaml causes the following linebreaks to treat this as one line (replace newline with space)
+  - >
+      rancher kubectl annotate deployment --namespace "${RANCHER_NAMESPACE}" "${RANCHER_WORKLOAD}"
+      kubernetes.io/change-cause="${CI_COMMIT_SHORT_SHA} - ${CI_COMMIT_TITLE} - ${CI_PIPELINE_URL}" --record=false --overwrite=true
+  # check and wait on deployment for successful deploy and set timeout after 120 seconds
+  - rancher kubectl rollout status deployment --namespace "${RANCHER_NAMESPACE}" "${RANCHER_WORKLOAD}" --timeout=120s
+  # show rollout history
+  - rancher kubectl rollout history deployment --namespace "${RANCHER_NAMESPACE}" "${RANCHER_WORKLOAD}"
+
+
+build_and_push:
+  stage: build
+  services:
+    - docker:dind
+  script:
+    - *get_ref_name
+    - *build_container
+    - *docker_login
+    - *push_container
+
+
+# tag the image as a production image, in preparation for deployment
+tag_production:
+  stage: tag
+  services:
+    - docker:dind
+  script:
+    - TAG_NAME=production
+    - *docker_login
+    - *get_ref_name
+    - *tag_image
+  when: manual
+
+# deploy to production - this requires the 'production' tag
+# the 'needs' tag allows the deployment step to run without waiting for
+# the building/tagging to work.  This is so that one can simply run deploy
+# on a pre-exisisting container;
+deploy_prod:
+  stage: deploy
+  image: gitlab.lji.org:4567/sysadminscorner/public/rancher-kubectl:master
+  when: manual
+  needs: []
+  script:
+    - RANCHER_PROJECT_CONTEXT=c-qprnb:p-8vppd
+    - RANCHER_URL=https://rancher.lji.org/v3
+    - RANCHER_NAMESPACE=tetramer-validator
+    - RANCHER_WORKLOAD=tetramer-validator-prod
+    - *rancher_login
+    - *rancher_rollout
+
+# tag the image as a dev image, in preparation for deployment
+tag_dev:
+  stage: tag
+  services:
+    - docker:dind
+  script:
+    - TAG_NAME=dev
+    - *docker_login
+    - *get_ref_name
+    - *tag_image
+  when: manual
+
+
+# deploy to dev - similar config to prod
+deploy_dev:
+  stage: deploy
+  image: gitlab.lji.org:4567/sysadminscorner/public/rancher-kubectl:master
+  when: manual
+  needs: []
+  script:
+    - RANCHER_PROJECT_CONTEXT=c-qprnb:p-8vppd
+    - RANCHER_URL=https://rancher.lji.org/v3
+    - RANCHER_NAMESPACE=tetramer-validator
+    - RANCHER_WORKLOAD=tetramer-validator-dev
+    - *rancher_login
+    - *rancher_rollout
