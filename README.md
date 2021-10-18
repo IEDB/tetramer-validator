@@ -18,8 +18,6 @@
 ## Description
 The [Multimer Validation Tool](http://tools.iedb.org/mhcmultimer) is a tool designed to validate multimers according to the [MIAMM standard](http://miamm.lji.org).
 
-[TODO: Add abstract/link to paper]
-
 ## Installation
 
 ### Command Line 
@@ -77,9 +75,9 @@ Navigate to your web browser to load the Web form at [http://0.0.0.0:5000](http:
 ### General Usage Instructions
 1. Please enter MHC molecule and peptide sequence. Both of these fields are required. Optionally, one can enter modification information.
 2. MHC molecule name should be chosen to conform to [MHC Restriction ontology](https://www.ebi.ac.uk/ols/ontologies/mro).
-3. Modification Position field should be a comma separated list of amino acid letter followed by position number (e.g. F1, S10, S300). Each modification position should be of the format `<amino acid><position>`
+3. Modification Position field should be a comma separated list of a valid standard amino acid letter followed by the position number within the peptide sequence (e.g. F1, S10, S13). Each modification position should be in the format of letter followed by number (`<amino acid><position>`)
 4. Modification type should be chosen to conform to [PSI-MOD ontology](https://www.ebi.ac.uk/ols/ontologies/mod).  
-5. Either modification position **and** modification type must be provided or no modification information should be entered.
+5. Either both modification position **and** modification type must be provided or neither should be entered.
 6. There should be equal number of modification positions and modification types.
 7. NULL is not an appropriate value for any field. Please leave empty if there is no appropriate value.
 

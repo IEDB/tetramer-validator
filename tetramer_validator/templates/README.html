@@ -321,7 +321,7 @@ kbd {
 		word-wrap: break-word;
 	}
   body {
-    padding: 2cm;
+    padding: 2cm; 
   }
 }
 </style>
@@ -362,8 +362,6 @@ kbd {
 <h2 id="toc_2">Description</h2>
 
 <p>The <a href="http://tools.iedb.org/mhcmultimer">Multimer Validation Tool</a> is a tool designed to validate multimers according to the <a href="http://miamm.lji.org">MIAMM standard</a>.</p>
-
-<p>[TODO: Add abstract/link to paper]</p>
 
 <h2 id="toc_3">Installation</h2>
 
@@ -421,9 +419,9 @@ docker run -p 5000:5000 mhcmultimer:latest</code></pre></div>
 <ol>
 <li>Please enter MHC molecule and peptide sequence. Both of these fields are required. Optionally, one can enter modification information.</li>
 <li>MHC molecule name should be chosen to conform to <a href="https://www.ebi.ac.uk/ols/ontologies/mro">MHC Restriction ontology</a>.</li>
-<li>Modification Position field should be a comma separated list of amino acid letter followed by position number (e.g. F1, S10, S300). Each modification position should be of the format <code>&lt;amino acid&gt;&lt;position&gt;</code></li>
+<li>Modification Position field should be a comma separated list of a valid standard amino acid letter followed by the position number within the peptide sequence (e.g. F1, S10, S13). Each modification position should be in the format of letter followed by number (<code>&lt;amino acid&gt;&lt;position&gt;</code>)</li>
 <li>Modification type should be chosen to conform to <a href="https://www.ebi.ac.uk/ols/ontologies/mod">PSI-MOD ontology</a>.<br></li>
-<li>Either modification position <strong>and</strong> modification type must be provided or no modification information should be entered.</li>
+<li>Either both modification position <strong>and</strong> modification type must be provided or neither should be entered.</li>
 <li>There should be equal number of modification positions and modification types.</li>
 <li>NULL is not an appropriate value for any field. Please leave empty if there is no appropriate value.</li>
 </ol>
@@ -461,7 +459,7 @@ optional arguments:
 <li>Modification Position: M5</li>
 </ul>
 
-<p><img src="{{url_for('static', filename = 'Example_1_1.png')}}" alt="1"></p>
+<p><img src="tetramer_validator/static/Example_1_1.png" alt="1"></p>
 
 <ul>
 <li>Notice that the the display name of for Oxidation is oxidized residue for Oxidation. Please choose from the display names or else validation will not be successful. </li>
