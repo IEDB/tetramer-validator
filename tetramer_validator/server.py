@@ -11,7 +11,6 @@ from tetramer_validator import validate
 from werkzeug.datastructures import MultiDict
 from werkzeug.utils import secure_filename
 from openpyxl import Workbook
-
 from tetramer_validator.parse_tables import (
     parse_excel_file,
     parse_csv_tsv,
@@ -238,7 +237,3 @@ def results(path):
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=False)

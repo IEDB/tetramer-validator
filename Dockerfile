@@ -7,11 +7,8 @@ COPY . /tetramer-validator
 WORKDIR /tetramer-validator
 
 RUN 	pip install -r requirements.txt
-RUN	pip install -e .  
+RUN	pip install .
 
 WORKDIR tetramer_validator
 
-ENTRYPOINT [ "python" ]
-
-CMD [ "server.py" ]
-
+CMD [ "tv", "webserver", "--host",  "0.0.0.0" ]

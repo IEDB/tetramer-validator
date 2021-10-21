@@ -210,7 +210,9 @@ def validate_PTM_names(mod_types):
     for type in mod_types:
         in_synonyms = type in PTM_synonyms.keys()
         try:
-            lower_match = [synonym.lower() for synonym in PTM_synonyms.keys()].index(type.lower())
+            lower_match = [synonym.lower() for synonym in PTM_synonyms.keys()].index(
+                type.lower()
+            )
         except:
             lower_match = False
         if in_synonyms and not PTM_synonyms[type] == type:
@@ -259,9 +261,7 @@ def validate_mod_pos_syntax(pep_seq, positions):
 
     errors = []
     trailing_rule_name = "SyntaxErrorTrailingCharacters"
-    main_pattern = re.compile(
-        r"[ACDEFGHIKLMNPQRSTVWXY][\d]+", re.IGNORECASE
-    )
+    main_pattern = re.compile(r"[ACDEFGHIKLMNPQRSTVWXY][\d]+", re.IGNORECASE)
     last_position = [y.span() for y in re.finditer(main_pattern, positions)]
     if last_position:
         last_position = last_position[-1:][0][1]
@@ -282,9 +282,7 @@ def validate_mod_pos_syntax(pep_seq, positions):
 
     positions = positions.split(",")
     digits = re.compile(r"\d+")
-    reversed_pattern = re.compile(
-        r"[\d]+[ACDEFGHIKLMNPQRSTVWXY]", re.IGNORECASE
-    )
+    reversed_pattern = re.compile(r"[\d]+[ACDEFGHIKLMNPQRSTVWXY]", re.IGNORECASE)
     just_digits = "SyntaxErrorJustDigits"
     reversed = "SyntaxErrorReverseAminoAcid"
     general = "SyntaxErrorGeneralModPos"
