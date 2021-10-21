@@ -5,7 +5,7 @@ from tetramer_validator.parse_tables import (
     generate_messages_txt,
 )
 import tetramer_validator.server as server
-
+import sys
 
 def main():
     # Parse the arguments
