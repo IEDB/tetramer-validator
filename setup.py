@@ -7,7 +7,7 @@ setuptools.setup(
     name="tetramer_validator",
     version="0.0.1",
     author="IEDB",
-    author_email="help@iedb.org",
+    maintainer_email="miamm@lji.org",
     description="A small package to validate tetramers",
     long_description=long_description,
     long_description_content_type="text/markdown",
