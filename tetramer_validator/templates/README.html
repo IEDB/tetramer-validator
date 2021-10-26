@@ -337,24 +337,24 @@ kbd {
 
 <ul>
 <li><a href="#description">Description</a></li>
-<li><a href="#installation">Installation</a>
+<li><a href="#installation-and-deployment-on-local-web-server">Installation</a>
 
 <ul>
 <li><a href="#command-line">Command Line</a></li>
 <li><a href="#local-web-server">Local Web Server</a></li>
-<li><a href="#docker-image">Docker image</a></li>
+<li><a href="#docker-image">Docker Image</a></li>
 </ul></li>
 <li><a href="#usage-and-instructions">Usage and Instructions</a>
 
 <ul>
 <li><a href="#general-usage-instructions">General Usage Instructions</a></li>
 <li><a href="#command-line-1">Command Line</a></li>
-<li><a href="#web-form">Web Form</a></li>
-</ul></li>
-<li><a href="#examples">Examples</a>
+<li><a href="#web-form">Web Form</a>
 
 <ul>
-<li><a href="#valid-entry">Valid Entry</a></li>
+<li><a href="#local-web-deployment-outside-of-docker-container">Local Web Deployment Outside of Docker Container</a></li>
+<li><a href="#example-of-valid-entry-on-web-form">Example of Valid Entry on Web Form</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#contact-information">Contact Information</a></li>
 </ul>
@@ -363,54 +363,40 @@ kbd {
 
 <p>The <a href="http://tools.iedb.org/mhcmultimer">Multimer Validation Tool</a> is a tool designed to validate multimers according to the <a href="http://miamm.lji.org">MIAMM standard</a>.</p>
 
-<h2 id="toc_3">Installation</h2>
+<h2 id="toc_3">Installation and deployment on local web server</h2>
+
+<p>As a preliminary step, please download or clone the Git repository and go to the directory with the repository. </p>
+
+<div><pre><code class="language-none">git clone https://github.com/IEDB/tetramer-validator.git
+cd tetramer-validator</code></pre></div>
 
 <h3 id="toc_4">Command Line</h3>
 
-<p>If you would like to run the validator tool on the command line, please clone the Git repository and install using <code>pip</code></p>
+<p>If you would just like to run the validator tool by passing in the filename with the data on the command line, install using command <code>pip install .</code></p>
 
-<div><pre><code class="language-none">git clone https://github.com/IEDB/tetramer-validator.git
-cd tetramer-validator
-pip install .</code></pre></div>
-
-<p>To confirm installation run <code>tv -h</code></p>
+<p>Run <code>tv -h</code> to ensure installation and generate a usage message.</p>
 
 <h3 id="toc_5">Local Web Server</h3>
 
-<p><strong>Flask is a prerequisite for running this validator on a local web server.</strong></p>
+<p>The above steps for installation ensures you can run the validator on the command line interface by passing in a filename with the data on multimers.</p>
 
-<p>If you would like to run the validator on a local web server, please follow the instructions for setting up the command line usage.  </p>
+<p>To get a local web server going, first follow the steps above to install the command line interface.  Then install Flask.</p>
 
-<p>Then install Flask by entering in the following command:</p>
+<p>Please enter the following command to install and run the Flask server locally.</p>
 
 <div><pre><code class="language-none">pip install -r requirements.txt
-cd tetramer_validator
-export FLASK_APP=server.py
-flask run</code></pre></div>
+tv webserver</code></pre></div>
 
-<p>By default, Flask will launch applications on <a href="http://127.0.0.1:5000">http://127.0.0.1:5000</a>.</p>
+<p>If you would like additional options for local web deployment, please consult the <a href="#local-web-deployment-outside-of-docker-container">usage message</a>.  </p>
 
-<p>Enter this address in your browser.</p>
-
-<h3 id="toc_6">Docker image</h3>
+<h3 id="toc_6">Docker Image</h3>
 
 <p>If you wish to run the validator in a Docker container, please use the Dockerfile from the Git repo to build the image. </p>
 
-<p>Please download the Git repo. </p>
+<p>Please enter the following command to build the Docker image and run the Docker container.</p>
 
-<div><pre><code class="language-none">git clone https://github.com/IEDB/tetramer-validator.git
-cd tetramer-validator/tetramer_validator
-</code></pre></div>
-
-<p>In <code>server.py</code>, uncomment lines <code>220-221</code> to have the app run on <a href="http://0.0.0.0:5000">http://0.0.0.0:5000</a>.</p>
-
-<p>Then build the Docker image.</p>
-
-<div><pre><code class="language-none">cd tetramer-validator
-docker build -t mhcmultimer:latest .
+<div><pre><code class="language-none">docker build -t mhcmultimer:latest .
 docker run -p 5000:5000 mhcmultimer:latest</code></pre></div>
-
-<p>Navigate to your web browser to load the Web form at <a href="http://0.0.0.0:5000">http://0.0.0.0:5000</a>.</p>
 
 <h2 id="toc_7">Usage and Instructions</h2>
 
@@ -428,9 +414,11 @@ docker run -p 5000:5000 mhcmultimer:latest</code></pre></div>
 
 <h3 id="toc_9">Command Line</h3>
 
-<p>The tool allows you to run command line validation on a table of MHC Multimer entries that is saved as Excel Spreadsheet (<code>.xlsx</code>), a tab-separated file (<code>.tsv</code>), or a comma-separated file (<code>.csv</code>).  </p>
+<p>The tool allows you to run command line validation on a table of MHC Multimer entries that is saved as Excel Spreadsheet (<code>.xlsx</code>), a tab-separated file (<code>.tsv</code>), or a comma-separated file (<code>.csv</code>).</p>
 
-<div><pre><code class="language-none">usage: tv [-h] [-o OUTPUT] filename
+<p>The following is the usage message for running command line validation.  </p>
+
+<div><pre><code class="language-none">usage: tv cmd_line [-h] [-o OUTPUT] filename
 
 positional arguments:
   filename              Please enter .tsv, .csv, or .xlsx filename and that
@@ -446,9 +434,18 @@ optional arguments:
 
 <p>In order to assist user, the MHC Molecule and Modification Type fields output suggestions that conform to MHC Restriction ontology and PSI-MOD ontology, respectively.  Please use the suggested names to ensure successful validation.</p>
 
-<h2 id="toc_11">Examples</h2>
+<h4 id="toc_11">Local Web Deployment Outside of Docker Container</h4>
 
-<h3 id="toc_12">Valid Entry</h3>
+<div><pre><code class="language-none">usage: tv webserver [-h] [--host HOST] [--port PORT] [--debug]
+
+optional arguments:
+  -h, --help   show this help message and exit
+  --host HOST  If this option is not specified, host will default to 127.0.0.1
+  --port PORT  If this option is not specified, port will default to 5000
+  --debug      Option used to specify if Flask server should start in debug
+               mode</code></pre></div>
+
+<h4 id="toc_12">Example of Valid Entry on Web Form</h4>
 
 <p>See below for an example on entering an entry into the web form.</p>
 
@@ -459,7 +456,7 @@ optional arguments:
 <li>Modification Position: M5</li>
 </ul>
 
-<p><img src="{{url_for('static', filename='static/Example_1_1.png')}}" alt="1"></p>
+<p><img src="{{url_for('static', filename = 'Example_1_1.png')}}" alt="1"></p>
 
 <ul>
 <li>Notice that the the display name of for Oxidation is oxidized residue for Oxidation. Please choose from the display names or else validation will not be successful. </li>
