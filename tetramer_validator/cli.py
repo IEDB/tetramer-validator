@@ -4,8 +4,8 @@ from tetramer_validator.parse_tables import (
     parse_excel_file,
     generate_messages_txt,
 )
-import tetramer_validator.server as server
 import sys
+
 
 def main():
     # Parse the arguments
@@ -64,8 +64,13 @@ def main():
                     print(message)
         return sys.exit(any_error)
     if args.subparser == "webserver":
-        server.app.run(host=args.host, port=args.port, debug=args.debug)
+        try:
+            import tetramer_validator.server as server
 
+            server.app.run(host=args.host, port=args.port, debug=args.debug)
+        except ImportError:
+            print("Please consult README on directions to setup local web server.")
+            return sys.exit(1)
 
 if __name__ == "__main__":
     main()
