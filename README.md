@@ -3,74 +3,62 @@
 ## Table of Contents
 
 * [Description](#description)
-* [Installation](#installation)
+* [Installation](#installation-and-deployment-on-local-web-server)
   * [Command Line](#command-line)
   * [Local Web Server](#local-web-server)
-  * [Docker image](#docker-image)
+  * [Docker Image](#docker-image)
 * [Usage and Instructions](#usage-and-instructions)
   * [General Usage Instructions](#general-usage-instructions)
   * [Command Line](#command-line-1)
   * [Web Form](#web-form)
-* [Examples](#examples)
-  * [Valid Entry](#valid-entry)
+	  * [Local Web Deployment Outside of Docker Container](#local-web-deployment-outside-of-docker-container)
+	  * [Example of Valid Entry on Web Form](#example-of-valid-entry-on-web-form)
 * [Contact Information](#contact-information)
 
 ## Description
 The [Multimer Validation Tool](http://tools.iedb.org/mhcmultimer) is a tool designed to validate multimers according to the [MIAMM standard](http://miamm.lji.org).
 
-## Installation
+## Installation and deployment on local web server
 
-### Command Line 
-
-If you would like to run the validator tool on the command line, please clone the Git repository and install using `pip`
+As a preliminary step, please download or clone the Git repository and go to the directory with the repository. 
 
 ```
 git clone https://github.com/IEDB/tetramer-validator.git
 cd tetramer-validator
-pip install .
 ```
-To confirm installation run `tv -h`
+
+### Command Line
+
+If you would just like to run the validator tool by passing in the filename with the data on the command line, install using command `pip install .`
+
+Run `tv -h` to ensure installation and generate a usage message.
 
 ### Local Web Server
 
-**Flask is a prerequisite for running this validator on a local web server.**
+The above steps for installation ensures you can run the validator on the command line interface by passing in a filename with the data on multimers.
 
-If you would like to run the validator on a local web server, please follow the instructions for setting up the command line usage.  
+To get a local web server going, first follow the steps above to install the command line interface.  Then install Flask.
 
-Then install Flask by entering in the following command:
+Please enter the following command to install and run the Flask server locally.
 
 ```
 pip install -r requirements.txt
-cd tetramer_validator
-export FLASK_APP=server.py
-flask run
+tv webserver
 ```
 
-By default, Flask will launch applications on [http://127.0.0.1:5000](http://127.0.0.1:5000).
+If you would like additional options for local web deployment, please consult the [usage message](#local-web-deployment-outside-of-docker-container).  
 
-Enter this address in your browser.
-
-### Docker image
+### Docker Image
 
 If you wish to run the validator in a Docker container, please use the Dockerfile from the Git repo to build the image. 
 
-Please download the Git repo. 
+Please enter the following command to build the Docker image and run the Docker container.
 
 ```
-git clone https://github.com/IEDB/tetramer-validator.git
-cd tetramer-validator/tetramer_validator
-
-```
-In `server.py`, uncomment lines `220-221` to have the app run on [http://0.0.0.0:5000](http://0.0.0.0:5000).
-
-Then build the Docker image.
- 
-```
-cd tetramer-validator
 docker build -t mhcmultimer:latest .
 docker run -p 5000:5000 mhcmultimer:latest
 ``` 
-Navigate to your web browser to load the Web form at [http://0.0.0.0:5000](http://0.0.0.0:5000).
+
 ## Usage and Instructions
 ### General Usage Instructions
 1. Please enter MHC molecule and peptide sequence. Both of these fields are required. Optionally, one can enter modification information.
@@ -82,10 +70,12 @@ Navigate to your web browser to load the Web form at [http://0.0.0.0:5000](http:
 7. NULL is not an appropriate value for any field. Please leave empty if there is no appropriate value.
 
 ### Command Line
-The tool allows you to run command line validation on a table of MHC Multimer entries that is saved as Excel Spreadsheet (`.xlsx`), a tab-separated file (`.tsv`), or a comma-separated file (`.csv`).  
+The tool allows you to run command line validation on a table of MHC Multimer entries that is saved as Excel Spreadsheet (`.xlsx`), a tab-separated file (`.tsv`), or a comma-separated file (`.csv`).
+
+The following is the usage message for running command line validation.  
 
 ```
-usage: tv [-h] [-o OUTPUT] filename
+usage: tv cmd_line [-h] [-o OUTPUT] filename
 
 positional arguments:
   filename              Please enter .tsv, .csv, or .xlsx filename and that
@@ -101,9 +91,20 @@ optional arguments:
 ### Web Form
 In order to assist user, the MHC Molecule and Modification Type fields output suggestions that conform to MHC Restriction ontology and PSI-MOD ontology, respectively.  Please use the suggested names to ensure successful validation.
 
-## Examples
+#### Local Web Deployment Outside of Docker Container
 
-### Valid Entry
+```
+usage: tv webserver [-h] [--host HOST] [--port PORT] [--debug]
+
+optional arguments:
+  -h, --help   show this help message and exit
+  --host HOST  If this option is not specified, host will default to 127.0.0.1
+  --port PORT  If this option is not specified, port will default to 5000
+  --debug      Option used to specify if Flask server should start in debug
+               mode
+```
+
+#### Example of Valid Entry on Web Form
 
 See below for an example on entering an entry into the web form.
 
