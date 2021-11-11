@@ -52,6 +52,19 @@ def output():
                     row[k] = args[k][i]
             rows.append(row)
             errors = validate.validate(**row)
+            if len(row["pep_seq"]) > 100:
+                rule = "IncorrecNumAminoAcids"
+                errors.append(
+                    {
+                        "level": "error",
+                        "rule": rule,
+                        "value": row["pep_seq"],
+                        "field": "pep_seq",
+                        "message": f"Number of amino acids {len(row['pep_seq'])} is greater than 100",
+                        "suggestion": None,
+                    }
+                )
+
             row["success"] = not errors
             errors = [
                 (error["field"], error["message"])

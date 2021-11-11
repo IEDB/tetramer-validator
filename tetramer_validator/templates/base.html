@@ -88,7 +88,7 @@
           {% endif %}
         </div>
         <div class="col">
-          <input name="pep_seq" type="text" class="form-control pep_seq {{'is-invalid' if row['errors']['pep_seq']}}{{'is-valid' if 'pep_seq' in row['success']}}" value="{{row.pep_seq}}" placeholder="Example: NLVPMVATV" aria-describedby="pep_seq_{{loop.index}}" required>
+          <input name="pep_seq" type="text" class="form-control pep_seq {{'is-invalid' if row['errors']['pep_seq']}}{{'is-valid' if 'pep_seq' in row['success']}}" value="{{row.pep_seq}}" placeholder="Example: NLVPMVATV" aria-describedby="pep_seq_{{loop.index}}" required maxlength="100">
           {% if row["errors"]["pep_seq"] %}
           <div id="pep_seq_{{loop.index}}" class="invalid-feedback d-block"> {{form_template(row["errors"]["pep_seq"])}} </div>
           {% endif %}
