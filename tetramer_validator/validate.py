@@ -262,7 +262,7 @@ def validate_mod_pos_syntax(pep_seq, positions):
 
     errors = []
     trailing_rule_name = "SyntaxErrorTrailingCharacters"
-    main_pattern = re.compile(r"[ACDEFGHIKLMNPQRSTVWXY][\d]+", re.IGNORECASE)
+    main_pattern = re.compile(r"[ACDEFGHIKLMNPQRSTVWXY][1-9]+[0]*", re.IGNORECASE)
     last_position = [y.span() for y in re.finditer(main_pattern, positions)]
     if last_position:
         last_position = last_position[-1:][0][1]
@@ -282,11 +282,19 @@ def validate_mod_pos_syntax(pep_seq, positions):
             return errors
 
     positions = positions.split(",")
-    digits = re.compile(r"\d+")
-    reversed_pattern = re.compile(r"[\d]+[ACDEFGHIKLMNPQRSTVWXY]", re.IGNORECASE)
+    digits = re.compile(r"[1-9]+[0]*")
+    digit_zero = re.compile(r"0")
+    reversed_pattern = re.compile(r"[1-9]+[0]*[ACDEFGHIKLMNPQRSTVWXY]", re.IGNORECASE)
+    zero_index_pattern = re.compile(r"[ACDEFGHIKLMNPQRSTVWXY][0]", re.IGNORECASE)
+    zero_index_reversed_pattern = re.compile(
+        r"[0][ACDEFGHIKLMNPQRSTVWXY]", re.IGNORECASE
+    )
     just_digits = "SyntaxErrorJustDigits"
     reversed = "SyntaxErrorReverseAminoAcid"
     general = "SyntaxErrorGeneralModPos"
+    zero_index = "SyntaxErrorZeroIndex"
+    zero_index_reversed = "SyntaxErrorReverseAminoAcidZeroIndex"
+    zero_index_just_digits = "SyntaxErrorJustDigitsZeroIndex"
     for pos in positions:
         if re.fullmatch(main_pattern, pos) is None:
             formatted_string = (
@@ -294,7 +302,7 @@ def validate_mod_pos_syntax(pep_seq, positions):
                 "Modification Position field should be a comma separated list of amino acid "
                 "letters followed by position numbers (e.g. F1, S10, S300). "
             )
-
+            formatted_string_zero_index = f"Zero-based indexing is not allowed. "
             if re.fullmatch(pattern=digits, string=pos):
                 if int(pos) > len(pep_seq):
                     errors.append(
@@ -304,7 +312,7 @@ def validate_mod_pos_syntax(pep_seq, positions):
                             "value": pos,
                             "field": "mod_pos",
                             "message": formatted_string + "This input is just digit(s)."
-                            " Digit is bigger than length of peptide sequence",
+                            " Digit is bigger than length of peptide sequence.",
                             "suggestion": None,
                         }
                     )
@@ -320,7 +328,19 @@ def validate_mod_pos_syntax(pep_seq, positions):
                             + "Enter amino acid before digit(s). ",
                         }
                     )
-
+            elif re.fullmatch(pattern=digit_zero, string=pos):
+                errors.append(
+                    {
+                        "level": "error",
+                        "rule": zero_index_just_digits,
+                        "suggestion": f"{pep_seq[0]}1",
+                        "value": pos,
+                        "field": "mod_pos",
+                        "message": formatted_string
+                        + formatted_string_zero_index
+                        + "Enter amino acid before digit(s). ",
+                    }
+                )
             elif re.fullmatch(pattern=reversed_pattern, string=pos):
                 errors.append(
                     {
@@ -330,6 +350,31 @@ def validate_mod_pos_syntax(pep_seq, positions):
                         "value": pos,
                         "field": "mod_pos",
                         "message": formatted_string
+                        + "Enter amino acid followed by position.",
+                    }
+                )
+            elif re.fullmatch(pattern=zero_index_pattern, string=pos):
+                errors.append(
+                    {
+                        "level": "error",
+                        "rule": zero_index,
+                        "suggestion": f"{pep_seq[0]}1",
+                        "value": pos,
+                        "field": "mod_pos",
+                        "message": formatted_string + formatted_string_zero_index,
+                    }
+                )
+
+            elif re.fullmatch(pattern=zero_index_reversed_pattern, string=pos):
+                errors.append(
+                    {
+                        "level": "error",
+                        "rule": zero_index_reversed,
+                        "suggestion": f"{pep_seq[0]}1",
+                        "value": pos,
+                        "field": "mod_pos",
+                        "message": formatted_string
+                        + formatted_string_zero_index
                         + "Enter amino acid followed by position.",
                     }
                 )

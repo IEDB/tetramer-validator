@@ -235,9 +235,10 @@ def test_validate_mod_pos_syntax_four():
             "value": "90",
             "message": "90 is not a valid modification position. "
             "Modification Position field should be a comma separated list of amino acid letters"
-            " followed by position numbers (e.g. F1, S10, S300). This input is just"
+            " followed by position numbers (e.g. F1, S10, S300). "
+            "This input is just"
             " digit(s). "
-            "Digit is bigger than length of peptide sequence",
+            "Digit is bigger than length of peptide sequence.",
             "field": "mod_pos",
             "suggestion": None,
         }
@@ -275,6 +276,90 @@ def test_validate_mod_pos_syntax_six():
     ]
 
 
+def test_validate_mod_pos_syntax_seven():
+    assert validate_mod_pos_syntax(pep_seq="fff", positions="0F") == [
+        {
+            "level": "error",
+            "rule": "SyntaxErrorReverseAminoAcidZeroIndex",
+            "value": "0F",
+            "field": "mod_pos",
+            "message": f"0F is not a valid modification position. "
+            "Modification Position field should be a comma separated list of amino acid "
+            + "letters followed by position numbers (e.g. F1, S10, S300). "
+            + "Zero-based indexing is not allowed. "
+            + "Enter amino acid followed by position.",
+            "suggestion": "f1",
+        }
+    ]
+
+
+def test_validate_mod_pos_syntax_eight():
+    assert validate_mod_pos_syntax(pep_seq="aff", positions="0F") == [
+        {
+            "level": "error",
+            "rule": "SyntaxErrorReverseAminoAcidZeroIndex",
+            "value": "0F",
+            "field": "mod_pos",
+            "message": f"0F is not a valid modification position. "
+            "Modification Position field should be a comma separated list of amino acid "
+            + "letters followed by position numbers (e.g. F1, S10, S300). "
+            + "Zero-based indexing is not allowed. "
+            + "Enter amino acid followed by position.",
+            "suggestion": "a1",
+        }
+    ]
+
+
+def test_validate_mod_pos_syntax_nine():
+    assert validate_mod_pos_syntax(pep_seq="fff", positions="F0") == [
+        {
+            "level": "error",
+            "rule": "SyntaxErrorZeroIndex",
+            "value": "F0",
+            "field": "mod_pos",
+            "message": f"F0 is not a valid modification position. "
+            "Modification Position field should be a comma separated list of amino acid "
+            + "letters followed by position numbers (e.g. F1, S10, S300). "
+            + "Zero-based indexing is not allowed. ",
+            "suggestion": "f1",
+        }
+    ]
+
+
+def test_validate_mod_pos_syntax_ten():
+    assert validate_mod_pos_syntax(pep_seq="aff", positions="F0") == [
+        {
+            "level": "error",
+            "rule": "SyntaxErrorZeroIndex",
+            "value": "F0",
+            "field": "mod_pos",
+            "message": f"F0 is not a valid modification position. "
+            + "Modification Position field should be a comma separated list of amino acid "
+            + "letters followed by position numbers (e.g. F1, S10, S300). "
+            + "Zero-based indexing is not allowed. ",
+            "suggestion": "a1",
+        }
+    ]
+
+
+def test_validate_mod_pos_syntax_eleven():
+    assert validate_mod_pos_syntax(pep_seq="aff", positions="0") == [
+        {
+            "level": "error",
+            "rule": "SyntaxErrorJustDigitsZeroIndex",
+            "value": "0",
+            "field": "mod_pos",
+            "message": f"0 is not a valid modification position. "
+            + "Modification Position field should be a comma separated list of amino acid "
+            + "letters followed by position numbers (e.g. F1, S10, S300). "
+            + "Zero-based indexing is not allowed. "
+            + "Enter amino acid before digit(s). ",
+            "suggestion": "a1",
+        }
+    ]
+
+
+
 def test_validate_peptide_one():
     assert validate_peptide(
         pep_seq="NLVPMVATV",
@@ -309,7 +394,6 @@ def test_validate_peptide_two():
             "suggestion": None,
         }
     ]
-
 
 def test_validate_peptide_three():
     assert validate_peptide(
