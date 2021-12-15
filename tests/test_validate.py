@@ -40,6 +40,7 @@ def test_validate_PTM_names_one():
 def test_validate_PTM_names_two():
     assert validate_PTM_names(["oxidized residue"]) == []
 
+
 def test_validate_PTM_names_three():
     assert validate_PTM_names(["ox"]) == [
         {
@@ -49,10 +50,9 @@ def test_validate_PTM_names_three():
             "message": f"ox is a lower case string for OX.",
             "field": "mod_type",
             "suggestion": "oxidized residue",
-
         }
-
     ]
+
 
 def test_validate_PTM_names_four():
     assert validate_PTM_names(["OX"]) == [
@@ -64,8 +64,6 @@ def test_validate_PTM_names_four():
             "message": f"OX is a synonym for oxidized residue.",
             "suggestion": "oxidized residue",
         }
-
-
     ]
 
 
@@ -261,6 +259,7 @@ def test_validate_mod_pos_syntax_five():
         }
     ]
 
+
 def test_validate_mod_pos_syntax_six():
     assert validate_mod_pos_syntax(pep_seq="fff", positions="mra") == [
         {
@@ -274,6 +273,7 @@ def test_validate_mod_pos_syntax_six():
             "suggestion": None,
         }
     ]
+
 
 def test_validate_peptide_one():
     assert validate_peptide(
@@ -309,6 +309,24 @@ def test_validate_peptide_two():
             "suggestion": None,
         }
     ]
+
+
+def test_validate_peptide_three():
+    assert validate_peptide(
+        pep_seq="MMMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+        mod_pos="M6,M6,M6",
+        mod_type="formylated residue,formylated residue,formylated residue",
+    ) == [
+        {
+            "level": "warn",
+            "rule": "DupModPos",
+            "value": "M6",
+            "message": "M6 appears more than once in modification positions.",
+            "field": "mod_pos",
+            "suggestion": None,
+        }
+    ]
+
 
 def test_properNumArguments_one():
     assert properNumArguments(

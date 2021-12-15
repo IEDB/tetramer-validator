@@ -418,6 +418,7 @@ def validate_modification(pep_seq, mod_pos, mod_type):
         for pos in positions.items():
             (no_dup, dup)[pos[1] > 1].append(pos[0])
         dup_mod = "DupModPos"
+        dup = set(dup)
         for pos in dup:
             errors.append(
                 {
