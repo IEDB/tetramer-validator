@@ -1,6 +1,7 @@
 import csv
 import re
 from os import path
+from collections import Counter
 
 here = path.abspath(path.dirname(__file__))
 molecule_file = "data/molecule.tsv"
@@ -410,6 +411,25 @@ def validate_modification(pep_seq, mod_pos, mod_type):
                 return errors
 
     errors.extend(validate_mod_pos(pep_seq, positions))
+    if not errors:
+        positions, mod_types = format_mod_info(mod_pos, mod_type)
+        positions = Counter(positions.split(","))
+        dup, no_dup = [], []
+        for pos in positions.items():
+            (no_dup, dup)[pos[1] > 1].append(pos[0])
+        dup_mod = "DupModPos"
+        for pos in dup:
+            errors.append(
+                {
+                    "level": "warn",
+                    "rule": dup_mod,
+                    "value": pos,
+                    "field": "mod_pos",
+                    "message": f"{pos} appears more than once in modification positions.",
+                    "suggestion": None,
+                }
+            )
+
     return errors
 
 
