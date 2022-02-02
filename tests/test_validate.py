@@ -395,6 +395,24 @@ def test_validate_peptide_two():
     ]
 
 
+def test_validate_peptide_three():
+    assert validate_peptide(
+        pep_seq="MMMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+        mod_pos="M6,M6,M6",
+        mod_type="formylated residue,formylated residue,formylated residue",
+    ) == [
+        {
+            "level": "warn",
+            "rule": "DupModPos",
+            "value": "M6",
+            "message": "M6 with same modification type formylated residue "
+            "appears more than once in modification positions.",
+            "field": "mod_pos",
+            "suggestion": None,
+        }
+    ]
+
+
 def test_properNumArguments_one():
     assert properNumArguments(
         {"pep_seq": "NLVPMVATV", "mod_pos": "M5", "mhc_name": "HLA", "mod_type": ""}

@@ -1,6 +1,7 @@
 import csv
 import re
 from os import path
+from collections import Counter
 
 here = path.abspath(path.dirname(__file__))
 molecule_file = "data/molecule.tsv"
@@ -301,7 +302,7 @@ def validate_mod_pos_syntax(pep_seq, positions):
                 "Modification Position field should be a comma separated list of amino acid "
                 "letters followed by position numbers (e.g. F1, S10, S300). "
             )
-            formatted_string_zero_index = f"Zero-based indexing is not allowed. "
+            formatted_string_zero_index = "Zero-based indexing is not allowed. "
             if re.fullmatch(pattern=digits, string=pos):
                 if int(pos) > len(pep_seq):
                     errors.append(
@@ -455,6 +456,30 @@ def validate_modification(pep_seq, mod_pos, mod_type):
                 return errors
 
     errors.extend(validate_mod_pos(pep_seq, positions))
+    if not errors:
+        positions, mod_types = format_mod_info(mod_pos, mod_type)
+        positions = positions.split(",")
+        mod_types = mod_types.split(",")
+        pos_type_match = Counter(zip(positions, mod_types))
+        dup, no_dup = [], []
+        for pos in pos_type_match.items():
+            (no_dup, dup)[pos[1] > 1].append(pos[0])
+        dup_mod = "DupModPos"
+        dup = set(dup)
+        for pos in dup:
+            print(pos[0])
+            errors.append(
+                {
+                    "level": "warn",
+                    "rule": dup_mod,
+                    "value": pos[0],
+                    "field": "mod_pos",
+                    "message": f"{pos[0]} with same modification type {pos[1]} appears"
+                    " more than once in modification positions.",
+                    "suggestion": None,
+                }
+            )
+
     return errors
 
 
