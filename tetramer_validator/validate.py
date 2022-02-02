@@ -463,17 +463,18 @@ def validate_modification(pep_seq, mod_pos, mod_type):
         pos_type_match = Counter(zip(positions, mod_types))
         dup, no_dup = [], []
         for pos in pos_type_match.items():
-            (no_dup, dup)[pos_type_match[1] > 1].append(pos_type_match[0])
+            (no_dup, dup)[pos[1] > 1].append(pos[0])
         dup_mod = "DupModPos"
         dup = set(dup)
         for pos in dup:
+            print(pos[0])
             errors.append(
                 {
                     "level": "warn",
                     "rule": dup_mod,
-                    "value": pos,
+                    "value": pos[0],
                     "field": "mod_pos",
-                    "message": f"{pos} with same modification type appears"
+                    "message": f"{pos[0]} with same modification type {pos[1]} appears"
                     " more than once in modification positions.",
                     "suggestion": None,
                 }
