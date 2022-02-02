@@ -302,7 +302,7 @@ def validate_mod_pos_syntax(pep_seq, positions):
                 "Modification Position field should be a comma separated list of amino acid "
                 "letters followed by position numbers (e.g. F1, S10, S300). "
             )
-            formatted_string_zero_index = f"Zero-based indexing is not allowed. "
+            formatted_string_zero_index = "Zero-based indexing is not allowed. "
             if re.fullmatch(pattern=digits, string=pos):
                 if int(pos) > len(pep_seq):
                     errors.append(
@@ -458,10 +458,12 @@ def validate_modification(pep_seq, mod_pos, mod_type):
     errors.extend(validate_mod_pos(pep_seq, positions))
     if not errors:
         positions, mod_types = format_mod_info(mod_pos, mod_type)
-        positions = Counter(positions.split(","))
+        positions = positions.split(",")
+        mod_types = mod_types.split(",")
+        pos_type_match = Counter(zip(positions, mod_types))
         dup, no_dup = [], []
-        for pos in positions.items():
-            (no_dup, dup)[pos[1] > 1].append(pos[0])
+        for pos in pos_type_match.items():
+            (no_dup, dup)[pos_type_match[1] > 1].append(pos_type_match[0])
         dup_mod = "DupModPos"
         dup = set(dup)
         for pos in dup:
@@ -471,7 +473,8 @@ def validate_modification(pep_seq, mod_pos, mod_type):
                     "rule": dup_mod,
                     "value": pos,
                     "field": "mod_pos",
-                    "message": f"{pos} appears more than once in modification positions.",
+                    "message": f"{pos} with same modification type appears"
+                    " more than once in modification positions.",
                     "suggestion": None,
                 }
             )

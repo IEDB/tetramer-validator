@@ -359,7 +359,6 @@ def test_validate_mod_pos_syntax_eleven():
     ]
 
 
-
 def test_validate_peptide_one():
     assert validate_peptide(
         pep_seq="NLVPMVATV",
@@ -395,6 +394,7 @@ def test_validate_peptide_two():
         }
     ]
 
+
 def test_validate_peptide_three():
     assert validate_peptide(
         pep_seq="MMMMMMMMMMMMMMMMMMMMMMMMMMMMM",
@@ -405,7 +405,8 @@ def test_validate_peptide_three():
             "level": "warn",
             "rule": "DupModPos",
             "value": "M6",
-            "message": "M6 appears more than once in modification positions.",
+            "message": "M6 with same modification type formylated residue "
+            "appears more than once in modification positions.",
             "field": "mod_pos",
             "suggestion": None,
         }
