@@ -174,7 +174,7 @@ def readme():
 
 @app.route("/data/<path:filename>")
 def send_data(filename):
-    return send_from_directory("data", filename=filename)
+    return send_from_directory(directory="data", path=filename)
 
 
 @app.route("/downloads", methods=["GET"])
@@ -186,7 +186,7 @@ def download_input():
     to_input = list(map(list, zip(*(input.values()))))
     filename = generate_file(to_input, errors)
     return send_file(
-        filename_or_fp=filename,
+        path_or_file=filename,
         mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         as_attachment=True,
         attachment_filename="your_input.xlsx",
@@ -241,7 +241,7 @@ def results(path):
     output.write(filename=errors_obj.name, arcname="errors.csv")
     output.close()
     return send_file(
-        filename_or_fp=zipped.name,
+        path_or_file=zipped.name,
         mimetype="application/zip",
         as_attachment=True,
         attachment_filename="output.zip",
