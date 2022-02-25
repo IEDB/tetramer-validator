@@ -26,13 +26,14 @@ $('.mod_type').each(function() {
   }, {
     name: 'PTM_names',
     displayKey: function(ptm) {
-      return ptm.value;
+      console.log(ptm.display_name);
+      return ptm.display_name;
     },
     source: PTM_names.ttAdapter(),
     templates: {
         suggestion: function (ptm) {
           var names = [];
-          names.push(ptm.value);
+          names.push(ptm.display_name);
           if(ptm.IEDB_synonym_1 != null) {
             names.push(ptm.IEDB_synonym_1);
           }
